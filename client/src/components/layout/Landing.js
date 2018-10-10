@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class Landing extends Component {
   render() {
@@ -12,15 +13,15 @@ class Landing extends Component {
                   Find the perfect puppy match!
                 </h1>
                 <hr />
-                <a
-                  href="register.html"
+                <Link
+                  to="/register"
                   className="btn btn-lg mr-2 button-customized"
                 >
                   Sign Up
-                </a>
-                <a href="login.html" className="btn btn-lg btn-light">
+                </Link>
+                <Link to="/login" className="btn btn-lg btn-light">
                   Login
-                </a>
+                </Link>
               </div>
             </div>
           </div>
