@@ -1,0 +1,141 @@
+footer {
+	background-color: black;
+    color: white;
+	height: 50px;
+	font-size: 15px;
+ }
+/*----LANDING ----*/
+img {
+  width: 100%;
+}
+
+.landing {
+  position: relative;
+  background: url('./img/puppies4.jpg') no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  margin-top: -24px;
+  margin-bottom: -50px;
+}
+
+.landing-inner {
+  padding-top: 50px;
+}
+
+.dark-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.card-form {
+  opacity: 0.9;
+}
+
+.latest-profiles-img {
+  width: 40px;
+  height: 40px;
+}
+
+.form-control::placeholder {
+  color: #bbb !important;
+}
+
+.button-customized {
+	background-color: rgba(178, 99, 144, 0.85);
+	border-color: rgba(243, 227, 236, 0.89);
+	color: white;
+}
+
+.button-customized:hover {
+    background-color: #80737c;
+	border: 1px solid #5d4d56;
+	color: white;
+}
+
+.button-customized:active {
+    background-color: rgba(65, 40, 54, 0.95);
+	border: 1px solid #5d4d56;
+	color: white;
+}
+
+.landing-section-info {
+	padding-top: 23%;
+}
+
+/*-----DASHBOARD------*/
+ul.side {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+	width: 100%;
+	height:100%;
+	
+}
+
+li.side {
+    border: 1px solid black;
+	border-radius: 3px;
+    color: #000;
+    padding: 8px 16px;
+    list-style-type: none;
+}
+
+li.side:hover {
+    background-color: #555;
+    color: white;
+}
+
+.main-dashboard {
+	padding: 0;
+
+}
+
+.side-chat {
+	padding: 0;
+	height: 100%;
+	width: 100%;
+}
+
+.display-profiles {
+	margin-top: 25px;
+	width: 46rem;
+
+	height: 23rem;
+	
+}
+
+.dashboard {
+	height: 580px;
+}
+
+.card-body p {
+	margin: 3px;
+}
+
+.card-body {
+	padding: 5%;
+}
+
+.description-card {
+	padding-top: 2%;
+}
+
+.description-card p {
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-top: 2%
+}
+
+
+.button-match-pair {
+	width: 100px;
+	font-size: 18px;
+	margin-left: 10%;
+	margin-right: 10%;
+	margin-top: 3%;
+}
