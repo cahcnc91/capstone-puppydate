@@ -35,6 +35,9 @@ const ProfileSchema = new Schema({
   },
   instagram: {
     type: String
+  },
+  youtube: {
+    type: String
   }
 });
 
