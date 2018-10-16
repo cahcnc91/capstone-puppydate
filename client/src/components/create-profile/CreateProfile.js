@@ -21,6 +21,7 @@ class CreateProfile extends Component {
       location: "",
       description: "",
       qualities: "",
+      owner: "",
       instagram: "",
       youtube: "",
       errors: {}
@@ -48,6 +49,7 @@ class CreateProfile extends Component {
       location: this.state.location,
       description: this.state.description,
       qualities: this.state.qualities,
+      owner: this.state.owner,
       instagram: this.state.instagram,
       youtube: this.state.youtube
     };
@@ -63,6 +65,7 @@ class CreateProfile extends Component {
     const { errors, displaySocialInputs } = this.state;
 
     let socialInputs;
+    
     if (displaySocialInputs) {
       socialInputs = (
         <div>
@@ -180,6 +183,14 @@ class CreateProfile extends Component {
                   error={errors.qualities}
                   info="best qualitites of your pup"
                 />
+                <TextFieldGroup
+                  placeholder="Owner"
+                  name="owner"
+                  value={this.state.owner}
+                  onChange={this.onChange}
+                  error={errors.owner}
+                  info="Your name"
+                />
 
                 <div className="mb-3">
                   <button
@@ -211,15 +222,13 @@ class CreateProfile extends Component {
 }
 
 CreateProfile.propTypes = {
-  profile: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
 };
-
 const mapStateToProps = state => ({
-  profile: state.profiles,
+  profile: state.profile,
   errors: state.errors
 });
-
 export default connect(
   mapStateToProps,
   { createProfile }

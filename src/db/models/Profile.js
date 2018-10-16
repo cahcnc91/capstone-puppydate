@@ -12,16 +12,19 @@ const ProfileSchema = new Schema({
     required: true,
     max: 30
   },
-  breed: {
-    type: String
-  },
-  location: {
+  size: {
     type: String
   },
   age: {
     type: Number
   },
+  breed: {
+    type: String
+  },
   sex: {
+    type: String
+  },
+  location: {
     type: String
   },
   description: {

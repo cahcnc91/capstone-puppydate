@@ -2,13 +2,16 @@ import axios from "axios";
 
 import {
   GET_PROFILE,
+  GET_PROFILES,
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
-  GET_ERRORS
+  GET_ERRORS,
+  SET_CURRENT_USER
 } from "./types";
 
 //GET CURRENT PROFILE
 
+// Get current profile
 export const getCurrentProfile = () => dispatch => {
   dispatch(setProfileLoading());
   axios
@@ -45,6 +48,27 @@ export const setProfileLoading = () => {
   return {
     type: PROFILE_LOADING
   };
+};
+
+// Delete account & profile
+export const deleteAccount = () => dispatch => {
+  if (window.confirm("Are you sure? This can NOT be undone!")) {
+    axios
+      .delete("/api/profile")
+      .then(res =>
+        dispatch({
+          type: SET_CURRENT_USER,
+          payload: {}
+        })
+      )
+      .then(console.log("cool"))
+      .catch(err =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
+      );
+  }
 };
 
 //Clear profile

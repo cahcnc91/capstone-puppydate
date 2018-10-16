@@ -12,15 +12,20 @@ const User = require("../../db/models/User");
 //@access Public
 router.get("/test", (req, res) => res.json({ msg: "Profile works" }));
 
-//@route  GET api/profile
-//@desc   Get curretn user profile
-//@access Private
+// @route   GET api/profile/test
+// @desc    Tests profile route
+// @access  Public
+router.get("/test", (req, res) => res.json({ msg: "Profile Works" }));
 
+// @route   GET api/profile
+// @desc    Get current users profile
+// @access  Private
 router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const errors = {};
+
     Profile.findOne({ user: req.user.id })
       .populate("user", ["name", "avatar"])
       .then(profile => {
@@ -108,10 +113,11 @@ router.post(
     const profileFields = {};
     profileFields.user = req.user.id;
     if (req.body.handle) profileFields.handle = req.body.handle;
-    if (req.body.breed) profileFields.breed = req.body.breed;
-    if (req.body.location) profileFields.location = req.body.location;
+    if (req.body.size) profileFields.size = req.body.size;
     if (req.body.age) profileFields.age = req.body.age;
+    if (req.body.breed) profileFields.breed = req.body.breed;
     if (req.body.sex) profileFields.sex = req.body.sex;
+    if (req.body.location) profileFields.location = req.body.location;
     if (req.body.description) profileFields.description = req.body.description;
     //splits into array
     if (typeof req.body.qualities !== "undefined") {
@@ -119,6 +125,7 @@ router.post(
     }
     if (req.body.owner) profileFields.owner = req.body.owner;
     if (req.body.instagram) profileFields.instagram = req.body.instagram;
+    if (req.body.youtube) profileFields.youtube = req.body.youtube;
 
     Profile.findOne({ user: req.user.id }).then(profile => {
       if (profile) {
