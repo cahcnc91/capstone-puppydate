@@ -21,7 +21,9 @@ class CreateProfile extends Component {
       sex: "",
       location: "",
       description: "",
-      qualities: "",
+      qualities1: "",
+      qualities2: "",
+      qualities3: "",
       instagram: "",
       youtube: "",
       errors: {}
@@ -44,7 +46,7 @@ class CreateProfile extends Component {
       const profile = nextProps.profile.profile;
 
       //Bring qualities array back to comma separeted value
-      const qualitiesCVS = profile.qualities.join(",");
+      //const qualitiesCVS = profile.qualities.join(",");
 
       // If profile field doenst exist, add or make empty string
       profile.size = !isEmpty(profile.size) ? profile.size : "";
@@ -52,10 +54,21 @@ class CreateProfile extends Component {
       profile.breed = !isEmpty(profile.breed) ? profile.breed : "";
       profile.sex = !isEmpty(profile.sex) ? profile.sex : "";
       profile.location = !isEmpty(profile.location) ? profile.location : "";
-      profile.description = !isEmpty(profile.description) ? profile.description : "";
+      profile.description = !isEmpty(profile.description)
+        ? profile.description
+        : "";
+      profile.qualities1 = !isEmpty(profile.qualities1)
+        ? profile.qualities1
+        : "";
+      profile.qualities2 = !isEmpty(profile.qualities2)
+        ? profile.qualities2
+        : "";
+      profile.qualities3 = !isEmpty(profile.qualities3)
+        ? profile.qualities3
+        : "";
       profile.social = !isEmpty(profile.social) ? profile.social : {};
-      profile.instagram = !isEmpty(profile.instagram) ? profile.profile.instagram : "";
-      profile.youtube = !isEmpty(profile.youtube) ? profile.profile.youtube : "";
+      profile.instagram = !isEmpty(profile.instagram) ? profile.instagram : "";
+      profile.youtube = !isEmpty(profile.youtube) ? profile.youtube : "";
 
       //Set component fields state
       this.setState({
@@ -66,7 +79,9 @@ class CreateProfile extends Component {
         sex: profile.sex,
         location: profile.location,
         description: profile.description,
-        qualities: profile.qualities,
+        qualities1: profile.qualities1,
+        qualities2: profile.qualities2,
+        qualities3: profile.qualities3,
         instagram: profile.instagram,
         youtube: profile.youtube
       });
@@ -84,7 +99,9 @@ class CreateProfile extends Component {
       sex: this.state.sex,
       location: this.state.location,
       description: this.state.description,
-      qualities: this.state.qualities,
+      qualities1: this.state.qualities1,
+      qualities2: this.state.qualities2,
+      qualities3: this.state.qualities3,
       instagram: this.state.instagram,
       youtube: this.state.youtube
     };
@@ -209,14 +226,29 @@ class CreateProfile extends Component {
                   info="Tell a little bit about your pup"
                 />
                 <TextFieldGroup
-                  placeholder="Qualities"
-                  name="qualities"
-                  value={this.state.qualities}
+                  placeholder="Qualities 1"
+                  name="qualities1"
+                  value={this.state.qualities1}
                   onChange={this.onChange}
-                  error={errors.qualities}
-                  info="best qualitites of your pup"
+                  error={errors.qualities1}
+                  info="Best qualitites of your pup. Example: playful, calm, outgoing."
                 />
-
+                <TextFieldGroup
+                  placeholder="Qualities 2"
+                  name="qualities2"
+                  value={this.state.qualities2}
+                  onChange={this.onChange}
+                  error={errors.qualities2}
+                  info="Best qualitites of your pup."
+                />
+                <TextFieldGroup
+                  placeholder="Qualities 3"
+                  name="qualities3"
+                  value={this.state.qualities3}
+                  onChange={this.onChange}
+                  error={errors.qualities3}
+                  info="Best qualitites of your pup"
+                />
                 <div className="mb-3">
                   <button
                     type="button"
@@ -255,7 +287,7 @@ CreateProfile.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  profile: state.profiles,
+  profile: state.profile,
   errors: state.errors
 });
 

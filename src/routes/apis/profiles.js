@@ -119,10 +119,12 @@ router.post(
     if (req.body.sex) profileFields.sex = req.body.sex;
     if (req.body.location) profileFields.location = req.body.location;
     if (req.body.description) profileFields.description = req.body.description;
-    //splits into array
-    if (typeof req.body.qualities !== "undefined") {
-      profileFields.qualitties = req.body.qualities.split(",");
-    }
+    // if (typeof req.body.qualities !== "undefined") {
+    //profileFields.qualitties = req.body.qualities.split(",");
+    //}
+    if (req.body.qualities1) profileFields.qualities1 = req.body.qualities1;
+    if (req.body.qualities2) profileFields.qualities2 = req.body.qualities2;
+    if (req.body.qualities3) profileFields.qualities3 = req.body.qualities3;
     if (req.body.owner) profileFields.owner = req.body.owner;
     if (req.body.instagram) profileFields.instagram = req.body.instagram;
     if (req.body.youtube) profileFields.youtube = req.body.youtube;

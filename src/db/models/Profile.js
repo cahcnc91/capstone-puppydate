@@ -16,7 +16,7 @@ const ProfileSchema = new Schema({
     type: String
   },
   age: {
-    type: Number
+    type: String
   },
   breed: {
     type: String
@@ -30,8 +30,14 @@ const ProfileSchema = new Schema({
   description: {
     type: String
   },
-  qualities: {
-    type: [String]
+  qualities1: {
+    type: String
+  },
+  qualities2: {
+    type: String
+  },
+  qualities3: {
+    type: String
   },
   owner: {
     type: String

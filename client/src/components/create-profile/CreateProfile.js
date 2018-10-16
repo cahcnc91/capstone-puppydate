@@ -20,7 +20,9 @@ class CreateProfile extends Component {
       sex: "",
       location: "",
       description: "",
-      qualities: "",
+      qualities1: "",
+      qualities2: "",
+      qualities3: "",
       owner: "",
       instagram: "",
       youtube: "",
@@ -48,7 +50,9 @@ class CreateProfile extends Component {
       sex: this.state.sex,
       location: this.state.location,
       description: this.state.description,
-      qualities: this.state.qualities,
+      qualities1: this.state.qualities1,
+      qualities2: this.state.qualities2,
+      qualities3: this.state.qualities3,
       owner: this.state.owner,
       instagram: this.state.instagram,
       youtube: this.state.youtube
@@ -65,7 +69,7 @@ class CreateProfile extends Component {
     const { errors, displaySocialInputs } = this.state;
 
     let socialInputs;
-    
+
     if (displaySocialInputs) {
       socialInputs = (
         <div>
@@ -176,12 +180,28 @@ class CreateProfile extends Component {
                   info="Tell a little bit about your pup"
                 />
                 <TextFieldGroup
-                  placeholder="Qualities"
-                  name="qualities"
-                  value={this.state.qualities}
+                  placeholder="Qualities 1"
+                  name="qualities1"
+                  value={this.state.qualities1}
                   onChange={this.onChange}
-                  error={errors.qualities}
-                  info="best qualitites of your pup"
+                  error={errors.qualities1}
+                  info="Best qualitites of your pup. Example: playful, calm, outgoing."
+                />
+                <TextFieldGroup
+                  placeholder="Qualities 2"
+                  name="qualities2"
+                  value={this.state.qualities2}
+                  onChange={this.onChange}
+                  error={errors.qualities2}
+                  info="Best qualitites of your pup."
+                />
+                <TextFieldGroup
+                  placeholder="Qualities 3"
+                  name="qualities3"
+                  value={this.state.qualities3}
+                  onChange={this.onChange}
+                  error={errors.qualities3}
+                  info="Best qualitites of your pup"
                 />
                 <TextFieldGroup
                   placeholder="Owner"

@@ -26,13 +26,14 @@ class OwnProfile extends Component {
                           <p>Sex: {profile.sex}</p>
                           <p>Location: {profile.location}</p>
                           <p>Breed: {profile.breed}</p>
+                          <p>Age: {profile.age}</p>
                           <a href="profile.html" className="btn btn-info">
                             View Pics
                           </a>
                         </div>
                         <div className="col-5">
                           <div className="card-body">
-                            <h3>Meet Luna</h3>
+                            <h3>Meet {user.name}</h3>
                             <p>{profile.description}</p>
                             <p>
                               <ion-icon size="large" name="paw" />
@@ -44,15 +45,15 @@ class OwnProfile extends Component {
                           <ul className="list-group">
                             <li className="list-group-item">
                               <i className="fa fa-check pr-1" />
-                              HTML
+                              {profile.qualities1}
                             </li>
                             <li className="list-group-item">
                               <i className="fa fa-check pr-1" />
-                              CSS
+                              {profile.qualities2}
                             </li>
                             <li className="list-group-item">
                               <i className="fa fa-check pr-1" />
-                              Python
+                              {profile.qualities3}
                             </li>
                           </ul>
                         </div>
@@ -62,7 +63,7 @@ class OwnProfile extends Component {
                 </div>
 
                 <div className="col-2">
-                  <table className="table table-striped side-chat">
+                  <table className="table table-striped">
                     <thead>
                       <tr>
                         <th>Chats</th>
