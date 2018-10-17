@@ -9,6 +9,7 @@ class ProfileActions extends Component {
           <Link to="/edit-profile" className="btn btn-light">
             <i className="fas fa-user-circle text-info mr-1" /> Edit Profile
           </Link>
+          
         </div>
       </div>
     );

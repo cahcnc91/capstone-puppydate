@@ -24,6 +24,7 @@ class CreateProfile extends Component {
       qualities1: "",
       qualities2: "",
       qualities3: "",
+      puppyname: "",
       instagram: "",
       youtube: "",
       errors: {}
@@ -66,6 +67,7 @@ class CreateProfile extends Component {
       profile.qualities3 = !isEmpty(profile.qualities3)
         ? profile.qualities3
         : "";
+      profile.puppyname = !isEmpty(profile.puppyname) ? profile.puppyname : "";
       profile.social = !isEmpty(profile.social) ? profile.social : {};
       profile.instagram = !isEmpty(profile.instagram) ? profile.instagram : "";
       profile.youtube = !isEmpty(profile.youtube) ? profile.youtube : "";
@@ -82,6 +84,7 @@ class CreateProfile extends Component {
         qualities1: profile.qualities1,
         qualities2: profile.qualities2,
         qualities3: profile.qualities3,
+        puppyname: profile.puppyname,
         instagram: profile.instagram,
         youtube: profile.youtube
       });
@@ -102,6 +105,7 @@ class CreateProfile extends Component {
       qualities1: this.state.qualities1,
       qualities2: this.state.qualities2,
       qualities3: this.state.qualities3,
+      puppyname: this.state.puppyname,
       instagram: this.state.instagram,
       youtube: this.state.youtube
     };
@@ -248,6 +252,14 @@ class CreateProfile extends Component {
                   onChange={this.onChange}
                   error={errors.qualities3}
                   info="Best qualitites of your pup"
+                />
+                <TextFieldGroup
+                  placeholder="Puppy's name"
+                  name="puppyname"
+                  value={this.state.puppyname}
+                  onChange={this.onChange}
+                  error={errors.puppyname}
+                  info="Name of your pup"
                 />
                 <div className="mb-3">
                   <button

@@ -164,3 +164,7 @@ li.side:hover {
   border: 1px solid #dadcdf;
   color: white;
 }
+
+.welcome {
+  text-align: center;
+}

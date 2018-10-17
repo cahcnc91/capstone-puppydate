@@ -39,7 +39,7 @@ const ProfileSchema = new Schema({
   qualities3: {
     type: String
   },
-  owner: {
+  puppyname: {
     type: String
   },
   instagram: {

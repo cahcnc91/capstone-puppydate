@@ -9,11 +9,10 @@ class OwnProfile extends Component {
     const user = this.props.user;
 
     return (
-      <div className="dashboard">
+      <div className="dashboard mt-4">
         <div className="container-fluid">
           <div className="row text-center">
             <div className="col-md-12 main">
-              <h3>Welcome, {user.name}!</h3>
               <div className="row first-row">
                 <div className="col-10 main-dash">
                   <div className="col-10">
@@ -27,13 +26,13 @@ class OwnProfile extends Component {
                           <p>Location: {profile.location}</p>
                           <p>Breed: {profile.breed}</p>
                           <p>Age: {profile.age}</p>
-                          <a href="profile.html" className="btn btn-info">
-                            View Pics
-                          </a>
+                          <p>Size: {profile.size}</p>
+                          <p>Lives at: {profile.location}</p>
+                          <p>Owner: {user.name}</p>
                         </div>
                         <div className="col-5">
                           <div className="card-body">
-                            <h3>Meet {user.name}</h3>
+                            <h3>Meet {profile.puppyname}</h3>
                             <p>{profile.description}</p>
                             <p>
                               <ion-icon size="large" name="paw" />

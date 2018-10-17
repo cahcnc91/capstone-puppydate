@@ -23,7 +23,7 @@ class CreateProfile extends Component {
       qualities1: "",
       qualities2: "",
       qualities3: "",
-      owner: "",
+      puppyname: "",
       instagram: "",
       youtube: "",
       errors: {}
@@ -53,7 +53,7 @@ class CreateProfile extends Component {
       qualities1: this.state.qualities1,
       qualities2: this.state.qualities2,
       qualities3: this.state.qualities3,
-      owner: this.state.owner,
+      puppyname: this.state.puppyname,
       instagram: this.state.instagram,
       youtube: this.state.youtube
     };
@@ -204,12 +204,12 @@ class CreateProfile extends Component {
                   info="Best qualitites of your pup"
                 />
                 <TextFieldGroup
-                  placeholder="Owner"
-                  name="owner"
-                  value={this.state.owner}
+                  placeholder="Puppy's name"
+                  name="puppyname"
+                  value={this.state.puppyname}
                   onChange={this.onChange}
-                  error={errors.owner}
-                  info="Your name"
+                  error={errors.puppyname}
+                  info="Name of your pup"
                 />
 
                 <div className="mb-3">

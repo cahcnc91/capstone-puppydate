@@ -30,7 +30,9 @@ class Dashboard extends Component {
       if (Object.keys(profile).length > 0) {
         dashboardContent = (
           <div>
-            <ProfileActions />
+            <Link to="/edit-profile" className="btn btn-light">
+              <i className="fas fa-user-circle text-info mr-1" /> Edit Profile
+            </Link>
             <button
               onClick={this.onDeleteClick.bind(this)}
               className="btn btn-danger"
@@ -45,7 +47,6 @@ class Dashboard extends Component {
         //User is logged in but has no profile
         dashboardContent = (
           <div>
-            <p className="lead text-muted">Welcome, {user.name}</p>
             <p>You have not created a profile yet, please add some info</p>
             <Link
               to="/create-profile"
@@ -60,10 +61,8 @@ class Dashboard extends Component {
 
     return (
       <div className="dashboard">
-        <div className="container">
-          <h1>Dashboard</h1>
-          {dashboardContent}
-        </div>
+        <h3 className="welcome mb-4">Welcome, {user.name}!</h3>
+        <div className="container">{dashboardContent}</div>
       </div>
     );
   }
