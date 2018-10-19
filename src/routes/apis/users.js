@@ -4,7 +4,7 @@ const User = require("../../db/models/User");
 const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const keys = require("../../../config/secretOrKey");
+const secretOrKeys = require("../../../config/keys").secretOrKeys;
 const passport = require("passport");
 
 //Load Imput Validation
@@ -85,7 +85,7 @@ router.post("/login", (req, res) => {
         const payload = { id: user.id, name: user.name, avatar: user.avatar }; // CREATE JWT Payload
 
         //Sign Token
-        jwt.sign(payload, keys, { expiresIn: 3600 }, (err, token) => {
+        jwt.sign(payload, secretOrKeys, { expiresIn: 3600 }, (err, token) => {
           res.json({
             success: true,
             token: "Bearer " + token

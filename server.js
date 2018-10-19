@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
+const path = require("path");
 
 const users = require("./src/routes/apis/users");
 const profile = require("./src/routes/apis/profiles");
@@ -14,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //DB CONFIG
-const db = require("./config/mongoURI");
+const db = require("./config/keys").mongo_URI;
 
 //CONNECT TO MONGODB
 
@@ -33,6 +34,15 @@ require("./config/passport")(passport);
 app.use("/api/users", users);
 app.use("/api/profile", profile);
 app.use("/api/chats", chats);
+
+// SERVER STATIC ASSETS IF IN PRODUCTION
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(_dirname, "client", "build", "indexedDB.html"));
+  });
+}
 
 const port = process.env.PORT || 5000;
 
