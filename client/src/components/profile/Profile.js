@@ -28,7 +28,7 @@ class OwnProfile extends Component {
                           <p>Age: {profile.age}</p>
                           <p>Size: {profile.size}</p>
                           <p>Lives at: {profile.location}</p>
-                          <p>Owner: {user.name}</p>
+                          <p>Owner: {profile.user.name}</p>
                         </div>
                         <div className="col-5">
                           <div className="card-body">
@@ -40,21 +40,32 @@ class OwnProfile extends Component {
                           </div>
                         </div>
                         <div className="col-3 d-none d-lg-block">
-                          <h4>Qualities</h4>
-                          <ul className="list-group">
-                            <li className="list-group-item">
-                              <i className="fa fa-check pr-1" />
-                              {profile.qualities1}
-                            </li>
-                            <li className="list-group-item">
-                              <i className="fa fa-check pr-1" />
-                              {profile.qualities2}
-                            </li>
-                            <li className="list-group-item">
-                              <i className="fa fa-check pr-1" />
-                              {profile.qualities3}
-                            </li>
-                          </ul>
+                          <div>
+                            <h4>Qualities</h4>
+                            <ul className="list-group">
+                              <li className="list-group-item">
+                                <i className="fa fa-check pr-1" />
+                                {profile.qualities1}
+                              </li>
+                              <li className="list-group-item">
+                                <i className="fa fa-check pr-1" />
+                                {profile.qualities2}
+                              </li>
+                              <li className="list-group-item">
+                                <i className="fa fa-check pr-1" />
+                                {profile.qualities3}
+                              </li>
+                            </ul>
+                          </div>
+
+                          <div className="medias">
+                            <a href={profile.youtube}>
+                              <ion-icon size="large" name="logo-youtube" />
+                            </a>
+                            <a href={profile.instagram}>
+                              <ion-icon size="large" name="logo-instagram" />
+                            </a>
+                          </div>
                         </div>
                       </div>
                     </div>
