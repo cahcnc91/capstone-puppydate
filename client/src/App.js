@@ -18,7 +18,7 @@ import EditProfile from "./components/edit-profile/EditProfile";
 import Profile from "./components/profile/Profile";
 import Profiles from "./components/profile/Profiles";
 import ProfileIndividual from "./components/profile/ProfileIndividual";
-import Chats from "./components/chats/Chats";
+import Chat from "./components/chats/Chat";
 import ChatsIndividual from "./components/chats/ChatIndividual";
 
 import "./App.css";
@@ -84,14 +84,7 @@ class App extends Component {
                 />
               </Switch>
               <Switch>
-                <Chats exact path="/chats" component={Chats} />
-              </Switch>
-              <Switch>
-                <PrivateRoute
-                  exact
-                  path="/chats/:id"
-                  component={ChatsIndividual}
-                />
+                <PrivateRoute exact path="/chats" component={Chat} />
               </Switch>
             </div>
             <Footer />

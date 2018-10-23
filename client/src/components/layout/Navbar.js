@@ -23,7 +23,7 @@ class Navbar extends Component {
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
           <Link className="nav-link" to="/profiles">
-            {' '}
+            {" "}
             Profiles
           </Link>
         </li>
@@ -38,6 +38,12 @@ class Navbar extends Component {
             />{" "}
             Logout
           </a>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="/chats">
+            {" "}
+            Chat
+          </Link>
         </li>
       </ul>
     );
