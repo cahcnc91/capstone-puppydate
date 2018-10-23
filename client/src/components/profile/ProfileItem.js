@@ -1,44 +1,56 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import isEmpty from "../../validation/is-empty";
 import axios from "axios";
 
 class ProfileItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      match: "empty"
+      match: false
     };
 
     this.handleMatch = this.handleMatch.bind(this);
     this.handleNoMatch = this.handleNoMatch.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleMatch(e) {
     e.preventDefault();
-    this.setState({ match: "positive" });
-    this.handleSubmit();
+    this.setState({ match: true });
+    console.log(this.state.match);
   }
 
   handleNoMatch(e) {
     e.preventDefault();
-    this.setState({ match: "negative" });
-    this.handleSubmit();
+    this.setState({ match: false });
+    console.log(this.state.match);
   }
 
   handleSubmit() {
-    console.log(this.state.match);
+    const { profile, user } = this.props;
+
     const match = {
       user: user.id,
       match: this.state.match,
-      userMatch: profile.id
+      userMatch: profile.user._id
     };
-    console.log(match);
+
+    axios
+      .post("/api/match", match)
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    this.setState({ match: "" });
+    console.log(this.state.match);
   }
 
   render() {
-    const { profile, user } = this.props;
+    const { profile } = this.props;
 
     return (
       <div className="container col-8">
@@ -62,12 +74,14 @@ class ProfileItem extends Component {
                 <button
                   className="btn button-customized button-match-pair-profile-item"
                   onClick={this.handleMatch}
+                  value={this.state.match}
                 >
                   <ion-icon name="heart" />
                 </button>
                 <button
                   className="btn button-nomatch button-match-pair-profile-item"
                   onClick={this.handleNoMatch}
+                  value={this.state.match}
                 >
                   <ion-icon name="close" />
                 </button>

@@ -9,11 +9,9 @@ const MatchSchema = new Schema({
   },
   match: {
     type: String,
-    default: "empty"
   },
   userMatched: {
-    type: String,
-    default: "user in profile"
+    type: String
   }
 });
 

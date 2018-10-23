@@ -99,7 +99,6 @@ export const deleteAccount = () => dispatch => {
           payload: {}
         })
       )
-      .then(console.log("cool"))
       .catch(err =>
         dispatch({
           type: GET_ERRORS,
