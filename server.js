@@ -7,6 +7,7 @@ const path = require("path");
 const users = require("./src/routes/apis/users");
 const profile = require("./src/routes/apis/profiles");
 const chats = require("./src/routes/apis/chats");
+const match = require("./src/routes/apis/match");
 
 const app = express();
 
@@ -34,6 +35,7 @@ require("./config/passport")(passport);
 app.use("/api/users", users);
 app.use("/api/profile", profile);
 app.use("/api/chats", chats);
+app.use("/api/match", match);
 
 // SERVER STATIC ASSETS IF IN PRODUCTION
 if (process.env.NODE_ENV === "production") {

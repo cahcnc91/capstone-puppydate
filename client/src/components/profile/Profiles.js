@@ -12,6 +12,7 @@ class Profiles extends Component {
 
   render() {
     const { profiles, loading } = this.props.profile;
+    const { user } = this.props.auth;
     let profileItems;
 
     if (profiles === null || loading) {
@@ -19,7 +20,7 @@ class Profiles extends Component {
     } else {
       if (profiles.length > 0) {
         profileItems = profiles.map(profile => (
-          <ProfileItem key={profile.id} profile={profile} />
+          <ProfileItem key={profile.id} profile={profile} user={user}/>
         ));
       } else {
         profileItems = <h4> No profiles found...</h4>;
@@ -46,11 +47,13 @@ class Profiles extends Component {
 
 Profiles.propTypes = {
   getProfiles: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  profile: state.profile,
+  auth: state.auth
 });
 
 export default connect(

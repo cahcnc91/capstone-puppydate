@@ -6,8 +6,17 @@ import { Link } from "react-router-dom";
 import Spinner from "../common/Spinner";
 import puppies4 from "../../img/puppies4.jpg";
 import Profile from "./Profile";
+import axios from "axios";
 
 class ProfileIndividual extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      match: ""
+    };
+
+    this.onChange = this.onChange.bind(this);
+  }
   componentDidMount() {
     if (this.props.match.params.handle) {
       this.props.getProfileByHandle(this.props.match.params.handle);
@@ -18,6 +27,10 @@ class ProfileIndividual extends Component {
     if (nextProps.profile.profile === null && this.props.profile.loading) {
       this.props.history.push("/not-found");
     }
+  }
+
+  onChange() {
+    console.log("passed");
   }
 
   render() {
@@ -85,6 +98,21 @@ class ProfileIndividual extends Component {
                       </a>
                     </div>
                   </div>
+                </div>
+              </div>
+
+              <div className="row content">
+                <div className="col-12 text-center">
+                  <button
+                    className="btn btn-lg button-customized button-match-pair"
+                    onChange={this.onChange}
+                    
+                  >
+                    <ion-icon size="large" name="heart" />
+                  </button>
+                  <button className="btn btn-lg button-nomatch button-match-pair">
+                    <ion-icon size="large" name="close" />
+                  </button>
                 </div>
               </div>
             </div>

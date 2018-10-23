@@ -30,7 +30,7 @@ router.post(
 );
 
 //@route  GET api/chats
-//@desc   Create chat
+//@desc   Find chats
 //@access Public
 router.get("/", (req, res) => {
   Chat.find()

@@ -1,28 +1,49 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import ChatForm from "./ChatForm";
-import Spinner from "../common/Spinner";
+import ChatList from "./ChatList";
+import { getChats } from "../../actions/chatActions";
 
 class Chats extends Component {
+  componentDidMount() {
+    this.props.getChats();
+  }
+
   render() {
+    const { chats } = this.props.chat;
+    let chatContent;
+
+    if (chats === null) {
+      chatContent = <h3>No chats</h3>;
+    } else {
+      chatContent = <ChatList chats={chats} />;
+    }
+
     return (
-      <div className="col-2">
+      <div>
         <table className="table table-striped">
           <thead>
             <tr>
               <th>Chats</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>John</td>
-            </tr>
-          </tbody>
+          {chatContent}
         </table>
       </div>
     );
   }
 }
 
-export default Chats;
+Chats.propTypes = {
+  getChats: PropTypes.func.isRequired,
+  chat: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  chat: state.chat
+});
+
+export default connect(
+  mapStateToProps,
+  { getChats }
+)(Chats);

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import puppies4 from "../../img/puppies4.jpg";
+import Chats from "../chats/Chats";
 
 class OwnProfile extends Component {
   render() {
@@ -73,24 +74,7 @@ class OwnProfile extends Component {
                 </div>
 
                 <div className="col-2">
-                  <table className="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>Chats</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>John</td>
-                      </tr>
-                      <tr>
-                        <td>Mary</td>
-                      </tr>
-                      <tr>
-                        <td>July</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <Chats />
                 </div>
               </div>
             </div>

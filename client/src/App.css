@@ -145,8 +145,16 @@ li.side:hover {
   margin-top: 2%;
 }
 
+.button-match-pair-profile-item {
+  width: 20%;
+  height: 5%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 3%;
+}
+
 .button-match-pair {
-  width: 100px;
+  width: 10%;
   font-size: 18px;
   margin-left: 10%;
   margin-right: 10%;

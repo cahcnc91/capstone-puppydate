@@ -8,10 +8,12 @@ const MatchSchema = new Schema({
     ref: "users"
   },
   match: {
-    type: Boolean
+    type: String,
+    default: "empty"
   },
   userMatched: {
-    type: String
+    type: String,
+    default: "user in profile"
   }
 });
 
