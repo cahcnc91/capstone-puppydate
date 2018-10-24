@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 class ChatList extends Component {
-  
   activeChatClicked(chat) {
     const chatActive = chat;
     this.props.setActiveChat(chatActive);
@@ -13,24 +12,27 @@ class ChatList extends Component {
     const { chats } = this.props;
 
     return (
-      <table>
-        <colgroup>
-          <col />
-         </colgroup>
-        <tbody>
-          {chats.map(chat => (
-            <tr
-              key={chat._id}
-              onClick={() => this.activeChatClicked(chat)}
-              style={{
-                background: this.props.activeRoom === chat ? "blue" : "none"
-              }}
+      <div>
+        <h3>Chats</h3>
+        <table>
+          <colgroup>
+            <col />
+          </colgroup>
+          <tbody>
+            {chats.map(chat => (
+              <tr
+                key={chat._id}
+                onClick={() => this.activeChatClicked(chat)}
+                style={{
+                  background: this.props.activeChat === chat ? "blue" : "none"
+                }}
               >
-              <td>{chat._id}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                <td>{chat._id}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     );
   }
 }

@@ -106,16 +106,6 @@ li.side:hover {
   color: white;
 }
 
-.main-dashboard {
-  padding: 0;
-}
-
-.side-chat {
-  padding: 0;
-  height: 100%;
-  width: 100%;
-}
-
 .display-profiles {
   margin-top: 25px;
   width: 46rem;
@@ -124,7 +114,7 @@ li.side:hover {
 }
 
 .dashboard {
-  height: 580px;
+  height: 700px;
 }
 
 .card-body p {
@@ -179,4 +169,38 @@ li.side:hover {
 
 .medias {
   margin-top: 30%;
+}
+
+/*-----CHAT-----*/
+.chat {
+  height: 800px;
+}
+
+.sidenav {
+  background-color: rgba(218, 219, 219, 0.83);
+  height: 100%;
+  padding-top: 2%;
+  width: 25%;
+  padding-left: 40px;
+}
+
+.main-chat {
+}
+
+.row.content {
+  height: 800px;
+}
+
+table {
+  width: 100%;
+  margin-top: 30px;
+}
+
+tr {
+  font-size: 18px;
+}
+
+tr:hover {
+  cursor: pointer;
+  color: rgb(162, 162, 163);
 }

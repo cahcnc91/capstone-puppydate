@@ -11,8 +11,30 @@ class ChatIndividual extends Component {
       <div className="message-list">
         <div className="form-or-choose-room">
           {this.props.activeChat ? (
-            <div className="new-messages-div">
+            <div className="messages">
               <p>{this.props.activeChat._id}</p>
+              <ul>
+                {this.props.activeChat.messages.map(message => {
+                  if (message) {
+                    return (
+                      <table key={message.id}>
+                        <tr>
+                          <td id="username-line" style={{ fontWeight: "bold" }}>
+                            {" "}
+                            {message.user}{" "}
+                          </td>
+                          <td id="time-line">{message.date} </td>
+                        </tr>
+                        <tr>
+                          <td id="content-td">says: {message.text} </td>
+                          <td />
+                        </tr>
+                      </table>
+                    );
+                  }
+                })}
+              </ul>
+
               <MessageForm />
             </div>
           ) : (

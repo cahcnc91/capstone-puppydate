@@ -52,24 +52,23 @@ class Chats extends Component {
       chatIndividual = <h4> You have no messages yet, let's talk!</h4>;
     } else {
       chatIndividual = (
-        <ChatIndividual chats={chats} activeChat={this.state.activeChat}
-          setActiveChat={this.setActiveChat} />
+        <ChatIndividual
+          chats={chats}
+          activeChat={this.state.activeChat}
+          setActiveChat={this.setActiveChat}
+        />
       );
     }
 
     return (
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-3 sidenav">
-              {chatListContent}
-          </div>
+        <div className="row chat">
+          <div className="col-3 sidenav">{chatListContent}</div>
 
-          <div className="col-9">
+          <div className="col-9 main-chat">
             <h4>Messages</h4>
             {chatIndividual}
           </div>
         </div>
-      </div>
     );
   }
 }
