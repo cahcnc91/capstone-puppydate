@@ -1,6 +1,12 @@
 import axios from "axios";
 
-import { ADD_CHAT, GET_ERRORS, GET_CHATS, GET_CHAT } from "./types";
+import {
+  ADD_CHAT,
+  GET_ERRORS,
+  GET_CHATS,
+  GET_CHAT,
+  CHAT_LOADING
+} from "./types";
 
 //Add Chat
 export const addChat = chatData => dispatch => {
@@ -22,6 +28,7 @@ export const addChat = chatData => dispatch => {
 
 //Get chats
 export const getChats = () => dispatch => {
+  dispatch(setChatLoading);
   axios
     .get("./api/chats")
     .then(res =>
@@ -54,4 +61,11 @@ export const addMessage = (chatId, messageData) => dispatch => {
         payload: err.response.data
       })
     );
+};
+
+//Set loading state
+export const setChatLoading = () => {
+  return {
+    type: CHAT_LOADING
+  };
 };

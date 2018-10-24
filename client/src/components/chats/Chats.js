@@ -1,34 +1,74 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import ChatList from "./ChatList";
 import { getChats } from "../../actions/chatActions";
+import Spinner from "../common/Spinner";
+import ChatList from "./ChatList";
+import ChatIndividual from "./ChatIndividual";
+import MessageForm from "./messages/MessageForm";
 
 class Chats extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeChat: ""
+    };
+
+    this.setActiveChat = this.setActiveChat.bind(this);
+  }
+
   componentDidMount() {
     this.props.getChats();
   }
 
-  render() {
-    const { chats } = this.props.chat;
-    let chatContent;
+  setActiveChat(chatActive) {
+    this.setState({ activeChat: chatActive });
+  }
 
-    if (chats === null) {
-      chatContent = <h3>No chats</h3>;
+  render() {
+    const { chats, loading } = this.props.chat;
+    let chatListContent;
+    let chatIndividual;
+
+    if (loading) {
+      chatListContent = <Spinner />;
+    } else if (chats === null) {
+      chatListContent = (
+        <h4> You have no chats yet, match with someone first!</h4>
+      );
     } else {
-      chatContent = <ChatList chats={chats} />;
+      chatListContent = (
+        <ChatList
+          chats={chats}
+          activeChat={this.state.activeChat}
+          setActiveChat={this.setActiveChat}
+        />
+      );
+    }
+
+    if (loading) {
+      chatIndividual = <Spinner />;
+    } else if (chats === null) {
+      chatIndividual = <h4> You have no messages yet, let's talk!</h4>;
+    } else {
+      chatIndividual = (
+        <ChatIndividual chats={chats} activeChat={this.state.activeChat}
+          setActiveChat={this.setActiveChat} />
+      );
     }
 
     return (
-      <div>
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Chats</th>
-            </tr>
-          </thead>
-          {chatContent}
-        </table>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-3 sidenav">
+              {chatListContent}
+          </div>
+
+          <div className="col-9">
+            <h4>Messages</h4>
+            {chatIndividual}
+          </div>
+        </div>
       </div>
     );
   }

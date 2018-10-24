@@ -18,13 +18,11 @@ class ProfileItem extends Component {
   handleMatch(e) {
     e.preventDefault();
     this.setState({ match: true });
-    console.log(this.state.match);
   }
 
   handleNoMatch(e) {
     e.preventDefault();
     this.setState({ match: false });
-    console.log(this.state.match);
   }
 
   handleSubmit() {
@@ -44,9 +42,9 @@ class ProfileItem extends Component {
       .catch(err => {
         console.log(err);
       });
+    console.log(this.state.match);
 
     this.setState({ match: "" });
-    console.log(this.state.match);
   }
 
   render() {
@@ -71,20 +69,14 @@ class ProfileItem extends Component {
                 View Profile
               </Link>
               <div className="row">
-                <button
-                  className="btn button-customized button-match-pair-profile-item"
-                  onClick={this.handleMatch}
-                  value={this.state.match}
-                >
-                  <ion-icon name="heart" />
-                </button>
-                <button
-                  className="btn button-nomatch button-match-pair-profile-item"
-                  onClick={this.handleNoMatch}
-                  value={this.state.match}
-                >
-                  <ion-icon name="close" />
-                </button>
+                <form onSubmit={this.handleSubmit}>
+                  <input
+                    className="btn btn-lg button-customized button-match-pair"
+                    onChange={this.handleMatch}
+                    type='submit'
+                  />
+                    <ion-icon size="large" name="heart" />
+                </form>
               </div>
             </div>
 

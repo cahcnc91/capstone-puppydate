@@ -42,7 +42,7 @@ class Navbar extends Component {
         <li className="nav-item">
           <Link className="nav-link" to="/chats">
             {" "}
-            Chat
+            Chats
           </Link>
         </li>
       </ul>

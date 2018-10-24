@@ -1,20 +1,24 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import TextAreaFieldGroup from "../common/TextAreaFieldGroup";
 import MessageForm from "./messages/MessageForm";
 
 class ChatIndividual extends Component {
   render() {
-    const { chat } = this.props.chat;
+    const { chats } = this.props.chat;
 
     return (
-      <div>
-        <p>LIst of messages goes here</p>
-        <form onSubmit={this.onSubmit}>
-          <p>{chat._id}</p>
-          <MessageForm chatId={chat._id} />
-        </form>
+      <div className="message-list">
+        <div className="form-or-choose-room">
+          {this.props.activeChat ? (
+            <div className="new-messages-div">
+              <p>{this.props.activeChat._id}</p>
+              <MessageForm />
+            </div>
+          ) : (
+            <h2>Choose a Chat</h2>
+          )}
+        </div>
       </div>
     );
   }
