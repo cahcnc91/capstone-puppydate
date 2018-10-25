@@ -62,7 +62,7 @@ class Chats extends Component {
 
     return (
         <div className="row chat">
-          <div className="col-3 sidenav">{chatListContent}</div>
+          <div className="col-3 sidejnav">{chatListContent}</div>
 
           <div className="col-9 main-chat">
             <h4>Messages</h4>
