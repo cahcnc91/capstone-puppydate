@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import puppies4 from "../../img/puppies4.jpg";
 
 class Profile extends Component {
   render() {
     const profile = this.props.profile;
-    const user = this.props.user;
 
     return (
       <div className="dashboard mt-3">

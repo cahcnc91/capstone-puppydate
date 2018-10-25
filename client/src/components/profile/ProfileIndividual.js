@@ -5,8 +5,6 @@ import { getProfileByHandle } from "../../actions/profileActions";
 import { Link } from "react-router-dom";
 import Spinner from "../common/Spinner";
 import puppies4 from "../../img/puppies4.jpg";
-import Profile from "./Profile";
-import axios from "axios";
 
 class ProfileIndividual extends Component {
   constructor(props) {
@@ -15,7 +13,7 @@ class ProfileIndividual extends Component {
       match: ""
     };
 
-    this.onChange = this.onChange.bind(this);
+    
   }
   componentDidMount() {
     if (this.props.match.params.handle) {
@@ -27,10 +25,6 @@ class ProfileIndividual extends Component {
     if (nextProps.profile.profile === null && this.props.profile.loading) {
       this.props.history.push("/not-found");
     }
-  }
-
-  onChange() {
-    console.log("passed");
   }
 
   render() {
@@ -105,7 +99,7 @@ class ProfileIndividual extends Component {
                 <div className="col-12 text-center">
                   <button
                     className="btn btn-lg button-customized button-match-pair"
-                    onChange={this.onChange}
+                    
                     
                   >
                     <ion-icon size="large" name="heart" />

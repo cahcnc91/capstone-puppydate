@@ -5,7 +5,6 @@ import { getChats } from "../../actions/chatActions";
 import Spinner from "../common/Spinner";
 import ChatList from "./ChatList";
 import ChatIndividual from "./ChatIndividual";
-import MessageForm from "./messages/MessageForm";
 
 class Chats extends Component {
   constructor(props) {

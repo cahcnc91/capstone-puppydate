@@ -70,7 +70,6 @@ class MessageForm extends Component {
 MessageForm.propTypes = {
   addMessage: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  chatId: PropTypes.string.isRequired,
   errors: PropTypes.object.isRequired
 };
 

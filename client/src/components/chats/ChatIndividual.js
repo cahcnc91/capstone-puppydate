@@ -5,8 +5,6 @@ import MessageForm from "./messages/MessageForm";
 
 class ChatIndividual extends Component {
   render() {
-    const { chats } = this.props.chat;
-
     return (
       <div className="message-list">
         <div className="form-or-choose-room">
@@ -14,24 +12,24 @@ class ChatIndividual extends Component {
             <div className="messages">
               <p>{this.props.activeChat._id}</p>
               <ul>
-                {this.props.activeChat.messages.map(message => {
-                  if (message) {
-                    return (
-                      <table key={message.id}>
+                {this.props.activeChat.messages.map((message, index) => {
+                  return (
+                    <table key={index}>
+                      <tbody>
                         <tr>
-                          <td id="username-line" style={{ fontWeight: "bold" }}>
+                          <td style={{ fontWeight: "bold" }} key={index}>
                             {" "}
                             {message.user}{" "}
                           </td>
-                          <td id="time-line">{message.date} </td>
+                          <td>{message.date} </td>
                         </tr>
                         <tr>
-                          <td id="content-td">says: {message.text} </td>
+                          <td>says: {message.text} </td>
                           <td />
                         </tr>
-                      </table>
-                    );
-                  }
+                      </tbody>
+                    </table>
+                  );
                 })}
               </ul>
 
@@ -47,13 +45,11 @@ class ChatIndividual extends Component {
 }
 
 ChatIndividual.propTypes = {
-  chat: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth,
-  chat: state.chat
+  auth: state.auth
 });
 
 export default connect(mapStateToProps)(ChatIndividual);
