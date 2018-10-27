@@ -29,7 +29,8 @@ class MessageForm extends Component {
     const { chatId } = this.props;
 
     const newMessage = {
-      user: user.name,
+      user: user.id,
+      name: user.name,
       text: this.state.text
     };
 

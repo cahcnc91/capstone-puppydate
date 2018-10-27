@@ -20,6 +20,9 @@ const ChatSchema = new Schema({
       text: {
         type: String
       },
+      name: {
+        type: String
+      },
       date: {
         type: Date,
         default: Date.now

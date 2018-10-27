@@ -91,7 +91,8 @@ router.post(
       .then(chat => {
         const newMessage = {
           text: req.body.text,
-          user: req.user.id
+          user: req.user.id,
+          name: req.user.name
         };
 
         //Add message to array
