@@ -22,7 +22,8 @@ router.post(
   (req, res) => {
     const newChat = new Chat({
       text: req.body.text,
-      user: req.user.id
+      user: req.user.id,
+      userMatched: req.body.userMatched
     });
 
     newChat.save().then(chat => res.json(chat));
@@ -39,14 +40,15 @@ router.get("/", (req, res) => {
 });
 
 //@route  GET api/chats/:id
-//@desc   Create chat by id
+//@desc   Get chat by id
 //@access Public
 router.get("/:id", (req, res) => {
-  Chat.findById(req.params.id)
+  Chat.findById(req.body.id)
     .then(chat => res.json(chat))
     .catch(err =>
       res.status(404).json({ nochatfound: "No chat found with that id" })
     );
+  console.log("done");
 });
 
 //@route  DELETE api/chats/:id
@@ -87,12 +89,12 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    Chat.findById(req.params.id)
+    Chat.findById(req.body.chatId)
       .then(chat => {
         const newMessage = {
+          chatId: req.body.chatId,
           text: req.body.text,
-          user: req.user.id,
-          name: req.user.name
+          name: req.body.name
         };
 
         //Add message to array

@@ -45,6 +45,25 @@ export const getChats = () => dispatch => {
     );
 };
 
+// Get Chat
+export const getChat = id => dispatch => {
+  dispatch(setChatLoading());
+  axios
+    .get(`/api/chats/${id}`)
+    .then(res =>
+      dispatch({
+        type: GET_CHAT,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_CHAT,
+        payload: null
+      })
+    );
+};
+
 //Add Message
 export const addMessage = (chatId, messageData) => dispatch => {
   axios

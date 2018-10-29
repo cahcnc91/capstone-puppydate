@@ -7,20 +7,18 @@ const ChatSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users"
   },
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "users"
+  userMatched: {
+    type: String
   },
   messages: [
     {
-      user: {
-        type: Schema.Types.ObjectId,
-        ref: "users"
-      },
-      text: {
+      chatId: {
         type: String
       },
       name: {
+        type: String
+      },
+      text: {
         type: String
       },
       date: {

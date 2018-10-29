@@ -5,6 +5,7 @@ class ChatList extends Component {
   activeChatClicked(chat) {
     const chatActive = chat;
     this.props.setActiveChat(chatActive);
+    
   }
 
   render() {
