@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 class ChatList extends Component {
-
-  
   activeChatClicked(chat) {
     const chatActive = chat;
     this.props.setActiveChat(chatActive);
@@ -13,9 +11,7 @@ class ChatList extends Component {
     const { chats, user } = this.props;
 
     let userChats = chats.filter(chat => {
-      if (chat.user === user.id || chat.userMatch === user.id) {
-        return chat;
-      }
+      return chat.user === user.id || chat.userMatch === user.id;
     });
 
     return (
