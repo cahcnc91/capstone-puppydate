@@ -26,6 +26,7 @@ class Chats extends Component {
 
   render() {
     const { chats, loading } = this.props.chat;
+    const { user } = this.props.auth;
     let chatListContent;
     let chatIndividual;
 
@@ -39,6 +40,7 @@ class Chats extends Component {
       chatListContent = (
         <ChatList
           chats={chats}
+          user={user}
           activeChat={this.state.activeChat}
           setActiveChat={this.setActiveChat}
         />
@@ -75,11 +77,13 @@ class Chats extends Component {
 Chats.propTypes = {
   getChats: PropTypes.func.isRequired,
   getChat: PropTypes.func.isRequired,
-  chat: PropTypes.object.isRequired
+  chat: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  chat: state.chat
+  chat: state.chat,
+  auth: state.auth
 });
 
 export default connect(

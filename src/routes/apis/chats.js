@@ -21,9 +21,8 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const newChat = new Chat({
-      text: req.body.text,
       user: req.user.id,
-      userMatched: req.body.userMatched
+      userMatch: req.body.userMatch
     });
 
     newChat.save().then(chat => res.json(chat));

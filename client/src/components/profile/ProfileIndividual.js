@@ -5,6 +5,7 @@ import { getProfileByHandle } from "../../actions/profileActions";
 import { Link } from "react-router-dom";
 import Spinner from "../common/Spinner";
 import puppies4 from "../../img/puppies4.jpg";
+import axios from "axios";
 
 class ProfileIndividual extends Component {
   constructor(props) {
@@ -13,8 +14,11 @@ class ProfileIndividual extends Component {
       match: ""
     };
 
-    
+    this.handleMatch = this.handleMatch.bind(this);
+    this.handleNoMatch = this.handleNoMatch.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
+
   componentDidMount() {
     if (this.props.match.params.handle) {
       this.props.getProfileByHandle(this.props.match.params.handle);
@@ -25,6 +29,46 @@ class ProfileIndividual extends Component {
     if (nextProps.profile.profile === null && this.props.profile.loading) {
       this.props.history.push("/not-found");
     }
+  }
+
+  componentDidUpdate(prevState) {
+    if (this.state.match === true || this.state.match === false) {
+      this.handleSubmit();
+    }
+  }
+
+  handleMatch(e) {
+    e.preventDefault();
+    this.setState({ match: true });
+  }
+
+  handleNoMatch(e, handleSubmit) {
+    e.preventDefault();
+    this.setState({ match: false });
+  }
+
+  handleSubmit() {
+    const { profile } = this.props;
+    const { user } = this.props.auth;
+
+    const match = {
+      user: user.id,
+      userName: user.name,
+      match: this.state.match,
+      userMatch: profile.profile.user._id,
+      nameUserMatch: profile.profile.user.name
+    };
+
+    axios
+      .post("/api/match", match)
+      .then(res => {
+        res.json(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    this.setState({ match: "" });
   }
 
   render() {
@@ -46,7 +90,6 @@ class ProfileIndividual extends Component {
                   <div className="col-4">
                     {/*   IMAGES STILL FIGURING IT OUT?! */}
                     <img src={puppies4} alt="puppy" />
-
                     <p>Sex: {profile.sex}</p>
                     <p>Location: {profile.location}</p>
                     <p>Breed: {profile.breed}</p>
@@ -99,12 +142,14 @@ class ProfileIndividual extends Component {
                 <div className="col-12 text-center">
                   <button
                     className="btn btn-lg button-customized button-match-pair"
-                    
-                    
+                    onClick={this.handleMatch}
                   >
                     <ion-icon size="large" name="heart" />
                   </button>
-                  <button className="btn btn-lg button-nomatch button-match-pair">
+                  <button
+                    className="btn btn-lg button-nomatch button-match-pair"
+                    onClick={this.handleNoMatch}
+                  >
                     <ion-icon size="large" name="close" />
                   </button>
                 </div>
@@ -121,11 +166,13 @@ class ProfileIndividual extends Component {
 
 ProfileIndividual.propTypes = {
   getProfileByHandle: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  profile: state.profile,
+  auth: state.auth
 });
 
 export default connect(

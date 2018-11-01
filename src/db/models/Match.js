@@ -9,9 +9,19 @@ const MatchSchema = new Schema({
   },
   match: {
     type: String,
+    required: true
   },
-  userMatched: {
-    type: String
+  nameUser: {
+    type: String,
+    required: true
+  },
+  userMatch: {
+    type: String,
+    required: true
+  },
+  nameUserMatch: {
+    type: String,
+    required: true
   }
 });
 

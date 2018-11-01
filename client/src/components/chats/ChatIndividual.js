@@ -48,7 +48,6 @@ class ChatIndividual extends Component {
         <div className="form-or-choose-room">
           {this.props.activeChat ? (
             <div className="messages">
-              <p>{this.props.activeChat._id}</p>
               <ul>
                 {this.props.activeChat.messages.map((message, index) => {
                   return (

@@ -7,8 +7,17 @@ const ChatSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users"
   },
-  userMatched: {
-    type: String
+  userMatch: {
+    type: Schema.Types.ObjectId,
+    ref: "profiles"
+  },
+  nameUser: {
+    type: String,
+    required: true
+  },
+  nameUserMatch: {
+    type: String,
+    required: true
   },
   messages: [
     {

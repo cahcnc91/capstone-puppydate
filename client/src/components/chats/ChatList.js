@@ -2,14 +2,21 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 class ChatList extends Component {
+
+  
   activeChatClicked(chat) {
     const chatActive = chat;
     this.props.setActiveChat(chatActive);
-    
   }
 
   render() {
-    const { chats } = this.props;
+    const { chats, user } = this.props;
+
+    let userChats = chats.filter(chat => {
+      if (chat.user === user.id || chat.userMatch === user.id) {
+        return chat;
+      }
+    });
 
     return (
       <div>
@@ -19,7 +26,7 @@ class ChatList extends Component {
             <col />
           </colgroup>
           <tbody>
-            {chats.map(chat => (
+            {userChats.map(chat => (
               <tr
                 key={chat._id}
                 onClick={() => this.activeChatClicked(chat)}
@@ -27,7 +34,11 @@ class ChatList extends Component {
                   background: this.props.activeChat === chat ? "blue" : "none"
                 }}
               >
-                <td>{chat._id}</td>
+                {chat.user === user.id ? (
+                  <td>{chat.nameUserMatch}</td>
+                ) : (
+                  <td>{chat.nameUser}</td>
+                )}
               </tr>
             ))}
           </tbody>

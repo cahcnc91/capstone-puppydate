@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
 
+const Chat = require("../../db/models/Chat");
 const Match = require("../../db/models/Match");
 const Profile = require("../../db/models/Profile");
 
@@ -20,11 +21,34 @@ router.post(
   (req, res) => {
     const newMatch = new Match({
       user: req.user.id,
+      nameUser: req.user.name,
       match: req.body.match,
-      userMatched: req.body.userMatched
+      userMatch: req.body.userMatch,
+      nameUserMatch: req.body.nameUserMatch
     });
 
-    newMatch.save().then(match => res.json(match));
+    newMatch.save();
+
+    Match.findOne({
+      user: req.body.userMatch,
+      match: true,
+      userMatch: req.user.id
+    }).then(matchedPar => {
+      if (!matchedPar) {
+        console.log("no match");
+      } else {
+        console.log("match!");
+
+        const newChat = new Chat({
+          user: req.user.id,
+          userMatch: req.body.userMatch,
+          nameUser: req.user.name,
+          nameUserMatch: req.body.nameUserMatch
+        });
+
+        newChat.save().then(chat => res.json(chat));
+      }
+    });
   }
 );
 
