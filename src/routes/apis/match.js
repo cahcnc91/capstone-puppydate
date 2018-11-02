@@ -34,10 +34,10 @@ router.get(
           userMatch: profile.user._id
         }).then(matchDone => {
           if (!matchDone) {
-            res.json({ matchDone: "There is no match yet" });
+            res.json(null);
+          } else {
+            res.json(matchDone);
           }
-
-          res.json(matchDone);
         });
       }
     });

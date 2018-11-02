@@ -19,7 +19,10 @@ class Profiles extends Component {
       profileItems = <Spinner />;
     } else {
       if (profiles.length > 0) {
-        profileItems = profiles.map((profile, index) => (
+        const profileItemsFiltered = profiles.filter(profile => {
+          return profile.user._id !== user.id;
+        });
+        profileItems = profileItemsFiltered.map((profile, index) => (
           <ProfileItem key={index} profile={profile} user={user} />
         ));
       } else {

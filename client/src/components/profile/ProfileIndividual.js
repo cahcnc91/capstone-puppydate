@@ -12,7 +12,7 @@ class ProfileIndividual extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      matchpar: ""
+      match: ""
     };
 
     this.handleMatch = this.handleMatch.bind(this);
@@ -33,27 +33,31 @@ class ProfileIndividual extends Component {
     }
   }
 
-  componentDidUpdate(prevState) {
-    if (this.state.matchpar === true || this.state.matchpar === false) {
+  componentDidUpdate(prevProps) {
+    if (this.state.match === true || this.state.match === false) {
       this.handleSubmit();
+    }
+
+    if (this.props.matched !== prevProps.matched) {
+      this.props.getMatchByHandle(this.props.match.params.handle);
     }
   }
 
   handleMatch(e) {
     e.preventDefault();
-    this.setState({ matchpar: true });
+    this.setState({ match: true });
   }
 
   handleNoMatch(e, handleSubmit) {
     e.preventDefault();
-    this.setState({ matchpar: false });
+    this.setState({ match: false });
   }
 
   handleSubmit() {
     const { profile } = this.props;
     const { user } = this.props.auth;
 
-    const matchpar = {
+    const match = {
       user: user.id,
       userName: user.name,
       match: this.state.match,
@@ -62,7 +66,7 @@ class ProfileIndividual extends Component {
     };
 
     axios
-      .post("/api/match", matchpar)
+      .post("/api/match", match)
       .then(res => {
         res.json(res.data);
       })
@@ -70,7 +74,7 @@ class ProfileIndividual extends Component {
         console.log(err);
       });
 
-    this.setState({ matchpar: "" });
+    this.setState({ match: "" });
   }
 
   render() {
