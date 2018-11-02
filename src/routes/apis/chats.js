@@ -97,7 +97,7 @@ router.post(
         };
 
         //Add message to array
-        chat.messages.unshift(newMessage);
+        chat.messages.push(newMessage);
 
         //Save
         chat.save().then(chat => res.json(chat));

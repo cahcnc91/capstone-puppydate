@@ -3,10 +3,12 @@ import authReducer from "./authReducer";
 import errorReducer from "./errorReducer";
 import profileReducer from "./profileReducer";
 import chatReducer from "./chatReducer";
+import matchReducer from "./matchReducer";
 
 export default combineReducers({
   auth: authReducer,
   errors: errorReducer,
   profile: profileReducer,
-  chat: chatReducer
+  chat: chatReducer,
+  matched: matchReducer
 });

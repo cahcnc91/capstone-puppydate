@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getProfileByHandle } from "../../actions/profileActions";
+import { getMatchByHandle } from "../../actions/matchActions";
 import { Link } from "react-router-dom";
 import Spinner from "../common/Spinner";
 import puppies4 from "../../img/puppies4.jpg";
@@ -11,7 +12,7 @@ class ProfileIndividual extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      match: ""
+      matchpar: ""
     };
 
     this.handleMatch = this.handleMatch.bind(this);
@@ -22,6 +23,7 @@ class ProfileIndividual extends Component {
   componentDidMount() {
     if (this.props.match.params.handle) {
       this.props.getProfileByHandle(this.props.match.params.handle);
+      this.props.getMatchByHandle(this.props.match.params.handle);
     }
   }
 
@@ -32,26 +34,26 @@ class ProfileIndividual extends Component {
   }
 
   componentDidUpdate(prevState) {
-    if (this.state.match === true || this.state.match === false) {
+    if (this.state.matchpar === true || this.state.matchpar === false) {
       this.handleSubmit();
     }
   }
 
   handleMatch(e) {
     e.preventDefault();
-    this.setState({ match: true });
+    this.setState({ matchpar: true });
   }
 
   handleNoMatch(e, handleSubmit) {
     e.preventDefault();
-    this.setState({ match: false });
+    this.setState({ matchpar: false });
   }
 
   handleSubmit() {
     const { profile } = this.props;
     const { user } = this.props.auth;
 
-    const match = {
+    const matchpar = {
       user: user.id,
       userName: user.name,
       match: this.state.match,
@@ -60,7 +62,7 @@ class ProfileIndividual extends Component {
     };
 
     axios
-      .post("/api/match", match)
+      .post("/api/match", matchpar)
       .then(res => {
         res.json(res.data);
       })
@@ -68,12 +70,14 @@ class ProfileIndividual extends Component {
         console.log(err);
       });
 
-    this.setState({ match: "" });
+    this.setState({ matchpar: "" });
   }
 
   render() {
     const { profile, loading } = this.props.profile;
     let profileContent;
+    let matchContent;
+    const { matched } = this.props.matched;
 
     if (profile === null || loading) {
       profileContent = <Spinner />;
@@ -83,7 +87,7 @@ class ProfileIndividual extends Component {
           <Link to="/profiles" className="btn btn-light mb-3">
             Back to profiles
           </Link>
-          <div className="text-center">
+          <div className="container text-center">
             <div className="col-12">
               <div className="card card-body bg-light mb-3">
                 <div className="row">
@@ -137,45 +141,67 @@ class ProfileIndividual extends Component {
                   </div>
                 </div>
               </div>
-
-              <div className="row content">
-                <div className="col-12 text-center">
-                  <button
-                    className="btn btn-lg button-customized button-match-pair"
-                    onClick={this.handleMatch}
-                  >
-                    <ion-icon size="large" name="heart" />
-                  </button>
-                  <button
-                    className="btn btn-lg button-nomatch button-match-pair"
-                    onClick={this.handleNoMatch}
-                  >
-                    <ion-icon size="large" name="close" />
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
         </div>
       );
+
+      if (matched) {
+        matchContent = (
+          <div className="row mt-3">
+            <div className="col-12 text-center">
+              <h4>{profile.puppyname} and you are already matched! </h4>
+            </div>
+          </div>
+        );
+      } else {
+        matchContent = (
+          <div className="container">
+            <div className="row">
+              <div className="col-12 text-center">
+                <button
+                  className="btn btn-lg button-customized button-match-pair"
+                  onClick={this.handleMatch}
+                >
+                  <ion-icon size="large" name="heart" />
+                </button>
+                <button
+                  className="btn btn-lg button-nomatch button-match-pair"
+                  onClick={this.handleNoMatch}
+                >
+                  <ion-icon size="large" name="close" />
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      }
     }
 
-    return <div>{profileContent}</div>;
+    return (
+      <div className="dashboard mt-3">
+        <div>{profileContent}</div>
+        <div>{matchContent}</div>
+      </div>
+    );
   }
 }
 
 ProfileIndividual.propTypes = {
   getProfileByHandle: PropTypes.func.isRequired,
+  getMatchByHandle: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  matched: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   profile: state.profile,
-  auth: state.auth
+  auth: state.auth,
+  matched: state.matched
 });
 
 export default connect(
   mapStateToProps,
-  { getProfileByHandle }
+  { getProfileByHandle, getMatchByHandle }
 )(ProfileIndividual);
