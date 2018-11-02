@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Messages from "./Messages";
-import { addMessage } from "../../actions/chatActions";
+import { addMessage, getChat } from "../../actions/chatActions";
 
 class ChatIndividual extends Component {
   constructor(props) {
@@ -89,6 +89,7 @@ class ChatIndividual extends Component {
 
 ChatIndividual.propTypes = {
   addMessage: PropTypes.func.isRequired,
+  getChat: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -100,5 +101,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addMessage }
+  { addMessage, getChat }
 )(ChatIndividual);

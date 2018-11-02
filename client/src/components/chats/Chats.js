@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getChats } from "../../actions/chatActions";
+import { getChats, getChat } from "../../actions/chatActions";
 import Spinner from "../common/Spinner";
-import ChatList from "./ChatList";
 import ChatIndividual from "./ChatIndividual";
 
 class Chats extends Component {
@@ -13,15 +12,15 @@ class Chats extends Component {
       activeChat: ""
     };
 
-    this.setActiveChat = this.setActiveChat.bind(this);
+    this.handleActiveChat = this.handleActiveChat.bind(this);
   }
 
   componentDidMount() {
     this.props.getChats();
   }
 
-  setActiveChat(chatActive) {
-    this.setState({ activeChat: chatActive });
+  handleActiveChat(chat) {
+    this.setState({ activeChat: chat });
   }
 
   render() {
@@ -29,6 +28,10 @@ class Chats extends Component {
     const { user } = this.props.auth;
     let chatListContent;
     let chatIndividual;
+
+    let userChats = chats.filter(chat => {
+      return chat.user === user.id || chat.userMatch === user.id;
+    });
 
     if (loading) {
       chatListContent = <Spinner />;
@@ -38,12 +41,31 @@ class Chats extends Component {
       );
     } else {
       chatListContent = (
-        <ChatList
-          chats={chats}
-          user={user}
-          activeChat={this.state.activeChat}
-          setActiveChat={this.setActiveChat}
-        />
+        <div>
+          <h3>Chats</h3>
+          <table>
+            <colgroup>
+              <col />
+            </colgroup>
+            <tbody>
+              {userChats.map(chat => (
+                <tr
+                  key={chat._id}
+                  onClick={() => this.handleActiveChat(chat)}
+                  style={{
+                    background: this.props.activeChat === chat ? "blue" : "none"
+                  }}
+                >
+                  {chat.user === user.id ? (
+                    <td>{chat.nameUserMatch}</td>
+                  ) : (
+                    <td>{chat.nameUser}</td>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       );
     }
 
@@ -52,13 +74,7 @@ class Chats extends Component {
     } else if (chats === null) {
       chatIndividual = <h4> You have no messages yet, let's talk!</h4>;
     } else {
-      chatIndividual = (
-        <ChatIndividual
-          chats={chats}
-          activeChat={this.state.activeChat}
-          setActiveChat={this.setActiveChat}
-        />
-      );
+      chatIndividual = <ChatIndividual activeChat={this.state.activeChat} />;
     }
 
     return (
@@ -73,19 +89,17 @@ class Chats extends Component {
     );
   }
 }
-
 Chats.propTypes = {
   getChats: PropTypes.func.isRequired,
+  getChat: PropTypes.func.isRequired,
   chat: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
-
 const mapStateToProps = state => ({
   chat: state.chat,
   auth: state.auth
 });
-
 export default connect(
   mapStateToProps,
-  { getChats }
+  { getChats, getChat }
 )(Chats);
