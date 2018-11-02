@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getChats, getChat } from "../../actions/chatActions";
+import { getChats } from "../../actions/chatActions";
 import Spinner from "../common/Spinner";
 import ChatList from "./ChatList";
 import ChatIndividual from "./ChatIndividual";
@@ -76,7 +76,6 @@ class Chats extends Component {
 
 Chats.propTypes = {
   getChats: PropTypes.func.isRequired,
-  getChat: PropTypes.func.isRequired,
   chat: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
@@ -88,5 +87,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getChats, getChat }
+  { getChats }
 )(Chats);
