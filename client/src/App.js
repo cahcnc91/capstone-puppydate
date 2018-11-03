@@ -18,7 +18,6 @@ import EditProfile from "./components/edit-profile/EditProfile";
 import Profiles from "./components/profile/Profiles";
 import ProfileIndividual from "./components/profile/ProfileIndividual";
 import Chats from "./components/chats/Chats";
-import ChatIndividual from "./components/chats/ChatIndividual";
 
 import "./App.css";
 

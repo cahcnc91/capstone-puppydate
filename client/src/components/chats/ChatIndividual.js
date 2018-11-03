@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Messages from "./Messages";
-import { addMessage, getChat } from "../../actions/chatActions";
+import { addMessage } from "../../actions/chatActions";
 
 class ChatIndividual extends Component {
   constructor(props) {
@@ -26,12 +26,12 @@ class ChatIndividual extends Component {
     const { user } = this.props.auth;
 
     const newMessage = {
-      chatId: this.props.activeChat,
+      chatId: this.props.activeChat._id,
       name: user.name,
       text: this.state.text
     };
 
-    const chatId = this.props.activeChat;
+    const chatId = this.props.activeChat._id;
 
     this.props.addMessage(chatId, newMessage);
     this.setState({ text: "" });
@@ -43,6 +43,7 @@ class ChatIndividual extends Component {
 
   render() {
     const { errors } = this.props;
+
     return (
       <div className="message-list">
         <div className="form-or-choose-room">
@@ -62,7 +63,6 @@ class ChatIndividual extends Component {
                         </tr>
                         <tr>
                           <td>says: {message.text} </td>
-                          <td />
                         </tr>
                       </tbody>
                     </table>
@@ -89,7 +89,6 @@ class ChatIndividual extends Component {
 
 ChatIndividual.propTypes = {
   addMessage: PropTypes.func.isRequired,
-  getChat: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -101,5 +100,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addMessage, getChat }
+  { addMessage }
 )(ChatIndividual);

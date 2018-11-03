@@ -38,16 +38,19 @@ router.get("/", (req, res) => {
     .catch(err => res.status(404).json({ nochatfound: "No chats found" }));
 });
 
-//@route  GET api/chats/:id
+//@route  GET api/chats/chat
 //@desc   Get chat by id
 //@access Public
-router.get("/:id", (req, res) => {
-  Chat.findById(req.body.id)
-    .then(chat => res.json(chat))
+router.get("/chat", (req, res) => {
+  Chat.findById({ id: req.body.id })
+    .then(chat => {
+      res.json(chat);
+      console.log(chat);
+    })
     .catch(err =>
       res.status(404).json({ nochatfound: "No chat found with that id" })
     );
-  console.log("done");
+  console.log("done final");
 });
 
 //@route  DELETE api/chats/:id

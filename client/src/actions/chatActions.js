@@ -47,9 +47,9 @@ export const getChats = () => dispatch => {
 
 // Get Chat
 export const getChat = id => dispatch => {
-  dispatch(setChatLoading());
+  console.log(id);
   axios
-    .get(`/api/chats/${id}`)
+    .get("/api/chats/chat", id)
     .then(res =>
       dispatch({
         type: GET_CHAT,
@@ -62,6 +62,7 @@ export const getChat = id => dispatch => {
         payload: null
       })
     );
+  console.log("done1");
 };
 
 //Add Message
