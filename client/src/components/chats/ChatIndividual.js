@@ -22,6 +22,12 @@ class ChatIndividual extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if(this.props.activeChat.messages !== prevProps.activeChat.messages) {
+      
+    }
+  }
+
   onSubmit() {
     const { user } = this.props.auth;
 
