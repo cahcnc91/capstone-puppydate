@@ -1,26 +1,15 @@
 import React, { Component } from "react";
 
 class ChatIndividual extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      messages: ""
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.activeChat !== this.props.activeChat)
-      this.setState({ messages: this.props.activeChat.messages });
-  }
 
   render() {
     return (
       <div className="message-list">
         <div className="form-or-choose-room">
-          {this.state.messages ? (
+          {this.props.messages ? (
             <div className="messages">
               <ul>
-                {this.state.messages.map((message, index) => {
+                {this.props.messages.map((message, index) => {
                   return (
                     <table key={index}>
                       <tbody>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getChats, addMessage } from "../../actions/chatActions";
+import { getChats, getChat, addMessage } from "../../actions/chatActions";
 import Spinner from "../common/Spinner";
 import ChatList from "./ChatList";
 import ChatIndividual from "./ChatIndividual";
@@ -14,6 +14,7 @@ class Chats extends Component {
       activeChat: "",
       text: "",
       errors: {},
+      messages: []
     };
 
     this.setActiveChat = this.setActiveChat.bind(this);
@@ -33,6 +34,7 @@ class Chats extends Component {
 
   setActiveChat(chat) {
     this.setState({ activeChat: chat });
+    this.setState({ messages: chat.messages });
   }
 
   onSubmit() {
@@ -84,13 +86,8 @@ class Chats extends Component {
     } else if (chats === null) {
       chatIndividual = <h4> You have no messages yet, let's talk!</h4>;
     } else {
-      chatIndividual = (
-        <ChatIndividual
-          activeChat={this.state.activeChat}
-        />
-      );
+      chatIndividual = <ChatIndividual messages={this.state.messages} />;
     }
-
     if (this.state.activeChat !== "") {
       messagesForm = (
         <Messages
@@ -104,6 +101,7 @@ class Chats extends Component {
     } else {
       messagesForm = <h3>test</h3>;
     }
+    console.log(this.state.messages);
     return (
       <div className="row chat">
         <div className="col-3 sidenav">{chatListContent}</div>
@@ -118,6 +116,7 @@ class Chats extends Component {
 }
 Chats.propTypes = {
   getChats: PropTypes.func.isRequired,
+  getChat: PropTypes.func.isRequired,
   chat: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
@@ -130,5 +129,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { getChats, addMessage }
+  { getChats, getChat, addMessage }
 )(Chats);
