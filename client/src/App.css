@@ -174,16 +174,19 @@ li.side:hover {
 /*-----CHAT-----*/
 .chat {
   height: 800px;
+  padding: 0;
+}
+
+.main-chat {
+  padding: 5px 0 0 5px;
 }
 
 .sidenav {
   background-color: rgba(218, 219, 219, 0.83);
   height: 100%;
   padding-top: 2%;
-  width: 25%;
   padding-left: 40px;
 }
-
 
 .row.content {
   height: 800px;
@@ -201,4 +204,13 @@ tr {
 tr:hover {
   cursor: pointer;
   color: rgb(162, 162, 163);
+}
+
+#new-message {
+  position: fixed;
+  bottom: 0;
+  width: 80%;
+  padding: 5px;
+  margin-left: 0px;
+  border-top: 1px solid #3f3f3f;
 }
