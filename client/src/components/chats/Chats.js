@@ -49,6 +49,7 @@ class Chats extends Component {
     const chatId = this.state.activeChat._id;
 
     this.props.addMessage(chatId, newMessage);
+    this.setState({ messages: this.state.messages.concat(newMessage) });
     this.setState({ text: "" });
   }
 
