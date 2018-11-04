@@ -8,21 +8,19 @@ class ChatIndividual extends Component {
     };
   }
 
-  componentWillUpdate(nextProps) {
-    if (nextProps.activeChat !== this.props.activeChat) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.activeChat !== this.props.activeChat)
       this.setState({ messages: this.props.activeChat.messages });
-    }
   }
 
   render() {
-
     return (
       <div className="message-list">
         <div className="form-or-choose-room">
-          {this.props.activeChat ? (
+          {this.state.messages ? (
             <div className="messages">
               <ul>
-                {this.props.activeChat.messages.map((message, index) => {
+                {this.state.messages.map((message, index) => {
                   return (
                     <table key={index}>
                       <tbody>
