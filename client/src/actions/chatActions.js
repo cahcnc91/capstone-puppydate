@@ -46,10 +46,10 @@ export const getChats = () => dispatch => {
 };
 
 // Get Chat
-export const getChat = id => dispatch => {
-  console.log(id);
+export const getChat = (id, history) => dispatch => {
+  dispatch(setChatLoading());
   axios
-    .get("/api/chats/chat", id)
+    .get(`/api/chats/${id}`)
     .then(res =>
       dispatch({
         type: GET_CHAT,
@@ -62,13 +62,12 @@ export const getChat = id => dispatch => {
         payload: null
       })
     );
-  console.log("done1");
 };
 
 //Add Message
 export const addMessage = (chatId, messageData) => dispatch => {
   axios
-    .post(`./api/chats/message/${chatId}`, messageData)
+    .post(`/api/chats/message/${chatId}`, messageData)
     .then(res =>
       dispatch({
         type: GET_CHAT,
