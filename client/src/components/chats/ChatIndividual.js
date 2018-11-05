@@ -5,6 +5,7 @@ class ChatIndividual extends Component {
   render() {
     return (
       <div className="message-list">
+        <h4>Messages</h4>
         <div className="form-or-choose-room">
           {this.props.messages ? (
             <div className="messages">
@@ -18,7 +19,9 @@ class ChatIndividual extends Component {
                             {" "}
                             {message.name}{" "}
                           </td>
-                          <td>{message.date} </td>
+                        </tr>
+                        <tr>
+                          <td>At {message.date}</td>
                         </tr>
                         <tr>
                           <td>says: {message.text} </td>

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 class ChatList extends Component {
+  
   render() {
     const { chats, user } = this.props;
 

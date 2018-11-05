@@ -122,7 +122,7 @@ li.side:hover {
 }
 
 .card-body {
-  padding: 5%;
+  padding: 4%;
 }
 
 .description-card {
@@ -177,9 +177,6 @@ li.side:hover {
   padding: 0;
 }
 
-.main-chat {
-  padding: 5px 0 0 5px;
-}
 
 .sidenav {
   background-color: rgba(218, 219, 219, 0.83);
@@ -198,7 +195,7 @@ table {
 }
 
 tr {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 tr:hover {
@@ -207,10 +204,13 @@ tr:hover {
 }
 
 #new-message {
-  position: fixed;
   bottom: 0;
   width: 80%;
-  padding: 5px;
   margin-left: 0px;
   border-top: 1px solid #3f3f3f;
+}
+
+#message-history {
+  height: 75%;
+  overflow: auto;
 }

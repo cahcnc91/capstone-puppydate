@@ -23,7 +23,7 @@ class Chats extends Component {
   }
 
   componentDidMount() {
-    this.props.getChats();
+      this.props.getChats();  
   }
 
   componentWillReceiveProps(newProps) {
@@ -49,8 +49,8 @@ class Chats extends Component {
     const chatId = this.state.activeChat._id;
 
     this.props.addMessage(chatId, newMessage);
-    this.setState({ messages: this.state.messages.concat(newMessage) });
     this.setState({ text: "" });
+    this.setState({ messages: this.state.messages.concat(newMessage) });
   }
 
   onChange(e) {
@@ -86,6 +86,8 @@ class Chats extends Component {
       chatIndividual = <Spinner />;
     } else if (chats === null) {
       chatIndividual = <h4> You have no messages yet, let's talk!</h4>;
+    } else if (this.state.activeChat === "") {
+      chatIndividual = <h4> Choose a chat</h4>;
     } else {
       chatIndividual = <ChatIndividual messages={this.state.messages} />;
     }
@@ -100,15 +102,14 @@ class Chats extends Component {
         />
       );
     } else {
-      messagesForm = <h3>test</h3>;
+      messagesForm = "";
     }
-    console.log(this.state.messages);
+
     return (
       <div className="row chat">
         <div className="col-3 sidenav">{chatListContent}</div>
         <div className="col-9 main-chat">
-          <h4>Messages</h4>
-          {chatIndividual}
+          <div id="message-history">{chatIndividual}</div>
           <div id="new-message">{messagesForm}</div>
         </div>
       </div>
