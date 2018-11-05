@@ -97,7 +97,7 @@ class ProfileIndividual extends Component {
                 <div className="row">
                   <div className="col-4">
                     {/*   IMAGES STILL FIGURING IT OUT?! */}
-                    <img src={puppies4} alt="puppy" />
+                    <img src={profile.user.avatar} alt="user-avatar" />
                     <p>Sex: {profile.sex}</p>
                     <p>Location: {profile.location}</p>
                     <p>Breed: {profile.breed}</p>

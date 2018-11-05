@@ -113,7 +113,7 @@ class CreateProfile extends Component {
     return (
       <div className="create-profile">
         <div className="container">
-          <div className="row">
+          <div className="row mb-4 mt-4">
             <div className="col-md-8 m-auto">
               <h2 className="display-4 text-center">Create Your Profile</h2>
               <p className="lead text-center">

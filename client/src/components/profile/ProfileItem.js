@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import puppies4 from "../../img/puppies4.jpg";
 
 class ProfileItem extends Component {
   render() {
@@ -12,7 +11,7 @@ class ProfileItem extends Component {
         <div className="card card-body bg-light mb-3">
           <div className="row">
             <div className="col-2">
-              <img src={puppies4} alt="puppy" className="rounded-circle" />
+              <img src={profile.user.avatar} alt="" className="rounded-circle" />
             </div>
             <div className="col-lg-6 col-md-4 col-8">
               <h3>{profile.puppyname}</h3>

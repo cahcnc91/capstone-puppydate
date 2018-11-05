@@ -14,7 +14,7 @@ class Profile extends Component {
               <div className="row">
                 <div className="col-4">
                   {/*   IMAGES STILL FIGURING IT OUT?! */}
-                  <img src={puppies4} alt="puppy" />
+                  <img src={profile.user.avatar} alt="avatar" />
 
                   <p>Sex: {profile.sex}</p>
                   <p>Location: {profile.location}</p>

@@ -58,7 +58,7 @@ class Dashboard extends Component {
     }
 
     return (
-      <div className="dashboard">
+      <div className="dashboard mt-3">
         <h3 className="welcome mb-4">Welcome, {user.name}!</h3>
         <div className="container">{dashboardContent}</div>
       </div>

@@ -6,7 +6,7 @@ footer {
 }
 /*----LANDING ----*/
 img {
-  width: 100%;
+  width: 80%;
 }
 
 .landing {
@@ -15,8 +15,6 @@ img {
   background-size: cover;
   background-position: center;
   height: 100vh;
-  margin-top: -24px;
-  margin-bottom: -50px;
 }
 
 .landing-inner {
