@@ -23,7 +23,10 @@ class Chats extends Component {
   }
 
   componentDidMount() {
-      this.props.getChats();  
+    if(this.state.activeChat === "") {
+      this.props.getChats();
+    }
+       
   }
 
   componentWillReceiveProps(newProps) {
