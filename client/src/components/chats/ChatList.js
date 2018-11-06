@@ -18,19 +18,19 @@ class ChatList extends Component {
             <col />
           </colgroup>
           <tbody>
-            {userChats.map(chat => (
+            {userChats.map(chatActive => (
               <tr
-                key={chat._id}
-                onClick={() => this.props.setActiveChat(chat)}
+                key={chatActive._id}
+                onClick={() => this.props.setActiveChat(chatActive)}
                 style={{
                   backgroundColor:
-                    this.props.activeChat === chat ? "pink" : "none"
+                    this.props.activeChat === chatActive ? "pink" : "none"
                 }}
               >
-                {chat.user === user.id ? (
-                  <td>{chat.nameUserMatch}</td>
+                {chatActive.user === user.id ? (
+                  <td>{chatActive.nameUserMatch}</td>
                 ) : (
-                  <td>{chat.nameUser}</td>
+                  <td>{chatActive.nameUser}</td>
                 )}
               </tr>
             ))}

@@ -5,7 +5,6 @@ import { getProfileByHandle } from "../../actions/profileActions";
 import { getMatchByHandle } from "../../actions/matchActions";
 import { Link } from "react-router-dom";
 import Spinner from "../common/Spinner";
-import puppies4 from "../../img/puppies4.jpg";
 import axios from "axios";
 
 class ProfileIndividual extends Component {

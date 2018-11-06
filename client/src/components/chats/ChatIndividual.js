@@ -1,16 +1,29 @@
 import React, { Component } from "react";
 
 class ChatIndividual extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      messages: ""
+    };
+  }
+
+  componentWillMount() {
+    const { chat } = this.props;
+    this.setState({ messages: chat.messages });
+  }
+
+
 
   render() {
     return (
       <div className="message-list">
         <h4>Messages</h4>
-        <div className="form-or-choose-room">
-          {this.props.messages ? (
+        <div>
+          {this.state.messages ? (
             <div className="messages">
               <ul>
-                {this.props.messages.map((message, index) => {
+                {this.state.messages.map((message, index) => {
                   return (
                     <table key={index}>
                       <tbody>

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import puppies4 from "../../img/puppies4.jpg";
 
 class Profile extends Component {
   render() {

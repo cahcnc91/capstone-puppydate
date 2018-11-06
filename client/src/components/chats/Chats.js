@@ -13,8 +13,7 @@ class Chats extends Component {
     this.state = {
       activeChat: "",
       text: "",
-      errors: {},
-      messages: []
+      errors: {}
     };
 
     this.setActiveChat = this.setActiveChat.bind(this);
@@ -23,10 +22,25 @@ class Chats extends Component {
   }
 
   componentDidMount() {
-    if(this.state.activeChat === "") {
+    if (this.state.activeChat === "") {
       this.props.getChats();
     }
-       
+  }
+
+  shouldComponentUpdate(nextProps) {
+    const { chats, chat } = this.props.chat;
+    if( chats === null && chat === null) {
+      console.log('true1')
+      return true
+    } else if ( chats && chat !== this.state.activeChat) {
+        console.log('true2')
+        return true
+    } else if ( chats && nextProps.chat.messages === this.props.chat.messages) {
+      console.log('false1')
+      return false
+    }
+    console.log('false2')
+    return false
   }
 
   componentWillReceiveProps(newProps) {
@@ -35,9 +49,9 @@ class Chats extends Component {
     }
   }
 
-  setActiveChat(chat) {
-    this.setState({ activeChat: chat });
-    this.setState({ messages: chat.messages });
+  setActiveChat(chatActive) {
+    this.props.getChat(chatActive._id);
+    this.setState({ activeChat: chatActive });
   }
 
   onSubmit() {
@@ -61,7 +75,7 @@ class Chats extends Component {
   }
 
   render() {
-    const { chats, loading } = this.props.chat;
+    const { chats, loading, chat } = this.props.chat;
     const { user } = this.props.auth;
     const { errors } = this.props;
     let chatListContent;
@@ -92,7 +106,13 @@ class Chats extends Component {
     } else if (this.state.activeChat === "") {
       chatIndividual = <h4> Choose a chat</h4>;
     } else {
-      chatIndividual = <ChatIndividual messages={this.state.messages} />;
+      chatIndividual = (
+        <ChatIndividual
+          activeChat={this.state.activeChat}
+          chat={chat}
+          chats={chats}
+        />
+      );
     }
     if (this.state.activeChat !== "") {
       messagesForm = (
@@ -107,7 +127,6 @@ class Chats extends Component {
     } else {
       messagesForm = "";
     }
-
     return (
       <div className="row chat">
         <div className="col-3 sidenav">{chatListContent}</div>
