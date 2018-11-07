@@ -111,7 +111,7 @@ router.post(
         //Save
         chat.save().then(chat => res.json(chat));
       })
-      .catch(err => res.status(404).json({ chatnotfound: "Chat not found" }));
+      .catch(err => res.status(404).json(console.log(err)));
   }
 );
 

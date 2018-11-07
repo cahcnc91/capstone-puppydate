@@ -1,7 +1,8 @@
-import { GET_CHATS, CHAT_LOADING, ADD_CHAT } from "../actions/types";
+import { GET_CHATS, GET_ACTIVECHAT, CHAT_LOADING, ADD_CHAT } from "../actions/types";
 
 const initialState = {
   chats: null,
+  activeChat: null,
   loading: false
 };
 
@@ -12,7 +13,13 @@ export default function(state = initialState, action) {
         ...state,
         loading: true
       };
-    case GET_CHATS:
+    case GET_ACTIVECHAT:
+      return {
+        ...state,
+        activeChat: action.payload,
+        loading: false
+      };
+      case GET_CHATS:
       return {
         ...state,
         chats: action.payload,

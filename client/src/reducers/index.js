@@ -4,7 +4,6 @@ import errorReducer from "./errorReducer";
 import profileReducer from "./profileReducer";
 import chatReducer from "./chatReducer";
 import matchReducer from "./matchReducer";
-import activeChatReducer from "./activeChatReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -12,5 +11,4 @@ export default combineReducers({
   profile: profileReducer,
   chat: chatReducer,
   matched: matchReducer,
-  activeChat: activeChatReducer
 });

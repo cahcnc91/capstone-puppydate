@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getChats, addMessage } from "../../actions/chatActions";
-import { getActiveChat } from '../../actions/activeChatAction';
+import { getActiveChat } from "../../actions/chatActions";
 import Spinner from "../common/Spinner";
 import ChatList from "./ChatList";
 import ChatIndividual from "./ChatIndividual";
@@ -12,7 +12,7 @@ class Chats extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeChat: "",
+      activeChatSelected: "",
       text: "",
       errors: {}
     };
@@ -23,43 +23,43 @@ class Chats extends Component {
   }
 
   componentDidMount() {
-    this.props.getChats(this.props.match.params.id)
-  }
-
-  componentWillReceiveProps(newProps) {
-    if (newProps.errors) {
-      this.setState({ errors: newProps.errors });
-    }
+    this.props.getChats(this.props.match.params.id);
   }
 
   setActiveChat(chat) {
     this.props.getActiveChat(chat._id);
-    this.setState({ activeChat: chat });
+    this.setState({ activeChatSelected: chat });
   }
 
-  onSubmit() {
+  onScroll() {
+    // TODO: call fetchHistory when scrolled to the top
+  };
+
+  onSubmit(e) {
+    e.preventDefault();
     const { user } = this.props.auth;
 
     const newMessage = {
-      chatId: this.state.activeChat._id,
+      chatId: this.state.activeChatSelected._id,
       name: user.name,
       text: this.state.text
     };
 
-    const chatId = this.state.activeChat._id;
+    const chatId = this.state.activeChatSelected._id;
+    console.log(chatId);
 
     this.props.addMessage(chatId, newMessage);
     this.setState({ text: "" });
-    this.setState({ messages: this.state.messages.concat(newMessage) });
   }
 
   onChange(e) {
+    e.preventDefault();
     this.setState({ [e.target.name]: e.target.value });
   }
 
   render() {
     const { chats, loading } = this.props.chat;
-    const { activeChat } = this.props.activeChat;
+    const { activeChat } = this.props.chat;
     const { user } = this.props.auth;
     const { errors } = this.props;
     let chatListContent;
@@ -75,25 +75,24 @@ class Chats extends Component {
         <ChatList
           chats={chats}
           user={user}
-          activeChat={this.state.activeChat}
+          activeChatSelected={this.state.activeChatSelected}
           setActiveChat={this.setActiveChat}
         />
       );
     }
 
-    if(this.state.activeChat === "") {
-      chatContent = <p>Choose a chat</p>
+    if (!activeChat) {
+      chatContent = <p>Choose a chat</p>;
     } else {
-      chatContent = <ChatIndividual activeChat={activeChat}/>
+      chatContent = <ChatIndividual activeChat={activeChat} />;
     }
 
-    
     if (this.state.activeChat !== "") {
       messagesForm = (
         <Messages
           errors={errors}
           activeChat={this.state.activeChat}
-          onSubmit={this.onSubmit}
+          onSubmit={e => this.onSubmit(e)}
           onChange={e => this.onChange(e)}
           text={this.state.text}
         />
@@ -105,9 +104,7 @@ class Chats extends Component {
       <div className="row chat">
         <div className="col-3 sidenav">{chatListContent}</div>
         <div className="col-9 main-chat">
-          <div id="message-history">
-            {chatContent}
-          </div>
+          <div id="message-history">{chatContent}</div>
           <div id="new-message">{messagesForm}</div>
         </div>
       </div>
@@ -126,8 +123,7 @@ Chats.propTypes = {
 const mapStateToProps = state => ({
   chat: state.chat,
   auth: state.auth,
-  errors: state.errors,
-  activeChat: state.activeChat
+  errors: state.errors
 });
 
 export default connect(

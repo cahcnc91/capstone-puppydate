@@ -4,8 +4,9 @@ import {
   ADD_CHAT,
   GET_ERRORS,
   GET_CHATS,
-  GET_CHAT,
-  CHAT_LOADING
+  GET_ACTIVECHAT,
+  CHAT_LOADING,
+  ACTIVE_CHAT
 } from "./types";
 
 //Add Chat
@@ -45,13 +46,31 @@ export const getChats = id => dispatch => {
     );
 };
 
+//Get active Chat by id
+export const getActiveChat = (id) => dispatch => {
+  axios
+    .get(`/api/chats/${id}`)
+    .then(res =>
+      dispatch({
+        type: GET_ACTIVECHAT,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ACTIVECHAT,
+        payload: null
+      })
+    );
+};
+
 //Add Message
 export const addMessage = (chatId, messageData) => dispatch => {
   axios
     .post(`/api/chats/message/${chatId}`, messageData)
     .then(res =>
       dispatch({
-        type: GET_CHAT,
+        type: GET_ACTIVECHAT,
         payload: res.data
       })
     )
@@ -61,6 +80,7 @@ export const addMessage = (chatId, messageData) => dispatch => {
         payload: err.response.data
       })
     );
+
 };
 
 //Set loading state
