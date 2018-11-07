@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getChats, getChat, addMessage } from "../../actions/chatActions";
+import { getChats, addMessage } from "../../actions/chatActions";
+import { getActiveChat } from '../../actions/activeChatAction';
 import Spinner from "../common/Spinner";
 import ChatList from "./ChatList";
 import ChatIndividual from "./ChatIndividual";
@@ -22,25 +23,7 @@ class Chats extends Component {
   }
 
   componentDidMount() {
-    if (this.state.activeChat === "") {
-      this.props.getChats();
-    }
-  }
-
-  shouldComponentUpdate(nextProps) {
-    const { chats, chat } = this.props.chat;
-    if( chats === null && chat === null) {
-      console.log('true1')
-      return true
-    } else if ( chats && chat !== this.state.activeChat) {
-        console.log('true2')
-        return true
-    } else if ( chats && nextProps.chat.messages === this.props.chat.messages) {
-      console.log('false1')
-      return false
-    }
-    console.log('false2')
-    return false
+    this.props.getChats(this.props.match.params.id)
   }
 
   componentWillReceiveProps(newProps) {
@@ -49,9 +32,9 @@ class Chats extends Component {
     }
   }
 
-  setActiveChat(chatActive) {
-    this.props.getChat(chatActive._id);
-    this.setState({ activeChat: chatActive });
+  setActiveChat(chat) {
+    this.props.getActiveChat(chat._id);
+    this.setState({ activeChat: chat });
   }
 
   onSubmit() {
@@ -75,16 +58,15 @@ class Chats extends Component {
   }
 
   render() {
-    const { chats, loading, chat } = this.props.chat;
+    const { chats, loading } = this.props.chat;
+    const { activeChat } = this.props.activeChat;
     const { user } = this.props.auth;
     const { errors } = this.props;
     let chatListContent;
-    let chatIndividual;
     let messagesForm;
+    let chatContent;
 
-    if (loading) {
-      chatListContent = <Spinner />;
-    } else if (chats === null) {
+    if (chats === null) {
       chatListContent = (
         <h4> You have no chats yet, match with someone first!</h4>
       );
@@ -99,21 +81,13 @@ class Chats extends Component {
       );
     }
 
-    if (loading) {
-      chatIndividual = <Spinner />;
-    } else if (chats === null) {
-      chatIndividual = <h4> You have no messages yet, let's talk!</h4>;
-    } else if (this.state.activeChat === "") {
-      chatIndividual = <h4> Choose a chat</h4>;
+    if(this.state.activeChat === "") {
+      chatContent = <p>Choose a chat</p>
     } else {
-      chatIndividual = (
-        <ChatIndividual
-          activeChat={this.state.activeChat}
-          chat={chat}
-          chats={chats}
-        />
-      );
+      chatContent = <ChatIndividual activeChat={activeChat}/>
     }
+
+    
     if (this.state.activeChat !== "") {
       messagesForm = (
         <Messages
@@ -131,7 +105,9 @@ class Chats extends Component {
       <div className="row chat">
         <div className="col-3 sidenav">{chatListContent}</div>
         <div className="col-9 main-chat">
-          <div id="message-history">{chatIndividual}</div>
+          <div id="message-history">
+            {chatContent}
+          </div>
           <div id="new-message">{messagesForm}</div>
         </div>
       </div>
@@ -140,18 +116,21 @@ class Chats extends Component {
 }
 Chats.propTypes = {
   getChats: PropTypes.func.isRequired,
-  getChat: PropTypes.func.isRequired,
+  getActiveChat: PropTypes.func.isRequired,
   chat: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
   addMessage: PropTypes.func.isRequired
 };
+
 const mapStateToProps = state => ({
   chat: state.chat,
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
+  activeChat: state.activeChat
 });
+
 export default connect(
   mapStateToProps,
-  { getChats, getChat, addMessage }
+  { getChats, getActiveChat, addMessage }
 )(Chats);

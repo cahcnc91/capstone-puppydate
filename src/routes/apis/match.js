@@ -59,12 +59,10 @@ router.post(
       userMatch: req.body.userMatch
     }).then(existentMatchOrNot => {
       if (existentMatchOrNot) {
-        console.log("Match Alredy Exists");
 
         errors.existentmatch = "There is a match with this user already!";
         return res.status(404).json(errors);
       } else {
-        console.log("New Match!");
 
         const newMatch = new Match({
           user: req.user.id,
@@ -82,9 +80,8 @@ router.post(
           userMatch: req.user.id
         }).then(matchedPar => {
           if (!matchedPar) {
-            console.log("no match");
+            res.json({ noMatch: 'Not a match yet'})
           } else {
-            console.log("match!");
 
             const newChat = new Chat({
               user: req.user.id,

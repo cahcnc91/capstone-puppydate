@@ -27,10 +27,10 @@ export const addChat = chatData => dispatch => {
 };
 
 //Get chats
-export const getChats = () => dispatch => {
+export const getChats = id => dispatch => {
   dispatch(setChatLoading);
   axios
-    .get("./api/chats")
+    .get(`/api/chats/user/${id}`)
     .then(res =>
       dispatch({
         type: GET_CHATS,
@@ -40,25 +40,6 @@ export const getChats = () => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_CHATS,
-        payload: null
-      })
-    );
-};
-
-// Get Chat
-export const getChat = (id, history) => dispatch => {
-  dispatch(setChatLoading());
-  axios
-    .get(`/api/chats/${id}`)
-    .then(res =>
-      dispatch({
-        type: GET_CHAT,
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_CHAT,
         payload: null
       })
     );

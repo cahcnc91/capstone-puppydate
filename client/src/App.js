@@ -19,6 +19,7 @@ import Profiles from "./components/profile/Profiles";
 import ProfileIndividual from "./components/profile/ProfileIndividual";
 import Chats from "./components/chats/Chats";
 
+
 import "./App.css";
 
 //Check for token
@@ -42,6 +43,8 @@ if (localStorage.jwtToken) {
     window.location.href = "/login";
   }
 }
+
+
 
 class App extends Component {
   render() {
@@ -82,7 +85,7 @@ class App extends Component {
                 />
               </Switch>
               <Switch>
-                <PrivateRoute exact path="/chats" component={Chats} />
+                <PrivateRoute exact path="/chats/user/:id" component={Chats} />
               </Switch>
             </div>
             <Footer />

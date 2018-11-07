@@ -9,7 +9,7 @@ const ChatSchema = new Schema({
   },
   userMatch: {
     type: Schema.Types.ObjectId,
-    ref: "profiles"
+    ref: "users"
   },
   nameUser: {
     type: String,

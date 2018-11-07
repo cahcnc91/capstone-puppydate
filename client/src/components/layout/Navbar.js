@@ -40,7 +40,7 @@ class Navbar extends Component {
           </a>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/chats">
+          <Link className="nav-link" to={`/chats/user/${user.id}`}>
             {" "}
             Chats
           </Link>

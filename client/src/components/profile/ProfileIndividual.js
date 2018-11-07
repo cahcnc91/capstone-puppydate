@@ -67,7 +67,7 @@ class ProfileIndividual extends Component {
     axios
       .post("/api/match", match)
       .then(res => {
-        res.json(res.data);
+        res.json({response: 'success!'});
       })
       .catch(err => {
         console.log(err);

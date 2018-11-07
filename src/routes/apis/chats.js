@@ -29,12 +29,19 @@ router.post(
   }
 );
 
-//@route  GET api/chats
+//@route  GET api/chats/user/:id
 //@desc   Find chats
-//@access Public
-router.get("/", (req, res) => {
-  Chat.find()
-    .then(chats => res.json(chats))
+//@access Private
+router.get("/user/:id", (req, res) => {
+  Chat.find({ $or: [{ user: req.params.id }, { userMatch: req.params.id }] })
+    .then(chats => {
+      //check for chats
+      if (chats.length === 0) {
+        res.status(401);
+        res.json({ nochats: "No Chats Found" });
+      }
+      res.json(chats);
+    })
     .catch(err => res.status(404).json({ nochatfound: "No chats found" }));
 });
 

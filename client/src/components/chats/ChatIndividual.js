@@ -1,57 +1,21 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class ChatIndividual extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      messages: ""
-    };
-  }
-
-  componentWillMount() {
-    const { chat } = this.props;
-    this.setState({ messages: chat.messages });
-  }
-
-
 
   render() {
+    const {activeChat} = this.props;
+
     return (
-      <div className="message-list">
-        <h4>Messages</h4>
-        <div>
-          {this.state.messages ? (
-            <div className="messages">
-              <ul>
-                {this.state.messages.map((message, index) => {
-                  return (
-                    <table key={index}>
-                      <tbody>
-                        <tr>
-                          <td style={{ fontWeight: "bold" }} key={index}>
-                            {" "}
-                            {message.name}{" "}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>At {message.date}</td>
-                        </tr>
-                        <tr>
-                          <td>says: {message.text} </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  );
-                })}
-              </ul>
-            </div>
-          ) : (
-            <h2>Choose a Chat</h2>
-          )}
-        </div>
+      <div>
+        <p>{activeChat._id}</p>
       </div>
     );
   }
 }
+
+ChatIndividual.propTypes = {
+  activeChat: PropTypes.array.isRequired
+};
 
 export default ChatIndividual;

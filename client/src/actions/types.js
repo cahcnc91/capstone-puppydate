@@ -11,6 +11,7 @@ export const GET_CHAT = "GET_CHAT";
 export const ADD_CHAT = "ADD_CHAT";
 export const DELETE_CHAT = "DELETE_CHAT";
 export const GET_MATCH = "GET_MATCH";
+export const ACTIVE_CHAT = "ACTIVE_CHAT";
 
 
 
