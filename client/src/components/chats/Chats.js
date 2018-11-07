@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import * as ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getChats, addMessage } from "../../actions/chatActions";
@@ -7,6 +8,7 @@ import Spinner from "../common/Spinner";
 import ChatList from "./ChatList";
 import ChatIndividual from "./ChatIndividual";
 import Messages from "./Messages";
+
 
 class Chats extends Component {
   constructor(props) {
@@ -31,10 +33,6 @@ class Chats extends Component {
     this.setState({ activeChatSelected: chat });
   }
 
-  onScroll() {
-    // TODO: call fetchHistory when scrolled to the top
-  };
-
   onSubmit(e) {
     e.preventDefault();
     const { user } = this.props.auth;
@@ -50,6 +48,7 @@ class Chats extends Component {
 
     this.props.addMessage(chatId, newMessage);
     this.setState({ text: "" });
+    
   }
 
   onChange(e) {
@@ -68,7 +67,7 @@ class Chats extends Component {
 
     if (chats === null) {
       chatListContent = (
-        <h4> You have no chats yet, match with someone first!</h4>
+        <h5> You have no chats yet, match with someone first!</h5>
       );
     } else {
       chatListContent = (
@@ -81,10 +80,12 @@ class Chats extends Component {
       );
     }
 
-    if (!activeChat) {
-      chatContent = <p>Choose a chat</p>;
+    if (chats === null) {
+      chatContent = "";
+    } else if (!activeChat) {
+      chatContent = <h4>Choose a chat</h4>;
     } else {
-      chatContent = <ChatIndividual activeChat={activeChat} />;
+      chatContent = <ChatIndividual activeChat={activeChat}/>;
     }
 
     if (this.state.activeChat !== "") {
@@ -103,8 +104,10 @@ class Chats extends Component {
     return (
       <div className="row chat">
         <div className="col-3 sidenav">{chatListContent}</div>
-        <div className="col-9 main-chat">
-          <div id="message-history">{chatContent}</div>
+        <div className="col-9">
+          <div id="message-history">
+              {chatContent}
+            </div>
           <div id="new-message">{messagesForm}</div>
         </div>
       </div>

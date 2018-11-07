@@ -184,7 +184,7 @@ li.side:hover {
 }
 
 .row.content {
-  height: 800px;
+  height: 600px;
 }
 
 table {
@@ -192,11 +192,15 @@ table {
   margin-top: 30px;
 }
 
-tr {
-  font-size: 16px;
+tr.chat-list {
+  font-size: 20px;
 }
 
-tr:hover {
+tr {
+  font-size: 14px;
+}
+
+tr.chat-list:hover {
   cursor: pointer;
   color: rgb(162, 162, 163);
 }
@@ -209,6 +213,6 @@ tr:hover {
 }
 
 #message-history {
-  height: 75%;
+  height: 50%;
   overflow: auto;
 }
