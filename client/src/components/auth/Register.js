@@ -54,13 +54,13 @@ class Register extends Component {
     //same as const errors = this.state.errors
 
     return (
-      <div className="register">
+      <div className="container-for-all-components">
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Sign Up</h1>
+              <h1 className="display-4 text-center mt-4">Sign Up</h1>
               <p className="lead text-center">Create your PuppyDate account</p>
-              <form onSubmit={this.onSubmit}>
+              <form className="mt-4" onSubmit={this.onSubmit}>
                 <TextFieldGroup
                   placeholder="Name"
                   name="name"

@@ -27,7 +27,8 @@ class Dashboard extends Component {
       //CHECK IF LOGGED IN USER HAS PROFILE DATA
       if (Object.keys(profile).length > 0) {
         dashboardContent = (
-          <div>
+          <div className="container">
+          <div className="text-center row">
             <Link to="/edit-profile" className="btn btn-light">
               <i className="fas fa-user-circle text-info mr-1" /> Edit Profile
             </Link>
@@ -38,17 +39,21 @@ class Dashboard extends Component {
               <i className="fas fa-graduation-cap text-info mr-1" />
               Delete Account
             </button>
+            </div>
+            <div className="row">
             <Profile profile={profile} user={user} />
+            </div>
+            
           </div>
         );
       } else {
         //User is logged in but has no profile
         dashboardContent = (
           <div>
-            <p>You have not created a profile yet, please add some info</p>
+            <h5 className="mt-4">You have not created a profile yet, please add some info</h5>
             <Link
               to="/create-profile"
-              className="btn btn-log button-customized"
+              className="btn btn-log button-customized mt-4"
             >
               Create Profile
             </Link>
@@ -58,9 +63,13 @@ class Dashboard extends Component {
     }
 
     return (
-      <div className="dashboard mt-3">
-        <h3 className="welcome mb-4">Welcome, {user.name}!</h3>
-        <div className="container">{dashboardContent}</div>
+      <div>
+        <h3 className="welcome mt-4">Welcome, {user.name}!</h3>
+        <div className="container">
+          <div className="row">
+            {dashboardContent}
+          </div>
+        </div>
       </div>
     );
   }

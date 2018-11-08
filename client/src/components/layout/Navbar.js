@@ -24,6 +24,12 @@ class Navbar extends Component {
           </Link>
         </li>
         <li className="nav-item">
+          <Link className="nav-link" to={`/chats/user/${user.id}`}>
+            {" "}
+            Chats
+          </Link>
+        </li>
+        <li className="nav-item">
           <a
             href="/login"
             onClick={this.onLogoutClick.bind(this)}
@@ -38,12 +44,6 @@ class Navbar extends Component {
             />{" "}
             Logout
           </a>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link" to={`/chats/user/${user.id}`}>
-            {" "}
-            Chats
-          </Link>
         </li>
       </ul>
     );
@@ -78,8 +78,14 @@ class Navbar extends Component {
           >
             <span className="navbar-toggler-icon" />
           </button>
-          {isAuthenticated ? authLinks : guestLinks}
-          <div className="collapse navbar-collapse" id="mobile-nav" />
+
+          <div className="collapse navbar-collapse" id="mobile-nav">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item">
+               {isAuthenticated ? authLinks : guestLinks}
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
     );

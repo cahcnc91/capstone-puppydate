@@ -67,7 +67,7 @@ class ProfileIndividual extends Component {
     axios
       .post("/api/match", match)
       .then(res => {
-        res.json({response: 'success!'});
+        res.json({ response: "success!" });
       })
       .catch(err => {
         console.log(err);
@@ -86,74 +86,74 @@ class ProfileIndividual extends Component {
       profileContent = <Spinner />;
     } else {
       profileContent = (
-        <div>
-          <Link to="/profiles" className="btn btn-light mb-3">
-            Back to profiles
-          </Link>
-          <div className="container text-center">
-            <div className="col-12">
-              <div className="card card-body bg-light mb-3">
-                <div className="row">
-                  <div className="col-4">
-                    {/*   IMAGES STILL FIGURING IT OUT?! */}
-                    <img src={profile.user.avatar} alt="user-avatar" />
-                    <p>Sex: {profile.sex}</p>
-                    <p>Location: {profile.location}</p>
-                    <p>Breed: {profile.breed}</p>
-                    <p>Age: {profile.age}</p>
-                    <p>Size: {profile.size}</p>
-                    <p>Lives at: {profile.location}</p>
-                    <p>Owner: {profile.user.name}</p>
-                  </div>
-                  <div className="col-5">
-                    <div className="card-body">
-                      <h3>Meet {profile.puppyname}</h3>
-                      <p>{profile.description}</p>
-                      <p>
-                        <ion-icon size="large" name="paw" />
-                      </p>
+          <div className="container">
+            <Link to="/profiles" className="btn btn-light mb-3">
+              Back to profiles
+            </Link>
+            <div className="container text-center">
+              <div className="col-12">
+                <div className="card card-body bg-light mb-3">
+                  <div className="row">
+                    <div className="col-4">
+                      {/*   IMAGES STILL FIGURING IT OUT?! */}
+                      <img src={profile.user.avatar} alt="user-avatar" />
+                      <p>Sex: {profile.sex}</p>
+                      <p>Location: {profile.location}</p>
+                      <p>Breed: {profile.breed}</p>
+                      <p>Age: {profile.age}</p>
+                      <p>Size: {profile.size}</p>
+                      <p>Lives at: {profile.location}</p>
+                      <p>Owner: {profile.user.name}</p>
                     </div>
-                  </div>
-                  <div className="col-3 d-none d-lg-block">
-                    <div>
-                      <h4>Qualities</h4>
-                      <ul className="list-group">
-                        <li className="list-group-item">
-                          <i className="fa fa-check pr-1" />
-                          {profile.qualities1}
-                        </li>
-                        <li className="list-group-item">
-                          <i className="fa fa-check pr-1" />
-                          {profile.qualities2}
-                        </li>
-                        <li className="list-group-item">
-                          <i className="fa fa-check pr-1" />
-                          {profile.qualities3}
-                        </li>
-                      </ul>
+                    <div className="col-5">
+                      <div className="card-body">
+                        <h3>Meet {profile.puppyname}</h3>
+                        <p>{profile.description}</p>
+                        <p>
+                          <ion-icon size="large" name="paw" />
+                        </p>
+                      </div>
                     </div>
+                    <div className="col-3 d-none d-lg-block">
+                      <div>
+                        <h4>Qualities</h4>
+                        <ul className="list-group">
+                          <li className="list-group-item">
+                            <i className="fa fa-check pr-1" />
+                            {profile.qualities1}
+                          </li>
+                          <li className="list-group-item">
+                            <i className="fa fa-check pr-1" />
+                            {profile.qualities2}
+                          </li>
+                          <li className="list-group-item">
+                            <i className="fa fa-check pr-1" />
+                            {profile.qualities3}
+                          </li>
+                        </ul>
+                      </div>
 
-                    <div className="medias">
-                      <a href={profile.youtube}>
-                        <ion-icon size="large" name="logo-youtube" />
-                      </a>
-                      <a href={profile.instagram}>
-                        <ion-icon size="large" name="logo-instagram" />
-                      </a>
+                      <div className="medias">
+                        <a href={profile.youtube}>
+                          <ion-icon size="large" name="logo-youtube" />
+                        </a>
+                        <a href={profile.instagram}>
+                          <ion-icon size="large" name="logo-instagram" />
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
       );
 
       if (matched) {
         matchContent = (
-          <div className="row mt-3">
+          <div className="row mb-4">
             <div className="col-12 text-center">
-              <h4>{profile.puppyname} and you are already matched! </h4>
+              <h3>{profile.puppyname} and you are already matched! </h3>
             </div>
           </div>
         );
@@ -182,9 +182,9 @@ class ProfileIndividual extends Component {
     }
 
     return (
-      <div className="dashboard mt-3">
-        <div>{profileContent}</div>
-        <div>{matchContent}</div>
+      <div className="container">
+        <div className="mt-4">{profileContent}</div>
+        <div className="mt-4">{matchContent}</div>
       </div>
     );
   }

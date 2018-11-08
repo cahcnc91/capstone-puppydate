@@ -10,7 +10,7 @@ class ChatIndividual extends Component {
         <div>
           {activeChat.messages.length > 0 ? (
             <div>
-              <h4>Messages</h4>
+              <h4 className="mt-3">Messages</h4>
               {activeChat.messages.map((message, index) => {
                 return (
                   <table key={index}>

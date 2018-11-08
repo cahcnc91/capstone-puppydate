@@ -9,7 +9,6 @@ import ChatList from "./ChatList";
 import ChatIndividual from "./ChatIndividual";
 import Messages from "./Messages";
 
-
 class Chats extends Component {
   constructor(props) {
     super(props);
@@ -48,7 +47,6 @@ class Chats extends Component {
 
     this.props.addMessage(chatId, newMessage);
     this.setState({ text: "" });
-    
   }
 
   onChange(e) {
@@ -83,9 +81,9 @@ class Chats extends Component {
     if (chats === null) {
       chatContent = "";
     } else if (!activeChat) {
-      chatContent = <h4>Choose a chat</h4>;
+      chatContent = <h4 className="mt-4">Choose a chat</h4>;
     } else {
-      chatContent = <ChatIndividual activeChat={activeChat}/>;
+      chatContent = <ChatIndividual activeChat={activeChat} />;
     }
 
     if (this.state.activeChat !== "") {
@@ -102,15 +100,13 @@ class Chats extends Component {
       messagesForm = "";
     }
     return (
-      <div className="row chat">
-        <div className="col-3 sidenav">{chatListContent}</div>
-        <div className="col-9">
-          <div id="message-history">
-              {chatContent}
-            </div>
-          <div id="new-message">{messagesForm}</div>
+        <div className="row chat">
+          <div className="col-3 sidenav">{chatListContent}</div>
+          <div className="col-9">
+            <div id="message-history">{chatContent}</div>
+            <div id="new-message">{messagesForm}</div>
+          </div>
         </div>
-      </div>
     );
   }
 }
