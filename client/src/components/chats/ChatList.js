@@ -19,7 +19,7 @@ class ChatList extends Component {
                 key={chat._id}
                 onClick={() => this.props.setActiveChat(chat)}
                 style={{
-                  background: this.props.activeChatSelected === chat ? "blue" : "none"
+                  background: this.props.activeChatSelected === chat ? "#888888" : "none"
                   
                 }}
                 className="chat-list"

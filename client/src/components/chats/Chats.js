@@ -82,6 +82,8 @@ class Chats extends Component {
       chatContent = "";
     } else if (!activeChat) {
       chatContent = <h4 className="mt-4">Choose a chat</h4>;
+    } else if (activeChat.messages.length ===0) {
+      chatContent =  <h4 className="mt-4">No messages yet. Send Hi!</h4>;
     } else {
       chatContent = <ChatIndividual activeChat={activeChat} />;
     }
@@ -100,13 +102,13 @@ class Chats extends Component {
       messagesForm = "";
     }
     return (
-        <div className="row chat">
-          <div className="col-3 sidenav">{chatListContent}</div>
-          <div className="col-9">
-            <div id="message-history">{chatContent}</div>
-            <div id="new-message">{messagesForm}</div>
-          </div>
+      <div className="row chat">
+        <div className="col-3 sidenav">{chatListContent}</div>
+        <div className="col-9 main-chat mb-4">
+          <div id="message-history">{chatContent}</div>
+          <div id="new-message">{messagesForm}</div>
         </div>
+      </div>
     );
   }
 }

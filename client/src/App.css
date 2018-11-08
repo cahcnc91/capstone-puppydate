@@ -112,7 +112,6 @@ img {
   color: white;
 }
 
-
 /*-----DASHBOARD PROFILE------*/
 .display-profiles {
   margin-top: 25px;
@@ -148,7 +147,7 @@ img {
 
 /*-----CHAT-----*/
 .chat {
-  height: 100vh;
+  height: 90vh;
   padding: 0;
 }
 
@@ -174,7 +173,7 @@ tr {
 
 tr.chat-list:hover {
   cursor: pointer;
-  color: rgb(162, 162, 163);
+  color: rgb(136, 136, 136);
 }
 
 #new-message {
@@ -185,6 +184,6 @@ tr.chat-list:hover {
 }
 
 #message-history {
-  height: 62%;
+  height: 72%;
   overflow: auto;
 }
