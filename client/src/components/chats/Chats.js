@@ -67,6 +67,8 @@ class Chats extends Component {
       chatListContent = (
         <h5> You have no chats yet, match with someone first!</h5>
       );
+    } else if (loading) {
+      chatListContent = <Spinner />
     } else {
       chatListContent = (
         <ChatList
@@ -82,8 +84,8 @@ class Chats extends Component {
       chatContent = "";
     } else if (!activeChat) {
       chatContent = <h4 className="mt-4">Choose a chat</h4>;
-    } else if (activeChat.messages.length ===0) {
-      chatContent =  <h4 className="mt-4">No messages yet. Send Hi!</h4>;
+    } else if (activeChat.messages.length === 0) {
+      chatContent = <h4 className="mt-4">No messages yet. Send Hi!</h4>;
     } else {
       chatContent = <ChatIndividual activeChat={activeChat} />;
     }

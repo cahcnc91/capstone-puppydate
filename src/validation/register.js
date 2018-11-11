@@ -9,8 +9,8 @@ module.exports = function validateRegisterInput(data) {
   data.password = !isEmpty(data.password) ? data.password : "";
   data.password2 = !isEmpty(data.password2) ? data.password2 : "";
 
-  if (!Validator.isLength(data.name, { min: 2, max: 12 })) {
-    errors.name = "Name must be between 2 and 12 characters";
+  if (!Validator.isLength(data.name, { min: 2, max: 15 })) {
+    errors.name = "Name must be between 2 and 15 characters";
   }
 
   if (Validator.isEmpty(data.name)) {
