@@ -5,8 +5,7 @@ import {
   GET_ERRORS,
   GET_CHATS,
   GET_ACTIVECHAT,
-  CHAT_LOADING,
-  ACTIVE_CHAT
+  CHAT_LOADING
 } from "./types";
 
 //Add Chat
