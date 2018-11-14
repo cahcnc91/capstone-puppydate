@@ -167,6 +167,11 @@ tr.chat-list {
   font-size: 20px;
 }
 
+tr.active-chat-selected {
+  font-size: 20px;
+  background-color: rgba(106, 123, 134, 0.575);
+}
+
 tr {
   font-size: 14px;
 }

@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 class ChatList extends Component {
-
   render() {
-    const { chats, user } = this.props;
+    const { chats, activeChat, user } = this.props;
 
     return (
       <div>
@@ -18,11 +17,7 @@ class ChatList extends Component {
               <tr
                 key={chat._id}
                 onClick={() => this.props.setActiveChat(chat)}
-                style={{
-                  background: this.props.activeChatSelected === chat ? "#888888" : "none"
-                  
-                }}
-                className="chat-list"
+                className={activeChat ? 'active-chat-selected' : 'chat-list'}
               >
                 {chat.user === user.id ? (
                   <td>{chat.nameUserMatch}</td>

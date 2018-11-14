@@ -13,7 +13,6 @@ class Chats extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeChatSelected: "",
       text: "",
       errors: {}
     };
@@ -29,20 +28,20 @@ class Chats extends Component {
 
   setActiveChat(chat) {
     this.props.getActiveChat(chat._id);
-    this.setState({ activeChatSelected: chat });
   }
 
   onSubmit(e) {
     e.preventDefault();
     const { user } = this.props.auth;
+    const { activeChat } = this.props.chat;
 
     const newMessage = {
-      chatId: this.state.activeChatSelected._id,
+      chatId: activeChat._id,
       name: user.name,
       text: this.state.text
     };
 
-    const chatId = this.state.activeChatSelected._id;
+    const chatId = activeChat._id;
     console.log(chatId);
 
     this.props.addMessage(chatId, newMessage);
@@ -55,8 +54,7 @@ class Chats extends Component {
   }
 
   render() {
-    const { chats, loading } = this.props.chat;
-    const { activeChat } = this.props.chat;
+    const { chats, activeChat, loading } = this.props.chat;
     const { user } = this.props.auth;
     const { errors } = this.props;
     let chatListContent;
@@ -68,13 +66,13 @@ class Chats extends Component {
         <h5> You have no chats yet, match with someone first!</h5>
       );
     } else if (loading) {
-      chatListContent = <Spinner />
+      chatListContent = <Spinner />;
     } else {
       chatListContent = (
         <ChatList
           chats={chats}
           user={user}
-          activeChatSelected={this.state.activeChatSelected}
+          activeChat={activeChat}
           setActiveChat={this.setActiveChat}
         />
       );
@@ -90,11 +88,10 @@ class Chats extends Component {
       chatContent = <ChatIndividual activeChat={activeChat} />;
     }
 
-    if (this.state.activeChat !== "") {
+    if (activeChat) {
       messagesForm = (
         <Messages
           errors={errors}
-          activeChat={this.state.activeChat}
           onSubmit={e => this.onSubmit(e)}
           onChange={e => this.onChange(e)}
           text={this.state.text}
