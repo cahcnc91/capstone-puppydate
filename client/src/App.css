@@ -3,16 +3,16 @@ footer {
   color: white;
   height: 50px;
   font-size: 15px;
+  bottom: 0;
+  width: 100%;
 }
 
 .container-for-all-components {
-  height: 90vh;
+  height: 100vh;
 }
 
 /*----LANDING ----*/
-img {
-  width: 80%;
-}
+
 
 .landing {
   position: relative;
@@ -115,8 +115,8 @@ img {
 /*-----DASHBOARD PROFILE------*/
 .display-profiles {
   margin-top: 25px;
-  width: 46rem;
-  height: 23rem;
+  width: 40rem;
+  height: 20rem;
 }
 
 .card-body p {
@@ -124,7 +124,7 @@ img {
 }
 
 .card-body {
-  padding: 4%;
+  padding: 3%;
 }
 
 .description-card {

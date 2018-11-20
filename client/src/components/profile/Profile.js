@@ -6,8 +6,7 @@ class Profile extends Component {
     const profile = this.props.profile;
 
     return (
-      <div className="dashboard mt-3">
-        <div className="container text-center">
+        <div className="container text-center mt-3">
           <div className="col-12">
             <div className="card card-body bg-light mb-3">
               <div className="row">
@@ -21,16 +20,14 @@ class Profile extends Component {
                   <p>Lives at: {profile.location}</p>
                   <p>Owner: {profile.user.name}</p>
                 </div>
-                <div className="col-5">
-                  <div className="card-body">
+                <div className="col-4">
                     <h3>Meet {profile.puppyname}</h3>
                     <p>{profile.description}</p>
                     <p>
                       <ion-icon size="large" name="paw" />
                     </p>
-                  </div>
                 </div>
-                <div className="col-3 d-none d-lg-block">
+                <div className="col-4 d-none d-lg-block">
                   <div>
                     <h4>Qualities</h4>
                     <ul className="list-group">
@@ -62,7 +59,6 @@ class Profile extends Component {
             </div>
           </div>
         </div>
-      </div>
     );
   }
 }

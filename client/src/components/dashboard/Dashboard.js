@@ -27,7 +27,7 @@ class Dashboard extends Component {
       //CHECK IF LOGGED IN USER HAS PROFILE DATA
       if (Object.keys(profile).length > 0) {
         dashboardContent = (
-          <div className="container">
+        <div className="container">
           <div className="text-center row">
             <Link to="/edit-profile" className="btn btn-light">
               <i className="fas fa-user-circle text-info mr-1" /> Edit Profile
@@ -63,13 +63,9 @@ class Dashboard extends Component {
     }
 
     return (
-      <div>
+      <div className ="container-for-all-components">
         <h3 className="welcome mt-4">Welcome, {user.name}!</h3>
-        <div className="container">
-          <div className="row">
-            {dashboardContent}
-          </div>
-        </div>
+        {dashboardContent}
       </div>
     );
   }

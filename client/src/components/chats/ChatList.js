@@ -2,8 +2,49 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 class ChatList extends Component {
+
+
   render() {
     const { chats, activeChat, user } = this.props;
+    let table;
+
+    if (activeChat){
+      table = (
+        <tbody>
+             {chats.map(chat => (
+               <tr
+                 key={chat._id}
+                 onClick={() => this.props.setActiveChat(chat)}
+                 className={activeChat._id === chat._id? 'active-chat-selected': 'chat-list'}
+               >
+                 {chat.user === user.id ? (
+                   <td>{chat.nameUserMatch}</td>
+                 ) : (
+                   <td>{chat.nameUser}</td>
+                 )}
+               </tr>
+             ))}
+           </tbody>
+      )
+    } else {
+      table = (
+        <tbody>
+             {chats.map(chat => (
+               <tr
+                 key={chat._id}
+                 onClick={() => this.props.setActiveChat(chat)}
+                 className='chat-list'
+               >
+                 {chat.user === user.id ? (
+                   <td>{chat.nameUserMatch}</td>
+                 ) : (
+                   <td>{chat.nameUser}</td>
+                 )}
+               </tr>
+             ))}
+           </tbody>
+      )
+    }
 
     return (
       <div>
@@ -12,21 +53,7 @@ class ChatList extends Component {
           <colgroup>
             <col />
           </colgroup>
-          <tbody>
-            {chats.map(chat => (
-              <tr
-                key={chat._id}
-                onClick={() => this.props.setActiveChat(chat)}
-                className={activeChat ? 'active-chat-selected' : 'chat-list'}
-              >
-                {chat.user === user.id ? (
-                  <td>{chat.nameUserMatch}</td>
-                ) : (
-                  <td>{chat.nameUser}</td>
-                )}
-              </tr>
-            ))}
-          </tbody>
+          {table}
         </table>
       </div>
     );
