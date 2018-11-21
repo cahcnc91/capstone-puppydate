@@ -87,62 +87,67 @@ class ProfileIndividual extends Component {
     } else {
       profileContent = (
           <div className="container">
-            <Link to="/profiles" className="btn btn-light mb-3">
-              Back to profiles
-            </Link>
-            <div className="container text-center">
-              <div className="col-12">
-                <div className="card card-body bg-light mb-3">
-                  <div className="row">
-                    <div className="col-4">
-                      {/*   IMAGES STILL FIGURING IT OUT?! */}
-                      <img src={profile.user.avatar} alt="user-avatar" />
-                      <p>Sex: {profile.sex}</p>
-                      <p>Location: {profile.location}</p>
-                      <p>Breed: {profile.breed}</p>
-                      <p>Age: {profile.age}</p>
-                      <p>Size: {profile.size}</p>
-                      <p>Lives at: {profile.location}</p>
-                      <p>Owner: {profile.user.name}</p>
-                    </div>
-                    <div className="col-5">
-                      <div className="card-body">
-                        <h3>Meet {profile.puppyname}</h3>
-                        <p>{profile.description}</p>
-                        <p>
-                          <ion-icon size="large" name="paw" />
-                        </p>
-                      </div>
-                    </div>
-                    <div className="col-3 d-none d-lg-block">
-                      <div>
-                        <h4>Qualities</h4>
-                        <ul className="list-group">
-                          <li className="list-group-item">
-                            <i className="fa fa-check pr-1" />
-                            {profile.qualities1}
-                          </li>
-                          <li className="list-group-item">
-                            <i className="fa fa-check pr-1" />
-                            {profile.qualities2}
-                          </li>
-                          <li className="list-group-item">
-                            <i className="fa fa-check pr-1" />
-                            {profile.qualities3}
-                          </li>
-                        </ul>
-                      </div>
+            <div className="row">
+              <div className="col-md-12">
+                <div className="row">
+                  <Link to="/profiles" className="btn btn-light mb-3">
+                    Back to profiles
+                  </Link>
+                </div>
+              
+                <div className="row text-center">
+                    <div className="card card-body bg-light mb-3">
+                      <div className="row">
+                        <div className="col-md-3">
+                          <img className="img-thumbnail" src={profile.user.avatar} alt="user-avatar" />
+                          <p>Sex: {profile.sex}</p>
+                          <p>Location: {profile.location}</p>
+                          <p>Breed: {profile.breed}</p>
+                          <p>Age: {profile.age}</p>
+                          <p>Size: {profile.size}</p>
+                          <p>Lives at: {profile.location}</p>
+                          <p>Owner: {profile.user.name}</p>
+                        </div>
 
-                      <div className="medias">
-                        <a href={profile.youtube}>
-                          <ion-icon size="large" name="logo-youtube" />
-                        </a>
-                        <a href={profile.instagram}>
-                          <ion-icon size="large" name="logo-instagram" />
-                        </a>
+                        <div className="col-md-6">
+                          <h3>Meet {profile.puppyname}</h3>
+                          <p>{profile.description}</p>
+                          <p>
+                            <ion-icon size="large" name="paw" />
+                          </p>
+                        </div>
+
+                        <div className="col-md-3">
+                          <h4>Qualities</h4>
+                          <ul className="list-group">
+                            <li className="list-group-item">
+                              <i className="fa fa-check pr-1" />
+                                {profile.qualities1}
+                            </li>
+                            <li className="list-group-item">
+                              <i className="fa fa-check pr-1" />
+                              {profile.qualities2}
+                            </li>
+                            <li className="list-group-item">
+                              <i className="fa fa-check pr-1" />
+                              {profile.qualities3}
+                            </li>
+                          </ul>
+
+                          <div className="mt-4">
+                            <a href={profile.youtube}>
+                              <ion-icon size="large" name="logo-youtube" />
+                            </a>
+                            <a href={profile.instagram}>
+                              <ion-icon size="large" name="logo-instagram" />
+                            </a>
+                          </div>
+
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  
+
                 </div>
               </div>
             </div>
@@ -152,7 +157,7 @@ class ProfileIndividual extends Component {
       if (matched) {
         matchContent = (
           <div className="row mb-4">
-            <div className="col-12 text-center">
+            <div className="col-md-12 text-center">
               <h3>{profile.puppyname} and you are already matched! </h3>
             </div>
           </div>
@@ -161,7 +166,7 @@ class ProfileIndividual extends Component {
         matchContent = (
           <div className="container">
             <div className="row">
-              <div className="col-12 text-center">
+              <div className="col-md-12 text-center">
                 <button
                   className="btn btn-lg button-customized button-match-pair"
                   onClick={this.handleMatch}
@@ -182,7 +187,7 @@ class ProfileIndividual extends Component {
     }
 
     return (
-      <div className="container">
+      <div className="container-for-all-components">
         <div className="mt-4">{profileContent}</div>
         <div className="mt-4">{matchContent}</div>
       </div>

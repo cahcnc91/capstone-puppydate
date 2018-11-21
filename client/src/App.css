@@ -13,7 +13,6 @@ footer {
 
 /*----LANDING ----*/
 
-
 .landing {
   position: relative;
   background: url("./img/puppies4.jpg") no-repeat;
@@ -142,7 +141,12 @@ footer {
 }
 
 .medias {
-  margin-top: 30%;
+  margin-top: 10%;
+}
+
+.description {
+  padding-left: 3%;
+  padding-right: 3%;
 }
 
 /*-----CHAT-----*/

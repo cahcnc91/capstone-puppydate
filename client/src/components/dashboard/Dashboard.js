@@ -27,43 +27,54 @@ class Dashboard extends Component {
       //CHECK IF LOGGED IN USER HAS PROFILE DATA
       if (Object.keys(profile).length > 0) {
         dashboardContent = (
-        <div className="container">
-          <div className="text-center row">
-            <Link to="/edit-profile" className="btn btn-light">
-              <i className="fas fa-user-circle text-info mr-1" /> Edit Profile
-            </Link>
-            <button
-              onClick={this.onDeleteClick.bind(this)}
-              className="btn btn-danger"
-            >
-              <i className="fas fa-graduation-cap text-info mr-1" />
-              Delete Account
-            </button>
-            </div>
+          <div className="container">
             <div className="row">
-            <Profile profile={profile} user={user} />
+              <div className="col-md-12">
+                <div className="row">
+                  <Link to="/edit-profile" className="btn btn-light">
+                    <i className="fas fa-user-circle text-info mr-1" /> Edit
+                    Profile
+                  </Link>
+                  <button
+                    onClick={this.onDeleteClick.bind(this)}
+                    className="btn btn-danger"
+                  >
+                    <i className="fas fa-graduation-cap text-info mr-1" />
+                    Delete Account
+                  </button>
+                </div>
+
+                <div className="row text-center mt-4">
+                  <Profile profile={profile} user={user} />
+                </div>
+              </div>
             </div>
-            
           </div>
         );
       } else {
         //User is logged in but has no profile
         dashboardContent = (
-          <div>
-            <h5 className="mt-4">You have not created a profile yet, please add some info</h5>
-            <Link
-              to="/create-profile"
-              className="btn btn-log button-customized mt-4"
-            >
-              Create Profile
-            </Link>
+          <div className="container">
+            <div className="row">
+              <h5 className="mt-4">
+                You have not created a profile yet, please add some info.
+              </h5>
+            </div>
+            <div className="row">
+              <Link
+                to="/create-profile"
+                className="btn btn-log button-customized mt-4"
+              >
+                Create Profile
+              </Link>
+            </div>
           </div>
         );
       }
     }
 
     return (
-      <div className ="container-for-all-components">
+      <div className="container-for-all-components">
         <h3 className="welcome mt-4">Welcome, {user.name}!</h3>
         {dashboardContent}
       </div>

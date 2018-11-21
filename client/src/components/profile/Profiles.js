@@ -30,19 +30,11 @@ class Profiles extends Component {
       }
     }
     return (
-      <div className="profiles">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <h1 className="display-4 text-center">Puppies Profiles</h1>
-              <p className="lead text-center">
-                {" "}
-                Find and connect with other puppies
-              </p>
-              {profileItems}
-            </div>
-          </div>
-        </div>
+      <div className="container">
+        <h1 className="display-4 text-center">Puppies Profiles</h1>
+        <p className="lead text-center">Find and connect with other puppies</p>
+
+        <div class="row justify-content-center">{profileItems}</div>
       </div>
     );
   }
