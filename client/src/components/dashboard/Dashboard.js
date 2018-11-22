@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCurrentProfile, deleteAccount } from "../../actions/profileActions";
 import Spinner from "../common/Spinner";
-import Profile from "../profile/Profile";
+import Profile from "./Profile";
 
 class Dashboard extends Component {
   componentDidMount() {

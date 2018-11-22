@@ -17,24 +17,23 @@ class Profiles extends Component {
 
     if (profiles === null || loading) {
       profileItems = <Spinner />;
+    } else if (profiles.length > 0) {
+      let filteredArray = profiles.filter(profile => {
+        return profile.user._id !== user.id;
+      });
+
+      profileItems = filteredArray.map(profile => (
+        <ProfileItem key={profile._id} profile={profile} />
+      ));
     } else {
-      if (profiles.length > 0) {
-        const profileItemsFiltered = profiles.filter(profile => {
-          return profile.user._id !== user.id;
-        });
-        profileItems = profileItemsFiltered.map((profile, index) => (
-          <ProfileItem key={index} profile={profile} user={user} />
-        ));
-      } else {
-        profileItems = <h4> No profiles found...</h4>;
-      }
+      profileItems = <h4> No profiles found...</h4>;
     }
+
     return (
       <div className="container">
         <h1 className="display-4 text-center">Puppies Profiles</h1>
         <p className="lead text-center">Find and connect with other puppies</p>
-
-        <div class="row justify-content-center">{profileItems}</div>
+        <div className="row justify-content-center">{profileItems}</div>
       </div>
     );
   }
@@ -42,8 +41,7 @@ class Profiles extends Component {
 
 Profiles.propTypes = {
   getProfiles: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

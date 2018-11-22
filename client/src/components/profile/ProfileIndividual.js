@@ -2,16 +2,20 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getProfileByHandle } from "../../actions/profileActions";
-import { getMatchByHandle } from "../../actions/matchActions";
+import {
+  getMatchByHandle,
+  getReverseMatchByHandle
+} from "../../actions/matchActions";
 import { Link } from "react-router-dom";
 import Spinner from "../common/Spinner";
+import MatchNoMatch from "./MatchNoMatch";
 import axios from "axios";
 
 class ProfileIndividual extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      match: ""
+      matched: ""
     };
 
     this.handleMatch = this.handleMatch.bind(this);
@@ -23,6 +27,7 @@ class ProfileIndividual extends Component {
     if (this.props.match.params.handle) {
       this.props.getProfileByHandle(this.props.match.params.handle);
       this.props.getMatchByHandle(this.props.match.params.handle);
+      this.props.getReverseMatchByHandle(this.props.match.params.handle);
     }
   }
 
@@ -32,24 +37,22 @@ class ProfileIndividual extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.state.match === true || this.state.match === false) {
+  componentDidUpdate() {
+    if (this.state.matched === true || this.state.matched === false) {
       this.handleSubmit();
-    }
-
-    if (this.props.matched !== prevProps.matched) {
       this.props.getMatchByHandle(this.props.match.params.handle);
+      this.props.getReverseMatchByHandle(this.props.match.params.handle);
     }
   }
 
   handleMatch(e) {
     e.preventDefault();
-    this.setState({ match: true });
+    this.setState({ matched: true });
   }
 
-  handleNoMatch(e, handleSubmit) {
+  handleNoMatch(e) {
     e.preventDefault();
-    this.setState({ match: false });
+    this.setState({ matched: false });
   }
 
   handleSubmit() {
@@ -58,13 +61,14 @@ class ProfileIndividual extends Component {
 
     const match = {
       user: user.id,
-      userName: user.name,
-      match: this.state.match,
+      userName: user.puppyname,
+      match: this.state.matched,
       userMatch: profile.profile.user._id,
-      nameUserMatch: profile.profile.user.name
+      nameUserMatch: profile.profile.user.puppyname
     };
 
     axios
+
       .post("/api/match", match)
       .then(res => {
         res.json({ response: "success!" });
@@ -73,123 +77,98 @@ class ProfileIndividual extends Component {
         console.log(err);
       });
 
-    this.setState({ match: "" });
+    this.setState({ matched: "" });
   }
 
   render() {
     const { profile, loading } = this.props.profile;
     let profileContent;
-    let matchContent;
-    const { matched } = this.props.matched;
+    const { match, reverseMatch } = this.props.matches;
 
     if (profile === null || loading) {
       profileContent = <Spinner />;
     } else {
       profileContent = (
-          <div className="container">
-            <div className="row">
-              <div className="col-md-12">
-                <div className="row">
-                  <Link to="/profiles" className="btn btn-light mb-3">
-                    Back to profiles
-                  </Link>
-                </div>
-              
-                <div className="row text-center">
-                    <div className="card card-body bg-light mb-3">
-                      <div className="row">
-                        <div className="col-md-3">
-                          <img className="img-thumbnail" src={profile.user.avatar} alt="user-avatar" />
-                          <p>Sex: {profile.sex}</p>
-                          <p>Location: {profile.location}</p>
-                          <p>Breed: {profile.breed}</p>
-                          <p>Age: {profile.age}</p>
-                          <p>Size: {profile.size}</p>
-                          <p>Lives at: {profile.location}</p>
-                          <p>Owner: {profile.user.name}</p>
-                        </div>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="row">
+                <Link to="/profiles" className="btn btn-light mb-3">
+                  Back to profiles
+                </Link>
+              </div>
 
-                        <div className="col-md-6">
-                          <h3>Meet {profile.puppyname}</h3>
-                          <p>{profile.description}</p>
-                          <p>
-                            <ion-icon size="large" name="paw" />
-                          </p>
-                        </div>
+              <div className="row text-center">
+                <div className="card card-body bg-light mb-3">
+                  <div className="row">
+                    <div className="col-md-3">
+                      <img
+                        className="img-thumbnail"
+                        src={profile.user.avatar}
+                        alt="user-avatar"
+                      />
+                      <p>Sex: {profile.sex}</p>
+                      <p>Location: {profile.location}</p>
+                      <p>Breed: {profile.breed}</p>
+                      <p>Age: {profile.age}</p>
+                      <p>Size: {profile.size}</p>
+                      <p>Lives at: {profile.location}</p>
+                      <p>Owner: {profile.user.name}</p>
+                    </div>
 
-                        <div className="col-md-3">
-                          <h4>Qualities</h4>
-                          <ul className="list-group">
-                            <li className="list-group-item">
-                              <i className="fa fa-check pr-1" />
-                                {profile.qualities1}
-                            </li>
-                            <li className="list-group-item">
-                              <i className="fa fa-check pr-1" />
-                              {profile.qualities2}
-                            </li>
-                            <li className="list-group-item">
-                              <i className="fa fa-check pr-1" />
-                              {profile.qualities3}
-                            </li>
-                          </ul>
+                    <div className="col-md-6">
+                      <h3>Meet {profile.user.puppyname}</h3>
+                      <p>{profile.description}</p>
+                      <p>
+                        <ion-icon size="large" name="paw" />
+                      </p>
+                    </div>
 
-                          <div className="mt-4">
-                            <a href={profile.youtube}>
-                              <ion-icon size="large" name="logo-youtube" />
-                            </a>
-                            <a href={profile.instagram}>
-                              <ion-icon size="large" name="logo-instagram" />
-                            </a>
-                          </div>
+                    <div className="col-md-3">
+                      <h4>Qualities</h4>
+                      <ul className="list-group">
+                        <li className="list-group-item">
+                          <i className="fa fa-check pr-1" />
+                          {profile.qualities1}
+                        </li>
+                        <li className="list-group-item">
+                          <i className="fa fa-check pr-1" />
+                          {profile.qualities2}
+                        </li>
+                        <li className="list-group-item">
+                          <i className="fa fa-check pr-1" />
+                          {profile.qualities3}
+                        </li>
+                      </ul>
 
-                        </div>
+                      <div className="mt-4">
+                        <a href={profile.youtube}>
+                          <ion-icon size="large" name="logo-youtube" />
+                        </a>
+                        <a href={profile.instagram}>
+                          <ion-icon size="large" name="logo-instagram" />
+                        </a>
                       </div>
                     </div>
-                  
-
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
       );
-
-      if (matched) {
-        matchContent = (
-          <div className="row mb-4">
-            <div className="col-md-12 text-center">
-              <h3>{profile.puppyname} and you are already matched! </h3>
-            </div>
-          </div>
-        );
-      } else {
-        matchContent = (
-          <div className="container">
-            <div className="row">
-              <div className="col-md-12 text-center">
-                <button
-                  className="btn btn-lg button-customized button-match-pair"
-                  onClick={this.handleMatch}
-                >
-                  <ion-icon size="large" name="heart" />
-                </button>
-                <button
-                  className="btn btn-lg button-nomatch button-match-pair"
-                  onClick={this.handleNoMatch}
-                >
-                  <ion-icon size="large" name="close" />
-                </button>
-              </div>
-            </div>
-          </div>
-        );
-      }
     }
 
     return (
       <div className="container-for-all-components">
         <div className="mt-4">{profileContent}</div>
-        <div className="mt-4">{matchContent}</div>
+        <MatchNoMatch
+          profile={profile}
+          match={match}
+          reverseMatch={reverseMatch}
+          handleMatch={e => this.handleMatch(e)}
+          handleNoMatch={e => this.handleNoMatch(e)}
+        />
       </div>
     );
   }
@@ -198,18 +177,19 @@ class ProfileIndividual extends Component {
 ProfileIndividual.propTypes = {
   getProfileByHandle: PropTypes.func.isRequired,
   getMatchByHandle: PropTypes.func.isRequired,
+  getReverseMatchByHandle: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  matched: PropTypes.object.isRequired
+  matches: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   profile: state.profile,
   auth: state.auth,
-  matched: state.matched
+  matches: state.matches
 });
 
 export default connect(
   mapStateToProps,
-  { getProfileByHandle, getMatchByHandle }
+  { getProfileByHandle, getMatchByHandle, getReverseMatchByHandle }
 )(ProfileIndividual);

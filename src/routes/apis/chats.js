@@ -13,22 +13,6 @@ const validateChatInput = require("../../validation/chat");
 //@access Public
 router.get("/test", (req, res) => res.json({ msg: "Chats works" }));
 
-//@route  POST api/chats
-//@desc   Create chat
-//@access Private
-router.post(
-  "/",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    const newChat = new Chat({
-      user: req.user.id,
-      userMatch: req.body.userMatch
-    });
-
-    newChat.save().then(chat => res.json(chat));
-  }
-);
-
 //@route  GET api/chats/user/:id
 //@desc   Find chats
 //@access Private
@@ -37,12 +21,13 @@ router.get("/user/:id", (req, res) => {
     .then(chats => {
       //check for chats
       if (chats.length === 0) {
-        res.status(401);
-        res.json({ nochats: "No Chats Found" });
+        res.json(null);
+      } else {
+        res.json(chats);
       }
-      res.json(chats);
+     
     })
-    .catch(err => res.status(404).json({ nochatfound: "No chats found" }));
+    .catch(err => console.log(err));
 });
 
 //@route  GET api/chats/:id

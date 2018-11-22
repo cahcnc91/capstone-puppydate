@@ -10,6 +10,7 @@ class Register extends Component {
     super();
     this.state = {
       name: "",
+      puppyname: "",
       email: "",
       password: "",
       password2: "",
@@ -41,6 +42,7 @@ class Register extends Component {
 
     const newUser = {
       name: this.state.name,
+      puppyname: this.state.puppyname,
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2
@@ -68,6 +70,14 @@ class Register extends Component {
                   onChange={this.onChange}
                   error={errors.name}
                   info="Enter your first name"
+                />
+                <TextFieldGroup
+                  placeholder="Name of your pup"
+                  name="puppyname"
+                  value={this.state.puppyname}
+                  onChange={this.onChange}
+                  error={errors.puppyname}
+                  info="Enter your pup's name"
                 />
                 <TextFieldGroup
                   placeholder="Email"

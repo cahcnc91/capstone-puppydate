@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 class Profile extends Component {
   render() {
-    const profile = this.props.profile;
+    const { profile , user} = this.props;
 
     return (
       <div className="card card-body bg-light mb-3">
@@ -20,7 +20,7 @@ class Profile extends Component {
           </div>
 
           <div className="col-md-6">
-            <h3>Meet {profile.puppyname}</h3>
+            <h3>Meet {user.puppyname}</h3>
             <p>{profile.description}</p>
             <p>
               <ion-icon size="large" name="paw" />

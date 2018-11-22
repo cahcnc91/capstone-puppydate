@@ -39,6 +39,7 @@ router.post("/register", (req, res) => {
 
       const newUser = new User({
         name: req.body.name,
+        puppyname: req.body.puppyname,
         email: req.body.email,
         avatar,
         password: req.body.password
@@ -82,7 +83,7 @@ router.post("/login", (req, res) => {
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         //User Match
-        const payload = { id: user.id, name: user.name, avatar: user.avatar }; // CREATE JWT Payload
+        const payload = { id: user.id, name: user.name, puppyname: user.puppyname, avatar: user.avatar }; // CREATE JWT Payload
 
         //Sign Token
         jwt.sign(payload, secretOrKeys, { expiresIn: 3600 }, (err, token) => {
@@ -109,6 +110,7 @@ router.get(
     res.json({
       id: req.user.id,
       name: req.user.name,
+      puppyname: req.user.puppyname,
       email: req.user.email
     });
   }

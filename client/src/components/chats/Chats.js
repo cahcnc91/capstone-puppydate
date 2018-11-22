@@ -36,12 +36,11 @@ class Chats extends Component {
 
     const newMessage = {
       chatId: activeChat._id,
-      name: user.name,
+      name: user.puppyname,
       text: this.state.text
     };
 
     const chatId = activeChat._id;
-    console.log(chatId);
 
     this.props.addMessage(chatId, newMessage);
     this.setState({ text: "" });

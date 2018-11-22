@@ -10,5 +10,5 @@ export default combineReducers({
   errors: errorReducer,
   profile: profileReducer,
   chat: chatReducer,
-  matched: matchReducer,
+  matches: matchReducer,
 });
