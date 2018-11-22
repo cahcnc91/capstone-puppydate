@@ -61,7 +61,7 @@ class Chats extends Component {
 
     if (chats === null) {
       chatListContent = (
-        <h5> You have no chats yet, match with someone first!</h5>
+        <h5 className="d-none d-lg-block"> You have no chats yet, match with someone first!</h5>
       );
     } else if (loading) {
       chatListContent = <Spinner />;
@@ -99,13 +99,13 @@ class Chats extends Component {
       messagesForm = "";
     }
     return (
-      <div className="row chat">
-        <div className="col-3 sidenav">{chatListContent}</div>
-        <div className="col-9 main-chat mb-4">
-          <div id="message-history">{chatContent}</div>
-          <div id="new-message">{messagesForm}</div>
+        <div className="row chat">
+            <div className="col-3 sidenav">{chatListContent}</div>
+            <div className="col-9 main-chat mb-4">
+              <div id="message-history">{chatContent}</div>
+              <div id="new-message">{messagesForm}</div>
+            </div>
         </div>
-      </div>
     );
   }
 }

@@ -90,8 +90,8 @@ class ProfileIndividual extends Component {
     } else {
       profileContent = (
         <div className="container">
-          <div className="row">
-            <div className="col-md-12">
+          <div className="row justify-content-center">
+            <div className="col-md-10">
               <div className="row">
                 <Link to="/profiles" className="btn btn-light mb-3">
                   Back to profiles
@@ -142,10 +142,18 @@ class ProfileIndividual extends Component {
                       </ul>
 
                       <div className="mt-4">
-                        <a href={profile.youtube}>
+                        <a
+                          href={profile.youtube}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <ion-icon size="large" name="logo-youtube" />
                         </a>
-                        <a href={profile.instagram}>
+                        <a
+                          href={profile.instagram}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <ion-icon size="large" name="logo-instagram" />
                         </a>
                       </div>

@@ -28,8 +28,8 @@ class Dashboard extends Component {
       if (Object.keys(profile).length > 0) {
         dashboardContent = (
           <div className="container">
-            <div className="row">
-              <div className="col-md-12">
+            <div className="row justify-content-center">
+              <div className="col-md-10">
                 <div className="row">
                   <Link to="/edit-profile" className="btn btn-light">
                     <i className="fas fa-user-circle text-info mr-1" /> Edit
@@ -75,7 +75,7 @@ class Dashboard extends Component {
 
     return (
       <div className="container-for-all-components">
-        <h3 className="welcome mt-4">Welcome, {user.name}!</h3>
+        <h3 className="welcome mt-3">Welcome, {user.name}!</h3>
         {dashboardContent}
       </div>
     );
