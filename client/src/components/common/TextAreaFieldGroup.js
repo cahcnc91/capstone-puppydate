@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment} from "react";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 
@@ -11,8 +11,9 @@ const TextAreaFieldGroup = ({
   onChange
 }) => {
   return (
-    <div className="form-group">
+    <Fragment>
       <textarea
+        id="height-full"
         className={classnames("form-control form-control-lg", {
           "is-invalid": error
         })}
@@ -23,7 +24,7 @@ const TextAreaFieldGroup = ({
       />
       {info && <small className="form-text text-muted">{info}</small>}
       {error && <div className="invalid-feedback">{error}</div>}
-    </div>
+    </Fragment>
   );
 };
 

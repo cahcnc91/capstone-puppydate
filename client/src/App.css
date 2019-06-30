@@ -1,14 +1,17 @@
 footer {
-  background-color: black;
-  color: white;
-  height: 50px;
+  height: 8%;
   font-size: 15px;
-  bottom: 0;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .container-for-all-components {
   height: 100vh;
+}
+.navbar-height {
+  height: 10%;
 }
 
 /*----LANDING ----*/
@@ -18,7 +21,7 @@ footer {
   background: url("./img/puppies4.jpg") no-repeat;
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  height: 82%;
 }
 
 .landing-inner {
@@ -39,7 +42,7 @@ footer {
 }
 
 .landing-section-info {
-  padding-top: 23%;
+  padding-top: 8rem;
 }
 
 /*-----BUTTONS -----*/
@@ -141,16 +144,24 @@ footer {
 }
 
 /*-----CHAT-----*/
-.chat {
-  height: 90vh;
-  padding: 0;
+
+.chat-container {
+  height: 90%;
+  display: flex;
+  flex-direction: row;
 }
 
 .sidenav {
-  background-color: rgba(218, 219, 219, 0.83);
   height: 100%;
+  width: 25%;
+  background-color: rgba(218, 219, 219, 0.83);
   padding-top: 2%;
   padding-left: 3%;
+}
+
+.chat {
+  height: 100%;
+  width: 75%;
 }
 
 table {
@@ -178,13 +189,36 @@ tr.chat-list:hover {
 }
 
 #new-message {
-  bottom: 0;
+  height: 24%;
   width: 100%;
   margin-left: 0px;
   border-top: 1px solid #3f3f3f;
 }
 
 #message-history {
-  height: 72%;
+  height: 64%;
   overflow: auto;
+}
+
+.message-form {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 2rem;
+}
+
+.form-wrapper {
+  width: 100%;
+  padding-right: 2rem;
+}
+
+.header-messenger {
+  height: 12%;
+  border-bottom: 1px solid #3f3f3f;
+}
+/*UTILS------*/
+
+#height-full {
+  height: 100%
 }

@@ -24,9 +24,8 @@ class ChatIndividual extends Component {
     const { activeChat } = this.props;
 
     return (
-      <div>
         <div>
-          <h4 className="mt-3">Messages</h4>
+          <h4 className="mt-3"></h4>
           {activeChat.messages.map((message, index) => {
             return (
               <table key={index}>
@@ -54,7 +53,6 @@ class ChatIndividual extends Component {
             }}
           />
         </div>
-      </div>
     );
   }
 }

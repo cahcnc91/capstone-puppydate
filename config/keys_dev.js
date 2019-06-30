@@ -1,4 +1,4 @@
 module.exports = {
-  mongo_URI: "mongodb://cahcnc:tchukasnc91@ds125073.mlab.com:25073/capstone",
+  mongo_URI: "mongodb://cahcnc:tchukasnc91@ds117590.mlab.com:17590/puppydate-gcp",
   secretOrKeys: "secret"
 };

@@ -64,7 +64,7 @@ class Navbar extends Component {
     );
 
     return (
-      <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-sm navbar-dark bg-dark navbar-height">
         <div className="container">
           <Link className="navbar-brand" to="/">
             PuppyDate

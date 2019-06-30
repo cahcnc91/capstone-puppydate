@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment} from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getChats, addMessage } from "../../actions/chatActions";
@@ -99,9 +99,10 @@ class Chats extends Component {
       messagesForm = "";
     }
     return (
-        <div className="row chat">
-            <div className="col-3 sidenav">{chatListContent}</div>
-            <div className="col-9 main-chat mb-4">
+        <div className="chat-container">
+            <div className="sidenav">{chatListContent}</div>
+            <div className="chat">
+              <div className="header-messenger"></div>
               <div id="message-history">{chatContent}</div>
               <div id="new-message">{messagesForm}</div>
             </div>

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -74,10 +74,10 @@ class Dashboard extends Component {
     }
 
     return (
-      <div className="container-for-all-components">
+      <Fragment>
         <h3 className="welcome mt-3">Welcome, {user.name}!</h3>
         {dashboardContent}
-      </div>
+      </Fragment>
     );
   }
 }
