@@ -122,7 +122,8 @@ Chats.propTypes = {
 const mapStateToProps = state => ({
   chat: state.chat,
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
+  user_id: state.profile.profile._id
 });
 
 export default connect(

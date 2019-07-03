@@ -1,4 +1,6 @@
 import axios from "axios";
+import io from "socket.io-client";
+
 
 import {
   ADD_CHAT,
@@ -8,11 +10,13 @@ import {
   CHAT_LOADING
 } from "./types";
 
+const socket = io.connect();
+
 //Add Chat
 export const addChat = chatData => dispatch => {
   axios
     .post("./api/chats", chatData)
-    .then(res =>
+    .then(res => 
       dispatch({
         type: ADD_CHAT,
         payload: res.data
@@ -67,11 +71,16 @@ export const getActiveChat = (id) => dispatch => {
 export const addMessage = (chatId, messageData) => dispatch => {
   axios
     .post(`/api/chats/message/${chatId}`, messageData)
-    .then(res =>
-      dispatch({
-        type: GET_ACTIVECHAT,
-        payload: res.data
-      })
+    .then(res => {
+        dispatch({
+          type: GET_ACTIVECHAT,
+          payload: res.data
+        })
+
+        socket.emit('message', {
+          message: messageData
+        });
+      }
     )
     .catch(err =>
       dispatch({

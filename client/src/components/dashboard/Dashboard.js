@@ -5,10 +5,26 @@ import { connect } from "react-redux";
 import { getCurrentProfile, deleteAccount } from "../../actions/profileActions";
 import Spinner from "../common/Spinner";
 import Profile from "./Profile";
+import io from "socket.io-client";
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+    };
+
+    this.socket = io.connect();
+  }
+
   componentDidMount() {
     this.props.getCurrentProfile();
+
+    if (this.props.auth.user) {
+      this.socket.emit('identify', {
+        user_id: this.props.auth.user.id,
+      });
+    }
   }
 
   onDeleteClick(e) {

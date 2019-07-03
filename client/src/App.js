@@ -11,13 +11,12 @@ import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
+import Chats from "./components/chats/Chats";
 import Dashboard from "./components/dashboard/Dashboard";
 import CreateProfile from "./components/create-profile/CreateProfile";
 import EditProfile from "./components/edit-profile/EditProfile";
 import Profiles from "./components/profile/Profiles";
 import ProfileIndividual from "./components/profile/ProfileIndividual";
-import Chats from "./components/chats/Chats";
-
 
 import "./App.css";
 
@@ -43,9 +42,8 @@ if (localStorage.jwtToken) {
   }
 }
 
-
-
 class App extends Component {
+
   render() {
     return (
       <Provider store={store}>
