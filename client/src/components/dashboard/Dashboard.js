@@ -22,7 +22,7 @@ class Dashboard extends Component {
 
     if (this.props.auth.user) {
       this.socket.emit('identify', {
-        user_id: this.props.auth.user.user_id,
+        id: this.props.auth.user.id,
       });
 
       this.socket.on('message', (data) => {

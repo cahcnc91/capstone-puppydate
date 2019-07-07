@@ -25,9 +25,9 @@ let socketsIds={};
 io.on('connection', (socket) => {
   // Remember the PersonId connected to each socket
   socket.on('identify', (data) => {
-    console.log(`User ${data.user_id} connected`);
+    console.log(`User ${data.id} connected`);
     console.log(socket.id);
-    socketsIds[data.user_id] =  socket.id;
+    socketsIds[data.id] =  socket.id;
     console.log(socketsIds)
   });
 

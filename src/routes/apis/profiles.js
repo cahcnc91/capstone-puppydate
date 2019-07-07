@@ -20,9 +20,9 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const errors = {};
-
+    console.log(req.user.id)
     Profile.findOne({ user: req.user.id })
-      .populate("user", ["_id", "name", "avatar", "puppyname"])
+      .populate("user")
       .then(profile => {
         if (!profile) {
           errors.noprofile = "There is no profile for this user";
@@ -109,7 +109,7 @@ router.post(
     // Get fields
 
     const profileFields = {};
-    profileFields.user_id = req.user.id;
+    profileFields.user = req.user.id;
     if (req.body.handle) profileFields.handle = req.body.handle;
     if (req.body.size) profileFields.size = req.body.size;
     if (req.body.age) profileFields.age = req.body.age;
