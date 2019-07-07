@@ -22,7 +22,11 @@ class Dashboard extends Component {
 
     if (this.props.auth.user) {
       this.socket.emit('identify', {
-        user_id: this.props.auth.user.id,
+        user_id: this.props.auth.user.user_id,
+      });
+
+      this.socket.on('message', (data) => {
+        console.log(`message ${data.message}`)
       });
     }
   }
@@ -91,7 +95,7 @@ class Dashboard extends Component {
 
     return (
       <Fragment>
-        <h3 className="welcome mt-3">Welcome, {user.name}!</h3>
+        <h3 className="welcome mt-3">Welcome, {user.owner_name}!</h3>
         {dashboardContent}
       </Fragment>
     );

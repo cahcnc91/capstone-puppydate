@@ -2,7 +2,7 @@ import { GET_CHATS, GET_ACTIVECHAT, CHAT_LOADING, ADD_CHAT } from "../actions/ty
 
 const initialState = {
   chats: null,
-  activeChat: null,
+  activeChat: {},
   loading: false
 };
 

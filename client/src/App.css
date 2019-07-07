@@ -169,12 +169,14 @@ table {
   margin-top: 30px;
 }
 
-tr.chat-list {
+.chat-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   font-size: 20px;
-
 }
 
-tr.active-chat-selected {
+.active-chat-selected {
   font-size: 20px;
   background-color: rgba(106, 123, 134, 0.575);
 }

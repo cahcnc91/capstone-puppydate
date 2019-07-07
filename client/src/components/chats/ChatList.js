@@ -1,50 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 
 class ChatList extends Component {
 
-
   render() {
     const { chats, activeChat, user } = this.props;
-    let table;
-
-    if (activeChat){
-      table = (
-        <tbody>
-             {chats.map(chat => (
-               <tr
-                 key={chat._id}
-                 onClick={() => this.props.setActiveChat(chat)}
-                 className={activeChat._id === chat._id? 'active-chat-selected': 'chat-list'}
-               >
-                 {chat.user === user.id ? (
-                   <td>{chat.nameUserMatch}</td>
-                 ) : (
-                   <td>{chat.nameUser}</td>
-                 )}
-               </tr>
-             ))}
-           </tbody>
-      )
-    } else {
-      table = (
-        <tbody>
-             {chats.map(chat => (
-               <tr
-                 key={chat._id}
-                 onClick={() => this.props.setActiveChat(chat)}
-                 className='chat-list'
-               >
-                 {chat.user === user.id ? (
-                   <td>{chat.nameUserMatch}</td>
-                 ) : (
-                   <td>{chat.nameUser}</td>
-                 )}
-               </tr>
-             ))}
-           </tbody>
-      )
-    }
 
     return (
       <div>
@@ -53,7 +13,43 @@ class ChatList extends Component {
           <colgroup>
             <col />
           </colgroup>
-          {table}
+            {chats.map(chat => (
+               <Fragment>
+                 
+                 {chat.nameUser === user.name? (
+                   <div
+                    key={chat._id}
+                    onClick={() => this.props.setActiveChat(chat)}
+                    className={activeChat._id === chat._id? 'active-chat-selected chat-list': 'chat-list'}
+                    >
+                      <img
+                        className="rounded-circle"
+                        src={chat.user.avatar}
+                        alt={user.name}
+                        style={{ width: "25px", marginRight: "5px" }}
+                        title="You must have a Gravatar connected tp your email to display image"
+                      />{" "}
+                      <p>{chat.nameUserMatch}</p>
+                    
+                    </div>
+                 ) : (
+                  <div
+                    key={chat._id}
+                    onClick={() => this.props.setActiveChat(chat)}
+                    className={activeChat._id === chat._id? 'active-chat-selected chat-list': 'chat-list'}
+                  >
+                    <img
+                      className="rounded-circle"
+                      src={chat.user.avatar}
+                      alt={user.name}
+                      style={{ width: "25px", marginRight: "5px" }}
+                      title="You must have a Gravatar connected tp your email to display image"
+                    />{" "}
+                    <p>{chat.nameUser}</p>
+                  </div>
+                 )}
+               </Fragment>
+             ))}
         </table>
       </div>
     );

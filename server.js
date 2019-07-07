@@ -3,9 +3,10 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const path = require("path");
+var socketio = require('socket.io');
+var http = http = require('http');
 
 const app = express();
-var server = require('http').createServer(app);
 
 //Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -14,25 +15,26 @@ app.use(bodyParser.json());
 //DB CONFIG
 const db = require("./config/keys").mongo_URI;
 
-var SocketSingleton = require('./src/socket-singleton');
-SocketSingleton.configure(server); 
+var server = http.createServer(app);
+var io = socketio.listen(server);
+app.set('socketio', io); // <-- bind socket to app
 
-// Mapping users to sockets (could have multiple sockets for a single user)
-const userIdToSocket = {};
-const socketToUserId = {};
+// Mapping users to sockets 
+let socketsIds={};
 
-SocketSingleton.io.on('connection', (socket) => {
+io.on('connection', (socket) => {
   // Remember the PersonId connected to each socket
   socket.on('identify', (data) => {
     console.log(`User ${data.user_id} connected`);
-
-    userIdToSocket[data.user_id] = socket.id;
-    socketToUserId[socket.id] = data.user_id;
+    console.log(socket.id);
+    socketsIds[data.user_id] =  socket.id;
+    console.log(socketsIds)
   });
 
-  socket.on('message', (data) => {
-    console.log(`message ${data.message}`)
+  socket.on('disconnect', () => {
+    console.log(`Socket ${socket.id} disconnected.`);
   });
+
 });
 
 const users = require("./src/routes/apis/users");
@@ -76,3 +78,7 @@ const port = process.env.PORT || 4000;
 server.listen(port, () => {
   console.log(`Server running on port ${port}`)
 });
+
+module.exports = {
+  sockets_ids: socketsIds
+};

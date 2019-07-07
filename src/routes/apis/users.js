@@ -38,7 +38,7 @@ router.post("/register", (req, res) => {
       });
 
       const newUser = new User({
-        name: req.body.name,
+        owner_name: req.body.name,
         puppyname: req.body.puppyname,
         email: req.body.email,
         avatar,
@@ -84,7 +84,12 @@ router.post("/login", (req, res) => {
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         //User Match
-        const payload = { id: user.id, name: user.name, puppyname: user.puppyname, avatar: user.avatar }; // CREATE JWT Payload
+        const payload = { 
+          id: user.id, 
+          owner_name: user.owner_name, 
+          puppyname: user.puppyname, 
+          avatar: user.avatar 
+        }; // CREATE JWT Payload
 
         //Sign Token
         jwt.sign(payload, secretOrKeys, { expiresIn: 3600 }, (err, token) => {
@@ -102,15 +107,15 @@ router.post("/login", (req, res) => {
 });
 
 //@route  GET api/users/current
-//@desc   Return curretn user
+//@desc   Return current user
 //@access Private
 router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     res.json({
-      id: req.user.id,
-      name: req.user.name,
+      _id: req.user._id,
+      owner: req.user.name,
       puppyname: req.user.puppyname,
       email: req.user.email
     });

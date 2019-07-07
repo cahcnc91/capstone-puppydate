@@ -11,19 +11,8 @@ const ChatSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users"
   },
-  nameUser: {
-    type: String,
-    required: true
-  },
-  nameUserMatch: {
-    type: String,
-    required: true
-  },
   messages: [
     {
-      chatId: {
-        type: String
-      },
       name: {
         type: String
       },

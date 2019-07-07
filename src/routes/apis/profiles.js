@@ -22,7 +22,7 @@ router.get(
     const errors = {};
 
     Profile.findOne({ user: req.user.id })
-      .populate("user", ["name", "avatar", "puppyname"])
+      .populate("user", ["_id", "name", "avatar", "puppyname"])
       .then(profile => {
         if (!profile) {
           errors.noprofile = "There is no profile for this user";
@@ -107,8 +107,9 @@ router.post(
       return res.status(400).json(errors);
     }
     // Get fields
+
     const profileFields = {};
-    profileFields.user = req.user.id;
+    profileFields.user_id = req.user.id;
     if (req.body.handle) profileFields.handle = req.body.handle;
     if (req.body.size) profileFields.size = req.body.size;
     if (req.body.age) profileFields.age = req.body.age;

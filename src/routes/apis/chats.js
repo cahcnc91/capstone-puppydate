@@ -8,6 +8,8 @@ const Profile = require("../../db/models/Profile");
 
 const validateChatInput = require("../../validation/chat");
 
+const sockets_ids = require("../../../server");
+
 //@route  GET api/chats/test
 //@desc   Tests chats route
 //@access Public
@@ -18,6 +20,7 @@ router.get("/test", (req, res) => res.json({ msg: "Chats works" }));
 //@access Private
 router.get("/user/:id", (req, res) => {
   Chat.find({ $or: [{ user: req.params.id }, { userMatch: req.params.id }] })
+    .populate("user", ["name", "avatar", "puppyname"])
     .then(chats => {
       //check for chats
       if (chats.length === 0) {
@@ -88,13 +91,24 @@ router.post(
           chatId: req.body.chatId,
           text: req.body.text,
           name: req.body.name
-        };
+      }
+
 
         //Add message to array
         chat.messages.push(newMessage);
 
         //Save
         chat.save().then(chat => res.json(chat));
+
+        //Send message via socket
+        var socketio = req.app.get('socketio');
+
+
+       socketio.emit('message', {
+        message: req.body.text
+       });
+
+       console.log(sockets_ids)
       })
       .catch(err => res.status(404).json(console.log(err)));
   }

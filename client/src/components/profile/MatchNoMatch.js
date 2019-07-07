@@ -2,63 +2,13 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 class MatchNoMatch extends Component {
+  
   render() {
-    const { match, profile, reverseMatch } = this.props;
+    const { match, profile } = this.props;
 
     let matchContent;
 
-    if (match && reverseMatch) {
-      if (match.match === "true" && reverseMatch.match === "true") {
-        matchContent = (
-          <div className="row mb-4">
-            <div className="col-md-12 text-center">
-              <h3>{profile.user.puppyname} and you are matched! </h3>
-            </div>
-          </div>
-        );
-      } else if (match.match === "false") {
-        matchContent = (
-          <div className="row mb-4">
-            <div className="col-md-12 text-center">
-              <h3>You choose not to connect with {profile.user.puppyname}</h3>
-            </div>
-          </div>
-        );
-      } else {
-        matchContent = (
-          <div className="row mb-4">
-            <div className="col-md-12 text-center">
-              <h3>
-                {profile.user.puppyname} and you are not a match. Match with
-                someone else!
-              </h3>
-            </div>
-          </div>
-        );
-      }
-    } else if (match) {
-      if (match.match === "true") {
-        matchContent = (
-          <div className="row mb-4">
-            <div className="col-md-12 text-center">
-              <h3>
-                {" "}
-                You are not match yet. Wait until {profile.user.puppyname}{" "}
-                responds.
-              </h3>
-            </div>
-          </div>
-        );
-      } else {
-        matchContent = (
-          <div className="row mb-4">
-            <div className="col-md-12 text-center">
-              <h3> You chose not to match with {profile.user.puppyname}</h3>
-            </div>
-          </div>
-        );
-      }
-    } else {
+    if (match.length === 0) {
       matchContent = (
         <div className="row mb-4">
           <div className="col-md-12 text-center">
@@ -77,6 +27,10 @@ class MatchNoMatch extends Component {
           </div>
         </div>
       );
+    } else {
+      matchContent = (
+        <div>test</div>
+      )
     }
 
     return <div>{matchContent}</div>;
@@ -84,7 +38,8 @@ class MatchNoMatch extends Component {
 }
 
 MatchNoMatch.propTypes = {
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  match: PropTypes.array.isrequired
 };
 
 export default MatchNoMatch;

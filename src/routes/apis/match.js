@@ -20,53 +20,24 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const errors = {};
-
     Profile.findOne({
       handle: req.params.handle
     }).then(profile => {
+
       if (!profile) {
         errors.noprofile = "There is no profile for this user";
         res.status(404).json(errors);
-      } else {
-        Match.findOne({
-          user: req.user.id,
-          userMatch: profile.user._id
-        }).then(matchDone => {
-          if (!matchDone) {
-            res.json(null);
-          } else {
-            res.json(matchDone);
-          }
-        });
-      }
-    });
-  }
-);
 
-//@route  GET api/match/handle/reverse-match/:handle
-//@desc   Checks if match exists route
-//@access Private
-router.get(
-  "/handle/reverse-match/:handle",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    const errors = {};
-
-    Profile.findOne({
-      handle: req.params.handle
-    }).then(profile => {
-      if (!profile) {
-        errors.noprofile = "There is no profile for this user";
-        res.status(404).json(errors);
       } else {
-        Match.findOne({
-          user: profile.user._id,
-          userMatch: req.user.id
-        }).then(reverseMatchDone => {
-          if (!reverseMatchDone) {
-            res.json(null);
+
+        Match.findOne({$or: [
+          {matchOneId: profile._id},
+          {matchTwoId: profile._id}
+        ]}).then(thereIsMatch => {
+          if (!thereIsMatch) {
+            res.json([]);
           } else {
-            res.json(reverseMatchDone);
+            res.json(thereIsMatch);
           }
         });
       }
@@ -81,48 +52,78 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    console.log(req.body)
     const errors = {};
 
     Match.findOne({
-      user: req.user.id,
-      userMatch: req.body.userMatch
-    }).then(existentMatchOrNot => {
-      if (existentMatchOrNot) {
-        errors.existentmatch = "There is a match with this user already!";
-        return res.status(404).json(errors);
-      } else {
-        const newMatch = new Match({
-          user: req.user.id,
-          nameUser: req.user.name,
-          match: req.body.match,
-          userMatch: req.body.userMatch,
-          nameUserMatch: req.body.nameUserMatch
-        });
-        newMatch.save();
+      matchOneId: req.user.id,
+      matchTwoId: req.body.userMatch
+    }).then(existentMatchOne => {
+      
+      //CHECK TO SEE IF MATCH WAS ALREADY CREATED OR NOT
+      if (existentMatchOne) {
 
-        if (newMatch.match === "true") {
-          Match.findOne({
-            user: req.body.userMatch,
-            match: true,
-            userMatch: req.user.id
-          }).then(matchedPar => {
-            if (!matchedPar) {
-              res.json({ noMatch: "Not a match yet" });
-            } else {
+        //CHECKS TO SEE IF REVERSE MATCH EXISTS
+        Match.findOne({
+          matchOneId: req.body.userMatch,
+          matchTwoId: req.user.id
+        }).then(existentMatchTwo => {
+          if(existentMatchTwo){
+          
+          errors.existentmatch = "Match already exists";
+          return res.status(404).json(errors);
+
+          } else {
+            //IF REVERSE MATCH DOES NOT EXIST
+            const newMatch = new Match({
+              match: req.body.match,
+              matchOneId: req.user.id,
+              matchTwoId: req.body.userMatch,
+            });
+
+            newMatch.save().then(() => {
               const newChat = new Chat({
                 user: req.user.id,
                 userMatch: req.body.userMatch,
-                nameUser: req.user.name,
-                nameUserMatch: req.body.nameUserMatch
               });
 
-              newChat.save().catch(err => console.log(err));
-            }
-          });
-        }
+              newChat.save();
+            })
+          }
+        })
+        
+      //IF MATCH ONE DOES NOT EXISTS
+      } else {
+        const newMatch = new Match({
+          match: req.body.match,
+          matchOneId: req.user.id,
+          matchTwoId: req.body.userMatch,
+        });
+        newMatch.save();
       }
-    });
+    }).catch(err => console.log(err));
   }
 );
 
 module.exports = router;
+
+        // if (newMatch.match === "true") {
+        //   Match.findOne({
+        //     user: req.body.userMatch,
+        //     match: true,
+        //     userMatch: req.user.id
+        //   }).then(matchedPar => {
+        //     if (!matchedPar) {
+        //       res.json({ noMatch: "Not a match yet" });
+        //     } else {
+        //       const newChat = new Chat({
+        //         user: req.user.id,
+        //         userMatch: req.body.userMatch,
+        //         nameUser: req.user.name,
+        //         nameUserMatch: req.body.nameUserMatch
+        //       });
+
+        //       newChat.save().catch(err => console.log(err));
+        //     }
+        //   });
+        // }

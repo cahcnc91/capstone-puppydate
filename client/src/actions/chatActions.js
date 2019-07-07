@@ -71,16 +71,11 @@ export const getActiveChat = (id) => dispatch => {
 export const addMessage = (chatId, messageData) => dispatch => {
   axios
     .post(`/api/chats/message/${chatId}`, messageData)
-    .then(res => {
+    .then(res => 
         dispatch({
           type: GET_ACTIVECHAT,
           payload: res.data
         })
-
-        socket.emit('message', {
-          message: messageData
-        });
-      }
     )
     .catch(err =>
       dispatch({

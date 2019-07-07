@@ -34,10 +34,19 @@ class Chats extends Component {
     const { user } = this.props.auth;
     const { activeChat } = this.props.chat;
 
+    let receiver;
+
+    if(user === activeChat.user){
+      receiver = activeChat.userMatch;
+    } else {
+      receiver = activeChat.user;
+    }
+
     const newMessage = {
       chatId: activeChat._id,
       name: user.puppyname,
-      text: this.state.text
+      text: this.state.text,
+      receiver: receiver
     };
 
     const chatId = activeChat._id;
@@ -78,7 +87,7 @@ class Chats extends Component {
 
     if (chats === null) {
       chatContent = "";
-    } else if (!activeChat) {
+    } else if (!activeChat._id) {
       chatContent = <h4 className="mt-4">Choose a chat</h4>;
     } else if (activeChat.messages.length === 0) {
       chatContent = <h4 className="mt-4">No messages yet. Send Hi!</h4>;
@@ -86,7 +95,7 @@ class Chats extends Component {
       chatContent = <ChatIndividual activeChat={activeChat} />;
     }
 
-    if (activeChat) {
+    if (activeChat._id) {
       messagesForm = (
         <Messages
           errors={errors}
