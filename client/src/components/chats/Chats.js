@@ -63,7 +63,7 @@ class Chats extends Component {
   render() {
     const { chats, activeChat, loading } = this.props.chat;
     const { user } = this.props.auth;
-    const { errors } = this.props;
+    const { errors, profiles } = this.props;
     let chatListContent;
     let messagesForm;
     let chatContent;
@@ -81,6 +81,7 @@ class Chats extends Component {
           user={user}
           activeChat={activeChat}
           setActiveChat={this.setActiveChat}
+          profiles={profiles}
         />
       );
     }
@@ -132,7 +133,8 @@ const mapStateToProps = state => ({
   chat: state.chat,
   auth: state.auth,
   errors: state.errors,
-  user_id: state.profile.profile._id
+  user_id: state.profile.profile._id,
+  profiles: state.profile.profiles
 });
 
 export default connect(

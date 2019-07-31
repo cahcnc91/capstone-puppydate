@@ -4,11 +4,38 @@ import PropTypes from "prop-types";
 class MatchNoMatch extends Component {
   
   render() {
-    const { match, profile } = this.props;
+    const { match, profile, user} = this.props;
+    console.log(match)
+    console.log(user)
 
     let matchContent;
 
-    if (match.length === 0) {
+    if (match.matchOneId === user.id && match.matchTwo === 1){
+      matchContent = (
+          <div className="row mb-4">
+            <div className="col-md-12 text-center">
+              <h3> You are not match yet. Wait until {profile.user.puppyname}{" "}
+                responds.</h3>
+            </div>
+          </div>
+      )
+    } else if (match.matchOne === 3 || match.matchTwo === 3) {
+      matchContent = (
+        <div className="row mb-4">
+            <div className="col-md-12 text-center">
+              <h3> No match</h3>
+            </div>
+        </div>
+      )
+    } else if (match.matchTwo === 2 && match.matchOne === 2){
+      matchContent = (
+        <div className="row mb-4">
+            <div className="col-md-12 text-center">
+              <h3>{profile.user.puppyname} and you are matched! </h3>
+            </div>
+        </div>
+      )
+    } else {
       matchContent = (
         <div className="row mb-4">
           <div className="col-md-12 text-center">
@@ -26,10 +53,6 @@ class MatchNoMatch extends Component {
             </button>
           </div>
         </div>
-      );
-    } else {
-      matchContent = (
-        <div>test</div>
       )
     }
 
@@ -39,7 +62,8 @@ class MatchNoMatch extends Component {
 
 MatchNoMatch.propTypes = {
   profile: PropTypes.object.isRequired,
-  match: PropTypes.array.isrequired
+  match: PropTypes.array.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 export default MatchNoMatch;

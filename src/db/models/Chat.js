@@ -3,16 +3,19 @@ const Schema = mongoose.Schema;
 
 //Create Schema
 const ChatSchema = new Schema({
-  user: {
+  userMatch1: {
     type: Schema.Types.ObjectId,
     ref: "users"
   },
-  userMatch: {
+  userMatch2: {
     type: Schema.Types.ObjectId,
     ref: "users"
   },
   messages: [
     {
+      chatId: {
+        type: String
+      },
       name: {
         type: String
       },

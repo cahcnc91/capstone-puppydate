@@ -1,7 +1,7 @@
 import { GET_MATCH } from "../actions/types";
 
 const initialState = {
-  match: [],
+  match: {},
 };
 
 export default function(state = initialState, action) {

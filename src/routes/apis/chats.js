@@ -19,15 +19,25 @@ router.get("/test", (req, res) => res.json({ msg: "Chats works" }));
 //@desc   Find chats
 //@access Private
 router.get("/user/:id", (req, res) => {
-  Chat.find({ $or: [{ user: req.params.id }, { userMatch: req.params.id }] })
-    .populate("user", ["name", "avatar", "puppyname"])
-    .then(chats => {
-      //check for chats
-      if (chats.length === 0) {
-        res.json(null);
-      } else {
-        res.json(chats);
-      }
+  
+  Chat.find({ userMatch1: req.params.id }, {userMatch2: 1, messages: 1})
+    .populate('userMatch2')
+    .then(chats1 => {
+
+      Chat.find({ userMatch2: req.params.id }, {userMatch1: 1, messages: 1})
+      .populate('userMatch1')
+      .then(chats2 => {
+
+        const chats = chats1.concat(chats2);
+
+        console.log(chats)
+        if (chats.length === 0) {
+          res.json(null);
+        } else {
+          res.json(chats);
+        }
+
+      })
      
     })
     .catch(err => console.log(err));

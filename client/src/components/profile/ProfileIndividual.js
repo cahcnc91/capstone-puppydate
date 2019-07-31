@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { getProfileByHandle } from "../../actions/profileActions";
 import {
   getMatchByHandle,
-
+  createMatch
 } from "../../actions/matchActions";
 import { Link } from "react-router-dom";
 import Spinner from "../common/Spinner";
@@ -38,13 +38,13 @@ class ProfileIndividual extends Component {
 
   handleMatch(e) {
     e.preventDefault();
-    const boolMatch = true;
+    const boolMatch = 2;
     this.handleSubmit(boolMatch)
   }
 
   handleNoMatch(e) {
     e.preventDefault();
-    const boolMatch = false;
+    const boolMatch = 3;
     this.handleSubmit(boolMatch);
   }
 
@@ -56,14 +56,7 @@ class ProfileIndividual extends Component {
       match: boolMatch,
     };
 
-    axios
-      .post("/api/match", match)
-      .then(res => {
-        res.json({ response: "success!" });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.props.createMatch(match);
 
     this.setState({ matched: "" });
   }
@@ -72,6 +65,7 @@ class ProfileIndividual extends Component {
     const { profile, loading } = this.props.profile;
     let profileContent;
     const { match } = this.props.matches;
+    const { user } = this.props;
 
     if (profile === null || loading) {
       profileContent = <Spinner />;
@@ -162,6 +156,7 @@ class ProfileIndividual extends Component {
             match={match}
             handleMatch={this.handleMatch}
             handleNoMatch={this.handleNoMatch}
+            user={user}
           />
         </div>
         
@@ -176,17 +171,17 @@ ProfileIndividual.propTypes = {
   getProfileByHandle: PropTypes.func.isRequired,
   getMatchByHandle: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   matches: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   profile: state.profile,
-  auth: state.auth,
+  user: state.auth.user,
   matches: state.matches
 });
 
 export default connect(
   mapStateToProps,
-  { getProfileByHandle, getMatchByHandle }
+  { getProfileByHandle, getMatchByHandle, createMatch }
 )(ProfileIndividual);
