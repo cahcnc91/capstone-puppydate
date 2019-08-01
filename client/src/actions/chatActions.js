@@ -1,22 +1,19 @@
 import axios from "axios";
-import io from "socket.io-client";
-
 
 import {
   ADD_CHAT,
   GET_ERRORS,
   GET_CHATS,
   GET_ACTIVECHAT,
-  CHAT_LOADING
+  CHAT_LOADING,
+  SET_NEW_MESSAGE_SOCKET
 } from "./types";
-
-const socket = io.connect();
 
 //Add Chat
 export const addChat = chatData => dispatch => {
   axios
     .post("./api/chats", chatData)
-    .then(res => 
+    .then(res =>
       dispatch({
         type: ADD_CHAT,
         payload: res.data
@@ -50,7 +47,7 @@ export const getChats = id => dispatch => {
 };
 
 //Get active Chat by id
-export const getActiveChat = (id) => dispatch => {
+export const getActiveChat = id => dispatch => {
   axios
     .get(`/api/chats/${id}`)
     .then(res =>
@@ -71,11 +68,11 @@ export const getActiveChat = (id) => dispatch => {
 export const addMessage = (chatId, messageData) => dispatch => {
   axios
     .post(`/api/chats/message/${chatId}`, messageData)
-    .then(res => 
-        dispatch({
-          type: GET_ACTIVECHAT,
-          payload: res.data
-        })
+    .then(res =>
+      dispatch({
+        type: GET_ACTIVECHAT,
+        payload: res.data
+      })
     )
     .catch(err =>
       dispatch({
@@ -83,7 +80,14 @@ export const addMessage = (chatId, messageData) => dispatch => {
         payload: err.response.data
       })
     );
+};
 
+//Push message sockets current array
+export const pushMessageSockets = data => dispatch => {
+  dispatch({
+    type: SET_NEW_MESSAGE_SOCKET,
+    payload: data
+  });
 };
 
 //Set loading state

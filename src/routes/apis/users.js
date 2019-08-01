@@ -67,7 +67,7 @@ module.exports = routerInfo => {
   //@desc   Login user / Returnig JWT Token
   //@access Public
   router.post("/login", (req, res) => {
-    console.log(userIdToSocket)
+    console.log(userIdToSocket);
     const { errors, isValid } = validateLoginInput(req.body);
 
     if (!isValid) {

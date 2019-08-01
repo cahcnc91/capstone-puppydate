@@ -1,12 +1,17 @@
-import React, { Component, Fragment} from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getChats, addMessage } from "../../actions/chatActions";
+import {
+  getChats,
+  addMessage,
+  pushMessageSockets
+} from "../../actions/chatActions";
 import { getActiveChat } from "../../actions/chatActions";
 import Spinner from "../common/Spinner";
 import ChatList from "./ChatList";
 import ChatIndividual from "./ChatIndividual";
 import Messages from "./Messages";
+import io from "socket.io-client";
 
 class Chats extends Component {
   constructor(props) {
@@ -19,10 +24,21 @@ class Chats extends Component {
     this.setActiveChat = this.setActiveChat.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+
+    this.socket = io.connect();
   }
 
   componentDidMount() {
     this.props.getChats(this.props.match.params.id);
+
+    this.socket.on("message", data => {
+      const { activeChat } = this.props.chat;
+      console.log(activeChat);
+      if (activeChat._id === data.chatId) {
+        console.log(`message ${data.message} ${data.chatId}`);
+        this.props.pushMessageSockets([data]);
+      }
+    });
   }
 
   setActiveChat(chat) {
@@ -36,7 +52,7 @@ class Chats extends Component {
 
     let receiver;
 
-    if(user === activeChat.user){
+    if (user === activeChat.user) {
       receiver = activeChat.userMatch;
     } else {
       receiver = activeChat.user;
@@ -70,7 +86,10 @@ class Chats extends Component {
 
     if (chats === null) {
       chatListContent = (
-        <h5 className="d-none d-lg-block"> You have no chats yet, match with someone first!</h5>
+        <h5 className="d-none d-lg-block">
+          {" "}
+          You have no chats yet, match with someone first!
+        </h5>
       );
     } else if (loading) {
       chatListContent = <Spinner />;
@@ -109,14 +128,14 @@ class Chats extends Component {
       messagesForm = "";
     }
     return (
-        <div className="chat-container">
-            <div className="sidenav">{chatListContent}</div>
-            <div className="chat">
-              <div className="header-messenger"></div>
-              <div id="message-history">{chatContent}</div>
-              <div id="new-message">{messagesForm}</div>
-            </div>
+      <div className="chat-container">
+        <div className="sidenav">{chatListContent}</div>
+        <div className="chat">
+          <div className="header-messenger" />
+          <div id="message-history">{chatContent}</div>
+          <div id="new-message">{messagesForm}</div>
         </div>
+      </div>
     );
   }
 }
@@ -139,5 +158,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getChats, getActiveChat, addMessage }
+  { getChats, getActiveChat, addMessage, pushMessageSockets }
 )(Chats);

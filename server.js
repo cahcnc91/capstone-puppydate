@@ -7,6 +7,7 @@ var socketio = require("socket.io");
 var http = (http = require("http"));
 
 const Profile = require("./src/db/models/Profile");
+const Chats = require("./src/db/models/Chat");
 const User = require("./src/db/models/User");
 
 const app = express();
@@ -47,10 +48,8 @@ const routerInfo = model => ({
 });
 
 const UserRoute = require("./src/routes/apis/users")(routerInfo(User));
-
-const users = require("./src/routes/apis/users");
+const ChatsRoute = require("./src/routes/apis/chats")(routerInfo(Chats));
 const profile = require("./src/routes/apis/profiles");
-const chats = require("./src/routes/apis/chats");
 const match = require("./src/routes/apis/match");
 
 //CONNECT TO MONGODB
@@ -70,7 +69,7 @@ require("./config/passport")(passport);
 //Use routes
 app.use("/api/users", UserRoute);
 app.use("/api/profile", profile);
-app.use("/api/chats", chats);
+app.use("/api/chats", ChatsRoute);
 app.use("/api/match", match);
 
 // SERVER STATIC ASSETS IF IN PRODUCTION

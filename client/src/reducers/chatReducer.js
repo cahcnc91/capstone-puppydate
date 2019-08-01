@@ -1,4 +1,10 @@
-import { GET_CHATS, GET_ACTIVECHAT, CHAT_LOADING, ADD_CHAT } from "../actions/types";
+import {
+  GET_CHATS,
+  GET_ACTIVECHAT,
+  CHAT_LOADING,
+  ADD_CHAT,
+  SET_NEW_MESSAGE_SOCKET
+} from "../actions/types";
 
 const initialState = {
   chats: null,
@@ -19,7 +25,7 @@ export default function(state = initialState, action) {
         activeChat: action.payload,
         loading: false
       };
-      case GET_CHATS:
+    case GET_CHATS:
       return {
         ...state,
         chats: action.payload,
@@ -29,6 +35,16 @@ export default function(state = initialState, action) {
       return {
         ...state,
         chats: [action.payload, ...state.chats]
+      };
+    case SET_NEW_MESSAGE_SOCKET:
+      console.log(action.payload);
+      console.log("test called");
+      return {
+        ...state,
+        activeChat: {
+          ...state.activeChat,
+          messages: state.activeChat.messages.concat(action.payload)
+        }
       };
     default:
       return state;

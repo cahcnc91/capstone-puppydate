@@ -11,8 +11,7 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-    };
+    this.state = {};
 
     this.socket = io.connect();
   }
@@ -21,12 +20,8 @@ class Dashboard extends Component {
     this.props.getCurrentProfile();
 
     if (this.props.auth.user) {
-      this.socket.emit('identify', {
-        id: this.props.auth.user.id,
-      });
-
-      this.socket.on('message', (data) => {
-        console.log(`message ${data.message}`)
+      this.socket.emit("identify", {
+        id: this.props.auth.user.id
       });
     }
   }
