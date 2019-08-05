@@ -4,6 +4,7 @@ import errorReducer from "./errorReducer";
 import profileReducer from "./profileReducer";
 import chatReducer from "./chatReducer";
 import matchReducer from "./matchReducer";
+import forumReducer from "./forumReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   profile: profileReducer,
   chat: chatReducer,
   matches: matchReducer,
+  forum: forumReducer
 });

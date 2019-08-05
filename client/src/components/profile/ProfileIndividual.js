@@ -2,21 +2,15 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getProfileByHandle } from "../../actions/profileActions";
-import {
-  getMatchByHandle,
-  createMatch
-} from "../../actions/matchActions";
+import { getMatchByHandle, createMatch } from "../../actions/matchActions";
 import { Link } from "react-router-dom";
 import Spinner from "../common/Spinner";
 import MatchNoMatch from "./MatchNoMatch";
-import axios from "axios";
 
 class ProfileIndividual extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-
-    };
+    this.state = {};
 
     this.handleMatch = this.handleMatch.bind(this);
     this.handleNoMatch = this.handleNoMatch.bind(this);
@@ -39,7 +33,7 @@ class ProfileIndividual extends Component {
   handleMatch(e) {
     e.preventDefault();
     const boolMatch = 2;
-    this.handleSubmit(boolMatch)
+    this.handleSubmit(boolMatch);
   }
 
   handleNoMatch(e) {
@@ -53,7 +47,7 @@ class ProfileIndividual extends Component {
 
     const match = {
       userMatch: profile.profile.user._id,
-      match: boolMatch,
+      match: boolMatch
     };
 
     this.props.createMatch(match);
@@ -69,8 +63,6 @@ class ProfileIndividual extends Component {
 
     if (profile === null || loading) {
       profileContent = <Spinner />;
-
-
     } else {
       profileContent = (
         <div className="container-for-all-components">
@@ -159,7 +151,6 @@ class ProfileIndividual extends Component {
             user={user}
           />
         </div>
-        
       );
     }
 

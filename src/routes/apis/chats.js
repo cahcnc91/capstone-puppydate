@@ -93,9 +93,6 @@ module.exports = routerInfo => {
       if (!isValid) {
         return res.status(400).json(errors);
       }
-      console.log("message sent");
-      console.log(userIdToSocket);
-
       model
         .findById(req.body.chatId)
         .then(chat => {

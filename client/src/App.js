@@ -17,6 +17,7 @@ import CreateProfile from "./components/create-profile/CreateProfile";
 import EditProfile from "./components/edit-profile/EditProfile";
 import Profiles from "./components/profile/Profiles";
 import ProfileIndividual from "./components/profile/ProfileIndividual";
+import Forum from "./components/forum/Forum";
 
 import "./App.css";
 
@@ -43,7 +44,6 @@ if (localStorage.jwtToken) {
 }
 
 class App extends Component {
-
   render() {
     return (
       <Provider store={store}>
@@ -68,6 +68,9 @@ class App extends Component {
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
               </Switch>
               <Switch>
+                <PrivateRoute exact path="/forums" component={Forum} />
+              </Switch>
+              <Switch>
                 <PrivateRoute
                   exact
                   path="/create-profile"
@@ -85,7 +88,6 @@ class App extends Component {
                 <PrivateRoute exact path="/chats/user/:id" component={Chats} />
               </Switch>
             </Fragment>
-            
           </div>
         </Router>
       </Provider>

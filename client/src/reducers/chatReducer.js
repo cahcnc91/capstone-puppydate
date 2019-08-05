@@ -37,8 +37,6 @@ export default function(state = initialState, action) {
         chats: [action.payload, ...state.chats]
       };
     case SET_NEW_MESSAGE_SOCKET:
-      console.log(action.payload);
-      console.log("test called");
       return {
         ...state,
         activeChat: {
