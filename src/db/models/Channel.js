@@ -2,7 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 //Create Schema
-const ForumSchema = new Schema({
+const ChannelSchema = new Schema({
+  channelName: {
+    type: String
+  },
   users: [{ type: Schema.Types.ObjectId, ref: "User" }],
   messages: [
     {
@@ -20,4 +23,4 @@ const ForumSchema = new Schema({
   ]
 });
 
-module.exports = Forum = mongoose.model("forum", ForumSchema);
+module.exports = Channel = mongoose.model("channel", ChannelSchema);

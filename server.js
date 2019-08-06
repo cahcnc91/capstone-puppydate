@@ -9,7 +9,7 @@ var http = (http = require("http"));
 const Profile = require("./src/db/models/Profile");
 const Chats = require("./src/db/models/Chat");
 const User = require("./src/db/models/User");
-const Forum = require("./src/db/models/Forum");
+const Channel = require("./src/db/models/Channel");
 
 const app = express();
 
@@ -50,7 +50,7 @@ const routerInfo = model => ({
 
 const UserRoute = require("./src/routes/apis/users")(routerInfo(User));
 const ChatsRoute = require("./src/routes/apis/chats")(routerInfo(Chats));
-const ForumRoute = require("./src/routes/apis/forums")(routerInfo(Forum));
+const ChannelsRoute = require("./src/routes/apis/channel")(routerInfo(Channel));
 const profile = require("./src/routes/apis/profiles");
 const match = require("./src/routes/apis/match");
 
@@ -73,7 +73,7 @@ app.use("/api/users", UserRoute);
 app.use("/api/profile", profile);
 app.use("/api/chats", ChatsRoute);
 app.use("/api/match", match);
-app.use("/api/forums", ForumRoute);
+app.use("/api/channels", ChannelsRoute);
 
 // SERVER STATIC ASSETS IF IN PRODUCTION
 if (process.env.NODE_ENV === "production") {

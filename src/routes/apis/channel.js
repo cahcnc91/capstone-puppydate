@@ -8,21 +8,24 @@ module.exports = routerInfo => {
 
   const router = express.Router();
 
-  //@route  POST api/forums/add
+  //@route  POST api/channels/add
   //@desc  Add member to forum
   //@access Private
   router.post(
     "/create",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
-      let newSubscriber = new Forum({
+      let newChannel = new Channel({
+        channelName: req.body.channelName,
         users: [],
         messages: []
       });
-      newSubscriber
-        .save()
-        .then(newSubscriber => res.json(newSubscriber))
-        .catch(err => console.log(err));
+      newChannel.save((err, channel) => {
+        if (err) {
+          console.log(err);
+        }
+        res.json(channel);
+      });
     }
   );
 

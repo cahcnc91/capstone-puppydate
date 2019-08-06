@@ -1,17 +1,17 @@
-import { ADD_NEW_MEMBER_FORUM_SUCCESS } from "../actions/types";
+import { CREATE_CHANNEL_SUCCESS } from "../actions/types";
 
 const initialState = {
-  forumMember: [],
+  channels: [],
   conversation: [],
   loading: false
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case ADD_NEW_MEMBER_FORUM_SUCCESS:
+    case CREATE_CHANNEL_SUCCESS:
       return {
         ...state,
-        forumMember: [...action.payload]
+        channels: [...state.channels, ...action.payload]
       };
 
     default:

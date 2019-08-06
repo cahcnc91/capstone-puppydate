@@ -30,9 +30,9 @@ class Navbar extends Component {
           </Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to={`/forums`}>
+          <Link className="nav-link" to={`/channels`}>
             {" "}
-            Forum
+            Channels
           </Link>
         </li>
         <li className="nav-item">

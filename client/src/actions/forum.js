@@ -1,16 +1,17 @@
 import axios from "axios";
 
-import { GET_ERRORS, ADD_NEW_MEMBER_FORUM_SUCCESS } from "./types";
+import { GET_ERRORS, CREATE_CHANNEL_SUCCESS } from "./types";
 
-export const addMemberForum = () => dispatch => {
+export const createChannel = channelName => dispatch => {
   axios
-    .post("./api/forums/create")
-    .then(res =>
+    .post("./api/channels/create", channelName)
+    .then(res => {
+      console.log(res.data);
       dispatch({
-        type: ADD_NEW_MEMBER_FORUM_SUCCESS,
-        payload: res.data
-      })
-    )
+        type: CREATE_CHANNEL_SUCCESS,
+        payload: [res.data]
+      });
+    })
     .catch(err =>
       //   dispatch({
       //     type: GET_ERRORS,

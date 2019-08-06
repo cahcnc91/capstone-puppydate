@@ -17,7 +17,7 @@ import CreateProfile from "./components/create-profile/CreateProfile";
 import EditProfile from "./components/edit-profile/EditProfile";
 import Profiles from "./components/profile/Profiles";
 import ProfileIndividual from "./components/profile/ProfileIndividual";
-import Forum from "./components/forum/Forum";
+import Channels from "./components/channels/Channels";
 
 import "./App.css";
 
@@ -68,7 +68,7 @@ class App extends Component {
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
               </Switch>
               <Switch>
-                <PrivateRoute exact path="/forums" component={Forum} />
+                <PrivateRoute exact path="/channels" component={Channels} />
               </Switch>
               <Switch>
                 <PrivateRoute
