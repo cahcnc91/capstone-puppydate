@@ -5,7 +5,7 @@ import Spinner from "../common/Spinner";
 import TextFieldGroup from "../common/TextFieldGroup";
 import io from "socket.io-client";
 
-import { createChannel } from "../../actions/forum";
+import { createChannel, getChannelsUser } from "../../actions/channelActions";
 
 class Channels extends Component {
   constructor(props) {
@@ -25,6 +25,8 @@ class Channels extends Component {
     this.socket.on("forum", data => {
       console.log(data);
     });
+
+    this.props.getChannelsUser();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -44,6 +46,8 @@ class Channels extends Component {
 
   render() {
     const { errors } = this.state;
+    const { channels } = this.props.channels;
+
     return (
       <div className="container">
         <div className="row text-center">
@@ -68,6 +72,18 @@ class Channels extends Component {
             Create Channel
           </button>
         </div>
+        <div className="row">
+          {channels.length > 0 ? (
+            channels.map(channel => (
+              <div className="row">
+                {channel.channelName}
+                <button>See channel</button>
+              </div>
+            ))
+          ) : (
+            <div>You are not part of any channels yet</div>
+          )}
+        </div>
       </div>
     );
   }
@@ -80,10 +96,11 @@ const mapStateToProps = state => ({
   auth: state.auth,
   user_id: state.profile.profile._id,
   profiles: state.profile.profiles,
+  channels: state.channels,
   errors: state.errors
 });
 
 export default connect(
   mapStateToProps,
-  { createChannel }
+  { createChannel, getChannelsUser }
 )(Channels);

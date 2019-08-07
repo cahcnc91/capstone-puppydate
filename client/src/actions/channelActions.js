@@ -1,6 +1,10 @@
 import axios from "axios";
 
-import { GET_ERRORS, CREATE_CHANNEL_SUCCESS } from "./types";
+import {
+  GET_ERRORS,
+  CREATE_CHANNEL_SUCCESS,
+  GET_ALL_CHANNELS_FOR_USER
+} from "./types";
 
 export const createChannel = channelName => dispatch => {
   axios
@@ -19,4 +23,19 @@ export const createChannel = channelName => dispatch => {
       //   })
       console.log(err)
     );
+};
+
+export const getChannelsUser = () => dispatch => {
+  axios
+    .get("./api/channels/allchannels")
+    .then(res => {
+      console.log(res);
+      dispatch({
+        type: GET_ALL_CHANNELS_FOR_USER,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };

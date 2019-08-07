@@ -27,7 +27,6 @@ module.exports = routerInfo => {
           .then(chats2 => {
             const chats = chats1.concat(chats2);
 
-            console.log(chats);
             if (chats.length === 0) {
               res.json(null);
             } else {

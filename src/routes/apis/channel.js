@@ -17,7 +17,7 @@ module.exports = routerInfo => {
     (req, res) => {
       let newChannel = new Channel({
         channelName: req.body.channelName,
-        users: [],
+        users: [req.user.id],
         messages: []
       });
       newChannel.save((err, channel) => {
@@ -26,6 +26,17 @@ module.exports = routerInfo => {
         }
         res.json(channel);
       });
+    }
+  );
+
+  router.get(
+    "/allchannels",
+    passport.authenticate("jwt", { session: false }),
+    (req, res) => {
+      model
+        .find({ users: [req.user.id] })
+        .then(channels => res.json(channels))
+        .catch(err => console.lot(err));
     }
   );
 
