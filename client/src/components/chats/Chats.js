@@ -120,7 +120,7 @@ class Chats extends Component {
       headerContent = <div />;
     } else {
       let userRecip;
-      if (activeChat.users[0] === user._id) {
+      if (activeChat.users[0] === user.id) {
         userRecip = users[activeChat.users[1]];
       } else {
         userRecip = users[activeChat.users[0]];
