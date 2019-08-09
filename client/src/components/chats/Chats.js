@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   getChats,
   addMessage,
@@ -29,13 +30,11 @@ class Chats extends Component {
   }
 
   componentDidMount() {
-    this.props.getChats(this.props.match.params.id);
+    this.props.getChats();
 
     this.socket.on("message", data => {
       const { activeChat } = this.props.chat;
-      console.log(activeChat);
       if (activeChat._id === data.chatId) {
-        console.log(`message ${data.message} ${data.chatId}`);
         this.props.pushMessageSockets([data]);
       }
     });
@@ -77,12 +76,13 @@ class Chats extends Component {
   }
 
   render() {
-    const { chats, activeChat, loading } = this.props.chat;
+    const { chats, users, activeChat, loading } = this.props.chat;
     const { user } = this.props.auth;
     const { errors, profiles } = this.props;
     let chatListContent;
     let messagesForm;
     let chatContent;
+    let headerContent;
 
     if (chats === null) {
       chatListContent = (
@@ -98,6 +98,7 @@ class Chats extends Component {
         <ChatList
           chats={chats}
           user={user}
+          users={users}
           activeChat={activeChat}
           setActiveChat={this.setActiveChat}
           profiles={profiles}
@@ -113,6 +114,35 @@ class Chats extends Component {
       chatContent = <h4 className="mt-4">No messages yet. Send Hi!</h4>;
     } else {
       chatContent = <ChatIndividual activeChat={activeChat} />;
+    }
+
+    if (!activeChat._id) {
+      headerContent = <div />;
+    } else {
+      let userRecip;
+      if (activeChat.users[0] === user._id) {
+        userRecip = users[activeChat.users[1]];
+      } else {
+        userRecip = users[activeChat.users[0]];
+      }
+      headerContent = (
+        <Fragment>
+          <div className="row-flex">
+            <img
+              className="rounded-circle avatar-messenger"
+              src={userRecip.avatar}
+              title="You must have a Gravatar connected to your email to display image"
+            />
+            <div>
+              <p className="lead">{userRecip.puppyname}</p>
+              <p className="last-sent-message">Owner: {userRecip.owner_name}</p>
+            </div>
+          </div>
+          <Link to={`/profile/`} className="btn btn-info">
+            View Profile
+          </Link>
+        </Fragment>
+      );
     }
 
     if (activeChat._id) {
@@ -131,7 +161,7 @@ class Chats extends Component {
       <div className="chat-container">
         <div className="sidenav">{chatListContent}</div>
         <div className="chat">
-          <div className="header-messenger" />
+          <div className="header-messenger">{headerContent}</div>
           <div id="message-history">{chatContent}</div>
           <div id="new-message">{messagesForm}</div>
         </div>

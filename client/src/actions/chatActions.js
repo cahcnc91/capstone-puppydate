@@ -28,16 +28,16 @@ export const addChat = chatData => dispatch => {
 };
 
 //Get chats
-export const getChats = id => dispatch => {
+export const getChats = () => dispatch => {
   dispatch(setChatLoading);
   axios
-    .get(`/api/chats/user/${id}`)
-    .then(res =>
+    .get("/api/chats/userallchats")
+    .then(res => {
       dispatch({
         type: GET_CHATS,
         payload: res.data
-      })
-    )
+      });
+    })
     .catch(err =>
       dispatch({
         type: GET_CHATS,

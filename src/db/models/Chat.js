@@ -3,14 +3,7 @@ const Schema = mongoose.Schema;
 
 //Create Schema
 const ChatSchema = new Schema({
-  userMatch1: {
-    type: Schema.Types.ObjectId,
-    ref: "users"
-  },
-  userMatch2: {
-    type: Schema.Types.ObjectId,
-    ref: "users"
-  },
+  users: [{ type: Schema.Types.ObjectId, ref: "User" }],
   messages: [
     {
       chatId: {

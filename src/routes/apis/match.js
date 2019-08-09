@@ -26,13 +26,13 @@ router.get(
       if (!profile) {
         errors.noprofile = "There is no profile for this user";
         res.status(404).json(errors);
-
       } else {
-
-        Match.findOne({$or: [
-          {matchOneId: profile.user._id},
-          {matchTwoId: profile.user._id}
-        ]}).then(thereIsMatch => {
+        Match.findOne({
+          $or: [
+            { matchOneId: profile.user._id },
+            { matchTwoId: profile.user._id }
+          ]
+        }).then(thereIsMatch => {
           if (!thereIsMatch) {
             res.json([]);
           } else {
@@ -55,51 +55,61 @@ router.post(
 
     Match.findOne({
       $or: [
-        { $and: [ { matchOneId : req.user.id }, { matchTwoId : req.body.userMatch } ]},
-        { $and: [ { matchOneId : req.body.userMatch }, { matchTwoId : req.user.id} ]}
-      ]
-    }).then(existsMatchOne => {
-      
-      //CHECK TO SEE IF MATCH WAS ALREADY CREATED OR NOT
-      if (existsMatchOne) {
-
-        //IF REVERSE MATCH DOES NOT EXIST
-        Match.findOneAndUpdate(
-          { matchOneId : req.body.userMatch , matchTwoId : req.user.id},
-          {matchTwo: req.body.match}).then(updated => console.log(updated))
-
-        Match.find({
-          $and : [ { matchOneId : req.body.userMatch }, { matchTwoId : req.user.id } ]
-        }).then(found => console.log(found))
-
-
-        if(existsMatchOne.matchOne === 2 && req.body.match === 2){
-          const newChat = new Chat({
-            userMatch1: req.user.id, 
-            userMatch2: req.body.userMatch
-          });
-  
-          newChat.save().catch(err => console.log(err));
+        {
+          $and: [
+            { matchOneId: req.user.id },
+            { matchTwoId: req.body.userMatch }
+          ]
+        },
+        {
+          $and: [
+            { matchOneId: req.body.userMatch },
+            { matchTwoId: req.user.id }
+          ]
         }
+      ]
+    })
+      .then(existsMatchOne => {
+        //CHECK TO SEE IF MATCH WAS ALREADY CREATED OR NOT
+        if (existsMatchOne) {
+          //IF REVERSE MATCH DOES NOT EXIST
+          Match.findOneAndUpdate(
+            { matchOneId: req.body.userMatch, matchTwoId: req.user.id },
+            { matchTwo: req.body.match }
+          ).then(updated => console.log(updated));
 
-        let newMatch = existsMatchOne;
-        newMatch.matchTwo = req.body.match;
-        res.json(newMatch)
-        
-      //IF MATCH ONE DOES NOT EXISTS
-      } else {
+          Match.find({
+            $and: [
+              { matchOneId: req.body.userMatch },
+              { matchTwoId: req.user.id }
+            ]
+          }).then(found => console.log(found));
 
-        let newMatch = new Match({
-          matchOne: req.body.match,
-          matchOneId: req.user.id,
-          matchTwoId: req.body.userMatch,
-        });
-        newMatch.save();
-        res.json(newMatch)
-      }
+          if (existsMatchOne.matchOne === 2 && req.body.match === 2) {
+            const newChat = new Chat({
+              users: [req.user.id, req.body.userMatch],
+              messages: []
+            });
 
+            newChat.save().catch(err => console.log(err));
+          }
 
-    }).catch(err => console.log(err));
+          let newMatch = existsMatchOne;
+          newMatch.matchTwo = req.body.match;
+          res.json(newMatch);
+
+          //IF MATCH ONE DOES NOT EXISTS
+        } else {
+          let newMatch = new Match({
+            matchOne: req.body.match,
+            matchOneId: req.user.id,
+            matchTwoId: req.body.userMatch
+          });
+          newMatch.save();
+          res.json(newMatch);
+        }
+      })
+      .catch(err => console.log(err));
   }
 );
 

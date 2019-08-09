@@ -1,6 +1,8 @@
 const express = require("express");
 const passport = require("passport");
 const Profile = require("../../db/models/Profile");
+const User = require("../../db/models/User");
+const mongoose = require("mongoose");
 
 const validateChatInput = require("../../validation/chat");
 
@@ -13,29 +15,32 @@ module.exports = routerInfo => {
   //@access Public
   router.get("/test", (req, res) => res.json({ msg: "Chats works" }));
 
-  //@route  GET api/chats/user/:id
+  //@route  GET api/chats/userallchats
   //@desc   Find chats
   //@access Private
-  router.get("/user/:id", (req, res) => {
-    model
-      .find({ userMatch1: req.params.id }, { userMatch2: 1, messages: 1 })
-      .populate("userMatch2")
-      .then(chats1 => {
-        model
-          .find({ userMatch2: req.params.id }, { userMatch1: 1, messages: 1 })
-          .populate("userMatch1")
-          .then(chats2 => {
-            const chats = chats1.concat(chats2);
+  router.get(
+    "/userallchats",
+    passport.authenticate("jwt", { session: false }),
+    (req, res) => {
+      let userMap = {};
+      model
+        .find({ users: { $in: [mongoose.Types.ObjectId(req.user.id)] } })
+        .then(chats => {
+          User.find({}).then(usersAll => {
+            usersAll.forEach(user => {
+              userMap[user._id] = user;
+            });
 
             if (chats.length === 0) {
               res.json(null);
             } else {
-              res.json(chats);
+              res.json({ chats, userMap });
             }
           });
-      })
-      .catch(err => console.log(err));
-  });
+        })
+        .catch(err => console.log(err));
+    }
+  );
 
   //@route  GET api/chats/:id
   //@desc   Get chat by id
