@@ -7,8 +7,6 @@ class ChatListItemPerson extends PureComponent {
     const { chat, activeChat, user, users } = this.props;
 
     let userRecip;
-    console.log("test >>>>>>>>>>>>>>");
-    console.log(user.id);
     if (chat.users[0] === user.id) {
       userRecip = users[chat.users[1]];
     } else {

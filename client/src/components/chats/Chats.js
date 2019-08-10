@@ -113,7 +113,7 @@ class Chats extends Component {
     } else if (activeChat.messages.length === 0) {
       chatContent = <h4 className="mt-4">No messages yet. Send Hi!</h4>;
     } else {
-      chatContent = <ChatIndividual activeChat={activeChat} />;
+      chatContent = <ChatIndividual activeChat={activeChat} user={user} />;
     }
 
     if (!activeChat._id) {

@@ -1,0 +1,46 @@
+.MessageContainer {
+  padding: 0.75rem 1rem;
+}
+
+.SelfMessage {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 0.3rem;
+}
+
+.MessageWrapper {
+  width: 100%;
+}
+
+.SenderMessage {
+  display: flex;
+  justify-content: flex-start;
+  padding-bottom: 0.3rem;
+}
+
+.SelfMessage.Message {
+  border-radius: 1.3em;
+  background-color: #0084ff;
+  color: white;
+  padding: 6px 12px;
+  margin: 0 0 0 10px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.35rem;
+  order: 3;
+  max-width: 70% !important;
+}
+
+.SenderMessage.Message {
+  border-radius: 1.3em;
+  margin-left: 0;
+  margin-right: 10px;
+  padding: 6px 12px;
+  max-width: 80%;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.35rem;
+  order: 3;
+  background-color: #f1f0f0;
+  box-sizing: content-box;
+}

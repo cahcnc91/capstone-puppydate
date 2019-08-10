@@ -102,6 +102,8 @@ module.exports = routerInfo => {
         .then(chat => {
           const newMessage = {
             chatId: req.body.chatId,
+            message_id: new mongoose.Types.ObjectId(),
+            user_id: req.user.id,
             text: req.body.text,
             name: req.body.name
           };

@@ -9,6 +9,13 @@ const ChatSchema = new Schema({
       chatId: {
         type: String
       },
+      message_id: {
+        type: String
+      },
+      user_id: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+      },
       name: {
         type: String
       },
