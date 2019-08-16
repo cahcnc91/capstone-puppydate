@@ -38,6 +38,7 @@ router.get(
 //@access Public
 router.get("/all", (req, res) => {
   const errors = {};
+  let userMap = {};
 
   Profile.find()
     .populate("user", ["_id", "owner_name", "avatar", "puppyname"])
@@ -47,11 +48,11 @@ router.get("/all", (req, res) => {
         return res.status(404).json(errors);
       }
 
-      profiles.forEach(profile => {
-        profile.user._id;
+      profiles.forEach(user => {
+        userMap[user._id] = user;
       });
 
-      res.json(profiles);
+      res.json(userMap);
     })
     .catch(err => res.status(404).json({ profile: "There are no profiles" }));
 });

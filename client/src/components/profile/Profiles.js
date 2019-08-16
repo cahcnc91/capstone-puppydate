@@ -9,14 +9,13 @@ class Profiles extends Component {
     const { profiles, loading } = this.props.profile;
     const { user } = this.props.auth;
     let profileItems;
+    const filteredArray = Object.values(profiles).filter(profile => {
+      return profile.user._id !== user.id;
+    });
 
-    if (profiles === null || loading) {
+    if (filteredArray === null || loading) {
       profileItems = <Spinner />;
-    } else if (profiles.length > 0) {
-      let filteredArray = profiles.filter(profile => {
-        return profile.user._id !== user.id;
-      });
-
+    } else if (filteredArray.length > 0) {
       profileItems = filteredArray.map(profile => (
         <ProfileItem key={profile._id} profile={profile} />
       ));
