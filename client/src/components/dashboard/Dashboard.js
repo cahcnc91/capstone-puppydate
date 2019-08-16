@@ -2,30 +2,11 @@ import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getCurrentProfile, deleteAccount } from "../../actions/profileActions";
+import { deleteAccount } from "../../actions/profileActions";
 import Spinner from "../common/Spinner";
 import Profile from "./Profile";
-import io from "socket.io-client";
 
 class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-
-    this.socket = io.connect();
-  }
-
-  componentDidMount() {
-    this.props.getCurrentProfile();
-
-    if (this.props.auth.user) {
-      this.socket.emit("identify", {
-        id: this.props.auth.user.id
-      });
-    }
-  }
-
   onDeleteClick(e) {
     this.props.deleteAccount();
   }
@@ -98,7 +79,6 @@ class Dashboard extends Component {
 }
 
 Dashboard.propTypes = {
-  getCurrentProfile: PropTypes.func.isRequired,
   deleteAccount: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired
@@ -111,5 +91,5 @@ const mapStateToProp = state => ({
 
 export default connect(
   mapStateToProp,
-  { getCurrentProfile, deleteAccount }
+  { deleteAccount }
 )(Dashboard);

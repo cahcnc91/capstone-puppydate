@@ -22,21 +22,14 @@ module.exports = routerInfo => {
     "/userallchats",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
-      let userMap = {};
       model
         .find({ users: { $in: [mongoose.Types.ObjectId(req.user.id)] } })
         .then(chats => {
-          User.find({}).then(usersAll => {
-            usersAll.forEach(user => {
-              userMap[user._id] = user;
-            });
-
-            if (chats.length === 0) {
-              res.json(null);
-            } else {
-              res.json({ chats, userMap });
-            }
-          });
+          if (chats.length === 0) {
+            res.json(null);
+          } else {
+            res.json(chats);
+          }
         })
         .catch(err => console.log(err));
     }

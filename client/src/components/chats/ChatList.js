@@ -3,14 +3,6 @@ import PropTypes from "prop-types";
 import ChatListItemPerson from "./ChatListItemPerson";
 
 class ChatList extends Component {
-  handleFildAvatar = recipient => {
-    const user = this.props.profiles.filter(
-      profile => profile.user._id === recipient
-    );
-
-    return user.gravatar;
-  };
-
   render() {
     const { chats, activeChat, setActiveChat, user, users } = this.props;
 
@@ -35,7 +27,7 @@ class ChatList extends Component {
 
 ChatList.propTypes = {
   chats: PropTypes.array.isRequired,
-  profiles: PropTypes.array.isRequired
+  users: PropTypes.object.isRequired
 };
 
 export default ChatList;

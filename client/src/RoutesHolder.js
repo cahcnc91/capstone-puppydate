@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./components/common/PrivateRoute";
 import Chats from "./components/chats/Chats";
@@ -13,11 +14,26 @@ import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Navbar from "./components/layout/Navbar";
-import { getProfiles } from "./actions/profileActions";
+import { getProfiles, getCurrentProfile } from "./actions/profileActions";
+import io from "socket.io-client";
 
 class RoutesHolder extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {};
+
+    this.socket = io.connect();
+  }
   componentDidMount() {
     this.props.getProfiles();
+    this.props.getCurrentProfile();
+
+    if (this.props.auth.user) {
+      this.socket.emit("identify", {
+        id: this.props.auth.user.id
+      });
+    }
   }
   render() {
     return (
@@ -67,10 +83,17 @@ class RoutesHolder extends Component {
     );
   }
 }
+RoutesHolder.propTypes = {
+  getProfiles: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  auth: state.auth
+});
 
 export default connect(
   mapStateToProps,
-  { getProfiles }
+  { getProfiles, getCurrentProfile }
 )(RoutesHolder);

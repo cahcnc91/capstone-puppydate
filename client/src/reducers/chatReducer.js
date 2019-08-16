@@ -8,7 +8,6 @@ import {
 
 const initialState = {
   chats: null,
-  users: {},
   activeChat: {},
   loading: false
 };
@@ -29,8 +28,7 @@ export default function(state = initialState, action) {
     case GET_CHATS:
       return {
         ...state,
-        chats: action.payload.chats,
-        users: action.payload.userMap,
+        chats: action.payload,
         loading: false
       };
     case ADD_CHAT:

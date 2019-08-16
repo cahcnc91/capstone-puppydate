@@ -12,6 +12,7 @@ class ChatListItemPerson extends PureComponent {
     } else {
       userRecip = users[chat.users[0]];
     }
+    console.log(chat);
     return (
       <div
         key={chat._id}
@@ -24,12 +25,12 @@ class ChatListItemPerson extends PureComponent {
       >
         <img
           className="rounded-circle avatar-messenger"
-          src={userRecip.avatar}
+          src={userRecip.user.avatar}
           title="You must have a Gravatar connected tp your email to display image"
         />{" "}
         <div className="width-full">
           <div className="row-flex justify-between align-items">
-            <p className="lead">{userRecip.puppyname}</p>
+            <p className="lead">{userRecip.user.puppyname}</p>
             <p className="last-sent-message">
               {chat.messages.length > 0
                 ? moment(chat.messages[0].date).fromNow()
@@ -51,7 +52,7 @@ class ChatListItemPerson extends PureComponent {
           ) : (
             <div className="row-flex align-items">
               <p className="last-sent-message">
-                Say hi to your friend {userRecip.puppyname}
+                Say hi to your friend {userRecip.user.puppyname}
               </p>
             </div>
           )}

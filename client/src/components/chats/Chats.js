@@ -76,9 +76,9 @@ class Chats extends Component {
   }
 
   render() {
-    const { chats, users, activeChat, loading } = this.props.chat;
+    const { chats, activeChat, loading } = this.props.chat;
     const { user } = this.props.auth;
-    const { errors, profiles } = this.props;
+    const { errors, users } = this.props;
     let chatListContent;
     let messagesForm;
     let chatContent;
@@ -101,7 +101,6 @@ class Chats extends Component {
           users={users}
           activeChat={activeChat}
           setActiveChat={this.setActiveChat}
-          profiles={profiles}
         />
       );
     }
@@ -125,17 +124,20 @@ class Chats extends Component {
       } else {
         userRecip = users[activeChat.users[0]];
       }
+      console.log(userRecip);
       headerContent = (
         <Fragment>
           <div className="row-flex">
             <img
               className="rounded-circle avatar-messenger"
-              src={userRecip.avatar}
+              src={userRecip.user.avatar}
               title="You must have a Gravatar connected to your email to display image"
             />
             <div>
-              <p className="lead">{userRecip.puppyname}</p>
-              <p className="last-sent-message">Owner: {userRecip.owner_name}</p>
+              <p className="lead">{userRecip.user.puppyname}</p>
+              <p className="last-sent-message">
+                Owner: {userRecip.user.owner_name}
+              </p>
             </div>
           </div>
           <Link to={`/profile/`} className="btn btn-info">
@@ -183,7 +185,7 @@ const mapStateToProps = state => ({
   auth: state.auth,
   errors: state.errors,
   user_id: state.profile.profile._id,
-  profiles: state.profile.profiles
+  users: state.profile.profiles
 });
 
 export default connect(
