@@ -6,7 +6,8 @@ import {
   GET_CHATS,
   GET_ACTIVECHAT,
   CHAT_LOADING,
-  SET_NEW_MESSAGE_SOCKET
+  SET_NEW_MESSAGE_SOCKET,
+  ADD_MESSAGE_CLIENT
 } from "./types";
 
 //Add Chat
@@ -70,7 +71,7 @@ export const addMessage = (chatId, messageData) => dispatch => {
     .post(`/api/chats/message/${chatId}`, messageData)
     .then(res =>
       dispatch({
-        type: GET_ACTIVECHAT,
+        type: ADD_MESSAGE_CLIENT,
         payload: res.data
       })
     )

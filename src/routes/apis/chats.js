@@ -105,7 +105,7 @@ module.exports = routerInfo => {
           chat.messages.push(newMessage);
 
           //Save
-          chat.save().then(chat => res.json(chat));
+          chat.save().then(chat => res.json(newMessage));
 
           //Send message via socket
 

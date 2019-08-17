@@ -34,7 +34,8 @@ class Chats extends Component {
 
     this.socket.on("message", data => {
       const { activeChat } = this.props.chat;
-      if (activeChat._id === data.chatId) {
+      const { user } = this.props.auth;
+      if (activeChat._id === data.chatId && data.name !== user.puppyname) {
         this.props.pushMessageSockets([data]);
       }
     });

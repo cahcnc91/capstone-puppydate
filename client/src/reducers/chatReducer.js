@@ -3,7 +3,8 @@ import {
   GET_ACTIVECHAT,
   CHAT_LOADING,
   ADD_CHAT,
-  SET_NEW_MESSAGE_SOCKET
+  SET_NEW_MESSAGE_SOCKET,
+  ADD_MESSAGE_CLIENT
 } from "../actions/types";
 
 const initialState = {
@@ -26,7 +27,6 @@ export default function(state = initialState, action) {
         loading: false
       };
     case GET_CHATS:
-      console.log(action.payload);
       return {
         ...state,
         chats: action.payload,
@@ -36,6 +36,14 @@ export default function(state = initialState, action) {
       return {
         ...state,
         chats: [action.payload, ...state.chats]
+      };
+    case ADD_MESSAGE_CLIENT:
+      return {
+        ...state,
+        activeChat: {
+          ...state.activeChat,
+          messages: state.activeChat.messages.concat(action.payload)
+        }
       };
     case SET_NEW_MESSAGE_SOCKET:
       return {

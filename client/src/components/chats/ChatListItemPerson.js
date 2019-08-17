@@ -12,8 +12,7 @@ class ChatListItemPerson extends PureComponent {
     } else {
       userRecip = users[chat.users[0]];
     }
-    console.log(users);
-    console.log(user.id);
+
     return (
       <div
         key={chat._id}
@@ -48,7 +47,9 @@ class ChatListItemPerson extends PureComponent {
                   :{" "}
                 </b>
               </p>
-              <p className="last-sent-message">{chat.messages[0].text}</p>
+              <p className="last-sent-message">
+                {chat.messages[chat.messages.length - 1].text}
+              </p>
             </div>
           ) : (
             <div className="row-flex align-items">
