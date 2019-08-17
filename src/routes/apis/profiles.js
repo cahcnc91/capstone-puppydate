@@ -49,7 +49,7 @@ router.get("/all", (req, res) => {
       }
 
       profiles.forEach(user => {
-        userMap[user._id] = user;
+        userMap[user.user._id] = user;
       });
 
       res.json(userMap);

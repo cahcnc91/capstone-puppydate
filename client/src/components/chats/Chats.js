@@ -124,7 +124,7 @@ class Chats extends Component {
       } else {
         userRecip = users[activeChat.users[0]];
       }
-      console.log(userRecip);
+
       headerContent = (
         <Fragment>
           <div className="row-flex">
@@ -140,7 +140,7 @@ class Chats extends Component {
               </p>
             </div>
           </div>
-          <Link to={`/profile/`} className="btn btn-info">
+          <Link to={`/profile/${userRecip.handle}`} className="btn btn-info">
             View Profile
           </Link>
         </Fragment>

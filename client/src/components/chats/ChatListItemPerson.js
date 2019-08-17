@@ -12,7 +12,8 @@ class ChatListItemPerson extends PureComponent {
     } else {
       userRecip = users[chat.users[0]];
     }
-    console.log(chat);
+    console.log(users);
+    console.log(user.id);
     return (
       <div
         key={chat._id}
