@@ -1,8 +1,7 @@
-import { GET_MATCH, GET_REVERSEMATCH } from "../actions/types";
+import { GET_MATCH } from "../actions/types";
 
 const initialState = {
   match: {},
-  reverseMatch: {}
 };
 
 export default function(state = initialState, action) {
@@ -11,11 +10,6 @@ export default function(state = initialState, action) {
       return {
         ...state,
         match: action.payload
-      };
-    case GET_REVERSEMATCH:
-      return {
-        ...state,
-        reverseMatch: action.payload
       };
     default:
       return state;

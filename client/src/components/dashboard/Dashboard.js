@@ -2,15 +2,11 @@ import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getCurrentProfile, deleteAccount } from "../../actions/profileActions";
+import { deleteAccount } from "../../actions/profileActions";
 import Spinner from "../common/Spinner";
 import Profile from "./Profile";
 
 class Dashboard extends Component {
-  componentDidMount() {
-    this.props.getCurrentProfile();
-  }
-
   onDeleteClick(e) {
     this.props.deleteAccount();
   }
@@ -75,7 +71,7 @@ class Dashboard extends Component {
 
     return (
       <Fragment>
-        <h3 className="welcome mt-3">Welcome, {user.name}!</h3>
+        <h3 className="welcome mt-3">Welcome, {user.owner_name}!</h3>
         {dashboardContent}
       </Fragment>
     );
@@ -83,7 +79,6 @@ class Dashboard extends Component {
 }
 
 Dashboard.propTypes = {
-  getCurrentProfile: PropTypes.func.isRequired,
   deleteAccount: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired
@@ -96,5 +91,5 @@ const mapStateToProp = state => ({
 
 export default connect(
   mapStateToProp,
-  { getCurrentProfile, deleteAccount }
+  { deleteAccount }
 )(Dashboard);

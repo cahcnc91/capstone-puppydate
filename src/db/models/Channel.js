@@ -2,20 +2,13 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 //Create Schema
-const ChatSchema = new Schema({
+const ChannelSchema = new Schema({
+  channelName: {
+    type: String
+  },
   users: [{ type: Schema.Types.ObjectId, ref: "User" }],
   messages: [
     {
-      chatId: {
-        type: String
-      },
-      message_id: {
-        type: String
-      },
-      user_id: {
-        type: Schema.Types.ObjectId,
-        ref: "User"
-      },
       name: {
         type: String
       },
@@ -30,4 +23,4 @@ const ChatSchema = new Schema({
   ]
 });
 
-module.exports = Chat = mongoose.model("chat", ChatSchema);
+module.exports = Channel = mongoose.model("channel", ChannelSchema);

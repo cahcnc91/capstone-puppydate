@@ -20,9 +20,8 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const errors = {};
-
     Profile.findOne({ user: req.user.id })
-      .populate("user", ["name", "avatar", "puppyname"])
+      .populate("user", ["_id", "owner_name", "avatar", "puppyname"])
       .then(profile => {
         if (!profile) {
           errors.noprofile = "There is no profile for this user";
@@ -39,16 +38,21 @@ router.get(
 //@access Public
 router.get("/all", (req, res) => {
   const errors = {};
+  let userMap = {};
 
   Profile.find()
-    .populate("user", ["name", "avatar", "puppyname"])
+    .populate("user", ["_id", "owner_name", "avatar", "puppyname"])
     .then(profiles => {
       if (!profiles) {
         errors.noprofiles = "There are no profiles";
         return res.status(404).json(errors);
       }
 
-      res.json(profiles);
+      profiles.forEach(user => {
+        userMap[user.user._id] = user;
+      });
+
+      res.json(userMap);
     })
     .catch(err => res.status(404).json({ profile: "There are no profiles" }));
 });
@@ -59,7 +63,7 @@ router.get("/all", (req, res) => {
 router.get("/handle/:handle", (req, res) => {
   const errors = {};
   Profile.findOne({ handle: req.params.handle })
-    .populate("user", ["name", "avatar", "puppyname"])
+    .populate("user", ["_id", "owner_name", "avatar", "puppyname"])
     .then(profile => {
       if (!profile) {
         errors.noprofile = "There is no profile for this user";
@@ -78,7 +82,7 @@ router.get("/handle/:handle", (req, res) => {
 router.get("/user/:user_id", (req, res) => {
   const errors = {};
   Profile.findOne({ user: req.params.user_id })
-    .populate("user", ["name", "avatar", "puppyname"])
+    .populate("user", ["_id", "owner_name", "avatar", "puppyname"])
     .then(profile => {
       if (!profile) {
         errors.noprofile = "There is no profile for this user";
@@ -107,6 +111,7 @@ router.post(
       return res.status(400).json(errors);
     }
     // Get fields
+
     const profileFields = {};
     profileFields.user = req.user.id;
     if (req.body.handle) profileFields.handle = req.body.handle;

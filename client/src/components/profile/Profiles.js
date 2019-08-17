@@ -2,26 +2,20 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Spinner from "../common/Spinner";
-import { getProfiles } from "../../actions/profileActions";
 import ProfileItem from "./ProfileItem";
 
 class Profiles extends Component {
-  componentDidMount() {
-    this.props.getProfiles();
-  }
-
   render() {
     const { profiles, loading } = this.props.profile;
     const { user } = this.props.auth;
     let profileItems;
+    const filteredArray = Object.values(profiles).filter(profile => {
+      return profile.user._id !== user.id;
+    });
 
-    if (profiles === null || loading) {
+    if (filteredArray === null || loading) {
       profileItems = <Spinner />;
-    } else if (profiles.length > 0) {
-      let filteredArray = profiles.filter(profile => {
-        return profile.user._id !== user.id;
-      });
-
+    } else if (filteredArray.length > 0) {
       profileItems = filteredArray.map(profile => (
         <ProfileItem key={profile._id} profile={profile} />
       ));
@@ -40,7 +34,6 @@ class Profiles extends Component {
 }
 
 Profiles.propTypes = {
-  getProfiles: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired
 };
 
@@ -49,7 +42,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(
-  mapStateToProps,
-  { getProfiles }
-)(Profiles);
+export default connect(mapStateToProps)(Profiles);

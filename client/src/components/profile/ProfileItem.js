@@ -22,7 +22,7 @@ class ProfileItem extends Component {
               <h3>{profile.user.puppyname}</h3>
               <p>{profile.location}</p>
               <p>{profile.breed}</p>
-              <p>Owner: {profile.user.name}</p>
+              <p>Owner: {profile.user.owner_name}</p>
               <Link to={`/profile/${profile.handle}`} className="btn btn-info">
                 View Profile
               </Link>

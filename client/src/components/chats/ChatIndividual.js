@@ -1,5 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
+import moment from "moment";
+import "./Messages.css";
 
 class ChatIndividual extends Component {
   scrollToBottom = () => {
@@ -21,42 +23,35 @@ class ChatIndividual extends Component {
   }
 
   render() {
-    const { activeChat } = this.props;
+    const { activeChat, user } = this.props;
 
     return (
-        <div>
-          <h4 className="mt-3"></h4>
-          {activeChat.messages.map((message, index) => {
-            return (
-              <table key={index}>
-                <tbody>
-                  <tr>
-                    <td style={{ fontWeight: "bold" }} key={index}>
-                      {" "}
-                      {message.name}{" "}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>At {message.date}</td>
-                  </tr>
-                  <tr>
-                    <td>says: {message.text} </td>
-                  </tr>
-                </tbody>
-              </table>
-            );
-          })}
-          <div
-            style={{ float: "left", clear: "both" }}
-            ref={el => {
-              this.messagesEnd = el;
-            }}
-          />
-        </div>
+      <div className="MessageContainer">
+        {activeChat.messages.map((message, i) => (
+          <Fragment>
+            {message.user_id === user.id ? (
+              <div className="SelfMessage">
+                <div className="Message SelfMessage">{message.text}</div>
+              </div>
+            ) : (
+              <div className="SenderMessage">
+                <div className="Message SenderMessage">{message.text}</div>
+              </div>
+            )}
+          </Fragment>
+        ))}
+        <div
+          style={{ float: "left", clear: "both" }}
+          ref={el => {
+            this.messagesEnd = el;
+          }}
+        />
+      </div>
     );
   }
 }
 ChatIndividual.propTypes = {
-  activeChat: PropTypes.object.isRequired
+  activeChat: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 };
 export default ChatIndividual;

@@ -3,26 +3,25 @@ const Schema = mongoose.Schema;
 
 //Create Schema
 const MatchSchema = new Schema({
-  user: {
+  matchOne: {
+    type: Number,
+    required: true
+  },
+  matchOneId: {
     type: Schema.Types.ObjectId,
     ref: "users"
   },
-  match: {
-    type: String,
-    required: true
+  matchTwo: {
+    type: Number,
+    default: 1
   },
-  nameUser: {
-    type: String,
-    required: true
-  },
-  userMatch: {
-    type: String,
-    required: true
-  },
-  nameUserMatch: {
-    type: String,
-    required: true
+  matchTwoId: {
+    type: Schema.Types.ObjectId,
+    ref: "users"
   }
 });
 
 module.exports = Match = mongoose.model("match", MatchSchema);
+//1: not set yet
+//2: true
+//3 false

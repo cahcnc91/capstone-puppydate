@@ -29,6 +29,12 @@ class Navbar extends Component {
             Chats
           </Link>
         </li>
+        {/* <li className="nav-item">
+          <Link className="nav-link" to={`/channels`}>
+            {" "}
+            Channels
+          </Link>
+        </li> */}
         <li className="nav-item">
           <a
             href="/login"
@@ -82,7 +88,7 @@ class Navbar extends Component {
           <div className="collapse navbar-collapse" id="mobile-nav">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
-               {isAuthenticated ? authLinks : guestLinks}
+                {isAuthenticated ? authLinks : guestLinks}
               </li>
             </ul>
           </div>

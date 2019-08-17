@@ -1,8 +1,15 @@
-import { GET_CHATS, GET_ACTIVECHAT, CHAT_LOADING, ADD_CHAT } from "../actions/types";
+import {
+  GET_CHATS,
+  GET_ACTIVECHAT,
+  CHAT_LOADING,
+  ADD_CHAT,
+  SET_NEW_MESSAGE_SOCKET,
+  ADD_MESSAGE_CLIENT
+} from "../actions/types";
 
 const initialState = {
   chats: null,
-  activeChat: null,
+  activeChat: {},
   loading: false
 };
 
@@ -19,7 +26,7 @@ export default function(state = initialState, action) {
         activeChat: action.payload,
         loading: false
       };
-      case GET_CHATS:
+    case GET_CHATS:
       return {
         ...state,
         chats: action.payload,
@@ -29,6 +36,42 @@ export default function(state = initialState, action) {
       return {
         ...state,
         chats: [action.payload, ...state.chats]
+      };
+    case ADD_MESSAGE_CLIENT:
+      return {
+        ...state,
+        activeChat: {
+          ...state.activeChat,
+          messages: state.activeChat.messages.concat(action.payload)
+        },
+        chats: {
+          ...state.chats,
+          [action.payload[0].chatId]: {
+            ...state.chats[action.payload[0].chatId],
+            messages: [
+              ...state.chats[action.payload[0].chatId].messages,
+              ...action.payload
+            ]
+          }
+        }
+      };
+    case SET_NEW_MESSAGE_SOCKET:
+      return {
+        ...state,
+        activeChat: {
+          ...state.activeChat,
+          messages: state.activeChat.messages.concat(action.payload)
+        },
+        chats: {
+          ...state.chats,
+          [action.payload[0].chatId]: {
+            ...state.chats[action.payload[0].chatId],
+            messages: [
+              ...state.chats[action.payload[0].chatId].messages,
+              ...action.payload
+            ]
+          }
+        }
       };
     default:
       return state;
