@@ -69,18 +69,13 @@ export const getActiveChat = id => dispatch => {
 export const addMessage = (chatId, messageData) => dispatch => {
   axios
     .post(`/api/chats/message/${chatId}`, messageData)
-    .then(res =>
+    .then(res => {
       dispatch({
         type: ADD_MESSAGE_CLIENT,
         payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+      });
+    })
+    .catch(err => console.log(err));
 };
 
 //Push message sockets current array

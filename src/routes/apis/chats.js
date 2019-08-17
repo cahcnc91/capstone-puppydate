@@ -22,13 +22,17 @@ module.exports = routerInfo => {
     "/userallchats",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
+      let chatsMap = {};
       model
         .find({ users: { $in: [mongoose.Types.ObjectId(req.user.id)] } })
         .then(chats => {
           if (chats.length === 0) {
             res.json(null);
           } else {
-            res.json(chats);
+            chats.forEach(chat => {
+              chatsMap[chat._id] = chat;
+            });
+            res.json(chatsMap);
           }
         })
         .catch(err => console.log(err));
@@ -105,7 +109,7 @@ module.exports = routerInfo => {
           chat.messages.push(newMessage);
 
           //Save
-          chat.save().then(chat => res.json(newMessage));
+          chat.save().then(chat => res.json([newMessage]));
 
           //Send message via socket
 

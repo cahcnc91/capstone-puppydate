@@ -5,13 +5,13 @@ import ChatListItemPerson from "./ChatListItemPerson";
 class ChatList extends Component {
   render() {
     const { chats, activeChat, setActiveChat, user, users } = this.props;
-
+    const chatArray = Object.values(chats);
     return (
       <table>
         <colgroup>
           <col />
         </colgroup>
-        {chats.map(chat => (
+        {chatArray.map(chat => (
           <ChatListItemPerson
             chat={chat}
             activeChat={activeChat}

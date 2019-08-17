@@ -43,6 +43,16 @@ export default function(state = initialState, action) {
         activeChat: {
           ...state.activeChat,
           messages: state.activeChat.messages.concat(action.payload)
+        },
+        chats: {
+          ...state.chats,
+          [action.payload[0].chatId]: {
+            ...state.chats[action.payload[0].chatId],
+            messages: [
+              ...state.chats[action.payload[0].chatId].messages,
+              ...action.payload
+            ]
+          }
         }
       };
     case SET_NEW_MESSAGE_SOCKET:
@@ -51,6 +61,16 @@ export default function(state = initialState, action) {
         activeChat: {
           ...state.activeChat,
           messages: state.activeChat.messages.concat(action.payload)
+        },
+        chats: {
+          ...state.chats,
+          [action.payload[0].chatId]: {
+            ...state.chats[action.payload[0].chatId],
+            messages: [
+              ...state.chats[action.payload[0].chatId].messages,
+              ...action.payload
+            ]
+          }
         }
       };
     default:
